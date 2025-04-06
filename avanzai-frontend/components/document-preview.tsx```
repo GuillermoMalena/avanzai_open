@@ -1,0 +1,123 @@
+import React, { useMemo } from 'react';
+import { useArtifact } from '../contexts/ArtifactContext';
+import { useSWR } from 'swr';
+import { fetcher } from '../utils/fetcher';
+import { Document } from '../types/document';
+import { DocumentToolResult, DocumentToolCall } from '../components/document-tool';
+import { LoadingSkeleton } from '../components/LoadingSkeleton';
+import { HitboxLayer } from '../components/HitboxLayer';
+import { DocumentHeader } from '../components/DocumentHeader';
+import { DocumentContent } from '../components/DocumentContent';
+import { cn } from '../utils/cn';
+import { TabbedSheetEditor } from '../components/TabbedSheetEditor';
+
+export function DocumentPreview({
+  isReadonly,
+  result,
+  args,
+}: DocumentPreviewProps) {
+  const { artifact, setArtifact } = useArtifact();
+
+  // Fetch document data if we have a result ID
+  const { data: documents, isLoading: isDocumentsFetching } = useSWR<Array<Document>>(
+    result ? `/api/document?id=${result.id}` : null,
+    fetcher
+  );
+
+  const previewDocument = useMemo(() => documents?.[0], [documents]);
+
+  const document: Document | null = previewDocument
+    ? previewDocument
+    : artifact.status === 'streaming'
+      ? {
+          title: artifact.title,
+          kind: artifact.kind,
+          content: artifact.content,
+          id: artifact.documentId,
+          chatId: artifact.documentId,
+          createdAt: new Date(),
+          userId: 'noop',
+          metadata: artifact.metadata || null
+        }
+      : null;
+
+  if (isDocumentsFetching) {
+    return <LoadingSkeleton artifactKind={result.kind ?? args.kind} />;
+  }
+
+  if (artifact.isVisible) {
+    if (result) {
+      return (
+        <DocumentToolResult
+          type="create"
+          result={{ id: result.id, title: result.title, kind: result.kind }}
+          isReadonly={isReadonly}
+        />
+      );
+    }
+
+    if (args) {
+      return (
+        <DocumentToolCall
+          type="create"
+          args={{ title: args.title }}
+          isReadonly={isReadonly}
+        />
+      );
+    }
+  }
+
+  if (!document) return <LoadingSkeleton artifactKind={artifact.kind} />;
+
+  return (
+    <div className="relative w-full cursor-pointer">
+      <HitboxLayer
+        hitboxRef={hitboxRef}
+        result={result}
+        setArtifact={setArtifact}
+      />
+      <DocumentHeader
+        title={document.title}
+        kind={document.kind}
+        isStreaming={artifact.status === 'streaming'}
+      />
+      <DocumentContent document={document} />
+    </div>
+  );
+}
+
+const DocumentContent = ({ document }: { document: Document }) => {
+  const { artifact } = useArtifact();
+
+  const containerClassName = cn(
+    'h-[257px] overflow-y-scroll border rounded-b-2xl dark:bg-muted border-t-0 dark:border-zinc-700',
+    {
+      'p-4 sm:px-14 sm:py-16': document.kind === 'text',
+      'p-0': document.kind === 'code',
+    },
+  );
+
+  const commonProps = {
+    content: document.content ?? '',
+    isCurrentVersion: true,
+    currentVersionIndex: 0,
+    status: artifact.status,
+    saveContent: () => {},
+    suggestions: [],
+  };
+
+  return (
+    <div className={containerClassName}>
+      {document.kind === 'sheet' ? (
+        <div className="flex flex-1 relative size-full p-4">
+          <div className="absolute inset-0">
+            <TabbedSheetEditor 
+              {...commonProps} 
+              chatId={document.chatId}
+            />
+          </div>
+        </div>
+      ) : /* other document types */ null}
+    </div>
+  );
+}; 

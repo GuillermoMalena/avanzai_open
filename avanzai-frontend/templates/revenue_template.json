@@ -1,0 +1,157 @@
+{
+  "title": "Untrended Revenue",
+  "metadata": {
+    "notes": "All amounts in $, unless noted otherwise"
+  },
+  "columns": [
+    {
+      "name": "Item",
+      "type": "string",
+      "default": ""
+    },
+    {
+      "name": "Asm.",
+      "type": "percentage",
+      "default": 0
+    },
+    {
+      "name": "$",
+      "type": "currency",
+      "default": 0
+    },
+    {
+      "name": "$ / Unit",
+      "type": "currency",
+      "default": 0
+    },
+    {
+      "name": "$ / GSF",
+      "type": "currency",
+      "default": 0
+    },
+    {
+      "name": "$ / RSF",
+      "type": "currency",
+      "default": 0
+    },
+    {
+      "name": "% of EGI",
+      "type": "percentage",
+      "default": 0
+    },
+    {
+      "name": "Notes",
+      "type": "string",
+      "default": ""
+    }
+  ],
+  "sections": [
+    {
+      "name": "Residential Revenue",
+      "rows": [
+        {
+          "Item": "Gross Potential",
+          "$": 39638274,
+          "$ / Unit": 52922,
+          "$ / GSF": 49.77,
+          "$ / RSF": 61.89,
+          "% of EGI": 89.6,
+          "Notes": "Assumes $6.50 / SF"
+        },
+        {
+          "Item": "Net Potential Rental Income",
+          "$": 39638274,
+          "$ / Unit": 52922,
+          "$ / RSF": 61.89,
+          "% of EGI": 89.6
+        },
+        {
+          "Item": "General Vacancy",
+          "Asm.": 5.0,
+          "$": -1981914,
+          "$ / Unit": -2646,
+          "$ / GSF": -2.49,
+          "$ / RSF": -3.09,
+          "% of EGI": -4.5
+        },
+        {
+          "Item": "Other Rent Losses",
+          "Asm.": 0.38,
+          "$": -152017,
+          "$ / Unit": -203,
+          "$ / GSF": -0.19,
+          "$ / RSF": -0.24,
+          "% of EGI": -0.3,
+          "Notes": "Includes 1 non-revenue units and 0.25% bad debt"
+        }
+      ],
+      "totals": {
+        "Item": "Net Rental Income",
+        "$": 37504343,
+        "$ / Unit": 50073,
+        "$ / RSF": 58.55,
+        "% of EGI": 84.8
+      }
+    },
+    {
+      "name": "Other Income",
+      "rows": [
+        {
+          "Item": "Net Other Resident Income",
+          "$": 1063767,
+          "$ / Unit": 1420,
+          "$ / GSF": 1.34,
+          "$ / RSF": 1.66,
+          "% of EGI": 2.4,
+          "Notes": "Assumes 5% vacancy"
+        }
+      ],
+      "totals": {
+        "Item": "Total Other Income",
+        "$": 1063767,
+        "$ / Unit": 1420,
+        "$ / GSF": 1.34,
+        "$ / RSF": 1.66,
+        "% of EGI": 2.4
+      }
+    },
+    {
+      "name": "Commercial Revenue",
+      "rows": [
+        {
+          "Item": "Commercial Income",
+          "$": 5656680,
+          "$ / Unit": 7552,
+          "$ / GSF": 7.1,
+          "$ / RSF": 8.83,
+          "% of EGI": 12.8,
+          "Notes": "Assumes 5% vacancy"
+        }
+      ],
+      "totals": {
+        "Item": "Total Commercial Income",
+        "$": 5656680,
+        "$ / Unit": 7552,
+        "$ / GSF": 7.1,
+        "$ / RSF": 8.83,
+        "% of EGI": 12.8
+      }
+    },
+    {
+      "name": "Total Revenue",
+      "totals": {
+        "Item": "Total EGI",
+        "$": 44224790,
+        "$ / Unit": 59045,
+        "$ / GSF": 55.53,
+        "$ / RSF": 69.05,
+        "% of EGI": 100.0
+      }
+    }
+  ],
+  "metrics": {
+    "Total RSF": 0,
+    "Total GSF": 0,
+    "Total Unit": 0
+  }
+}

@@ -1,0 +1,291 @@
+{
+  "project_facts": {
+    "name": {
+      "value": "",
+      "required": false
+    },
+    "type": {
+      "value": "",
+      "required": false
+    },
+    "square_footage": {
+      "total_rsf": {
+        "value": 0,
+        "required": true
+      },
+      "total_gsf": {
+        "value": 0,
+        "required": true
+      },
+      "efficiency_ratio": {
+        "value": 0,
+        "required": true
+      },
+      "description": "All SF metrics required for area calculations"
+    },
+    "units": {
+      "total": {
+        "value": 0,
+        "required": true
+      },
+      "avg_unit_size": {
+        "value": 0,
+        "required": true
+      },
+      "base_rent_per_unit": {
+        "value": 0,
+        "required": true
+      },
+      "description": "Basic unit metrics required for revenue calculations"
+    }
+  },
+  "development_facts": {
+    "timing": {
+      "construction_start": {
+        "value": "",
+        "required": true
+      },
+      "construction_duration": {
+        "value": 0,
+        "required": true
+      },
+      "description": "Timeline metrics for development period"
+    },
+    "acquisition": {
+      "purchase_price": {
+        "value": 0,
+        "required": true
+      },
+      "closing_costs_pct": {
+        "value": 0,
+        "required": false
+      },
+      "acquisition_fee_pct": {
+        "value": 0,
+        "required": false
+      },
+      "description": "Land acquisition costs and related fees"
+    },
+    "hard_costs": {
+      "base_cost_psf": {
+        "value": 0,
+        "required": true
+      },
+      "contingency_pct": {
+        "value": 0,
+        "required": false
+      },
+      "duration_months": {
+        "value": 0,
+        "required": true
+      },
+      "description": "Construction costs and timeline"
+    }
+  },
+  "revenue_assumptions": {
+    "residential": {
+      "base_rent": {
+        "value": 0,
+        "required": true
+      },
+      "growth_rate": {
+        "value": 0,
+        "required": true
+      },
+      "vacancy": {
+        "value": 0,
+        "required": true
+      },
+      "description": "Core residential revenue drivers"
+    },
+    "commercial": {
+      "office_rent_nnn": {
+        "value": 0,
+        "required": true
+      },
+      "vacancy": {
+        "value": 0,
+        "required": true
+      },
+      "description": "Core commercial revenue drivers"
+    },
+    "lease_up": {
+      "start_month": {
+        "value": 0,
+        "required": true
+      },
+      "duration_months": {
+        "value": 0,
+        "required": true
+      },
+      "description": "Lease-up timeline assumptions"
+    }
+  },
+  "underwriting_assumptions": {
+    "capital_stack": {
+      "lp_equity_pct": {
+        "value": 0,
+        "required": true
+      },
+      "gp_equity_pct": {
+        "value": 0,
+        "required": true
+      },
+      "debt_pct": {
+        "value": 0,
+        "required": true
+      },
+      "description": "Capital structure - must sum to 100%"
+    },
+    "interest_rate": {
+      "spread": {
+        "value": 0,
+        "required": true
+      },
+      "floor": {
+        "value": 0,
+        "required": true
+      },
+      "description": "Debt pricing components"
+    },
+    "fees": {
+      "development_fee_pct": {
+        "value": 0,
+        "required": true
+      },
+      "asset_management_fee_pct": {
+        "value": 0,
+        "required": true
+      },
+      "description": "Fee structure for GP compensation"
+    }
+  },
+  "exit_assumptions": {
+    "cap_rates": {
+      "multifamily": {
+        "value": 0,
+        "required": true
+      },
+      "commercial": {
+        "value": 0,
+        "required": true
+      },
+      "description": "Exit valuation cap rates by property type"
+    },
+    "timing": {
+      "hold_period": {
+        "value": 0,
+        "required": true
+      },
+      "sale_costs_pct": {
+        "value": 0,
+        "required": true
+      },
+      "description": "Exit timing and transaction costs"
+    },
+    "yield_targets": {
+      "untrended_yield": {
+        "value": 0,
+        "required": true
+      },
+      "trended_yield": {
+        "value": 0,
+        "required": true
+      },
+      "description": "Target yield metrics for exit valuation"
+    }
+  },
+  "operating_assumptions": {
+    "expense_growth": {
+      "value": 0,
+      "required": false
+    },
+    "insurance_growth": {
+      "value": 0,
+      "required": false
+    },
+    "tax_growth": {
+      "value": 0,
+      "required": false
+    },
+    "management_fee_pct": {
+      "value": 0,
+      "required": false
+    },
+    "replacement_reserve_per_unit": {
+      "value": 0,
+      "required": false
+    },
+    "description": "Optional operating expense assumptions"
+  },
+  "cashflow_assumptions": {
+    "frequency": {
+      "value": "M",
+      "required": true,
+      "description": "Frequency of cashflows. Use 'M' for monthly, 'Y' for yearly, etc."
+    },
+    "income": {
+      "rental": {
+        "value": 0,
+        "required": true,
+        "description": "Initial total rental income per period."
+      },
+      "ancillary": {
+        "value": 0,
+        "required": false,
+        "description": "Other income per period."
+      }
+    },
+    "expenses": {
+      "operating": {
+        "property_taxes": {
+          "value": 0,
+          "required": true,
+          "description": "Property taxes per period."
+        },
+        "insurance": {
+          "value": 0,
+          "required": true,
+          "description": "Insurance cost per period."
+        },
+        "maintenance": {
+          "value": 0,
+          "required": true,
+          "description": "Maintenance expenses per period."
+        },
+        "management_fee": {
+          "value": 0,
+          "required": false,
+          "description": "Management fee per period."
+        },
+        "other": {
+          "value": 0,
+          "required": false,
+          "description": "Other operating expenses per period."
+        }
+      },
+      "capex": {
+        "value": 0,
+        "required": false,
+        "description": "Capital expenditures per period."
+      }
+    },
+    "debt": {
+      "principal": {
+        "value": 0,
+        "required": true,
+        "description": "Total debt amount."
+      },
+      "interest_rate": {
+        "value": 0,
+        "required": true,
+        "description": "Annual interest rate (in percent) on the debt."
+      },
+      "term_months": {
+        "value": 0,
+        "required": true,
+        "description": "Total number of months over which the debt is amortized."
+      }
+    }
+  }
+}

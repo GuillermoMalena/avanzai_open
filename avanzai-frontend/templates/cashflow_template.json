@@ -1,0 +1,28 @@
+{
+  "template_name": "Cashflow Template",
+  "metadata": {
+    "description": "Template for displaying cashflow calculations by interval.",
+    "calculation_date": ""
+  },
+  "sections": [
+    {
+      "name": "Cashflow Table",
+      "headers": [
+        "Line Item",
+        "Month 1",
+        "Month 2",
+        "Month 3",
+        "Month 4",
+        "Month 5",
+        "Month 6",
+        "Month 7",
+        "Month 8",
+        "Month 9",
+        "Month 10",
+        "Month 11",
+        "Month 12"
+      ],
+      "rows": []
+    }
+  ]
+}

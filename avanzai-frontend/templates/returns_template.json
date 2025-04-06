@@ -1,0 +1,179 @@
+{
+  "title": "Returns Analysis",
+  "metadata": {
+    "notes": "All amounts in $, unless noted otherwise"
+  },
+  "columns": [
+    {
+      "name": "Item",
+      "type": "string",
+      "default": ""
+    },
+    {
+      "name": "Asm.",
+      "type": "percentage",
+      "default": 0
+    },
+    {
+      "name": "$",
+      "type": "currency",
+      "default": 0
+    },
+    {
+      "name": "$ / RSF",
+      "type": "currency",
+      "default": 0
+    },
+    {
+      "name": "$ / Unit",
+      "type": "currency",
+      "default": 0
+    }
+  ],
+  "sections": [
+    {
+      "name": "Timing Assumptions",
+      "rows": [
+        {
+          "Item": "Construction",
+          "Start Month": "",
+          "Start Date": "",
+          "Duration": "",
+          "End Month": "",
+          "End Date": ""
+        },
+        {
+          "Item": "Multifamily Lease-Up",
+          "Start Month": "",
+          "Start Date": "",
+          "Duration": "",
+          "End Month": "",
+          "End Date": ""
+        }
+      ]
+    },
+    {
+      "name": "Exit Assumptions",
+      "rows": [
+        {
+          "Item": "Hold Period | Exit Date",
+          "Asm.": 0,
+          "End Date": ""
+        },
+        {
+          "Item": "Untrended Yield",
+          "Asm.": 0
+        },
+        {
+          "Item": "Trended Yield",
+          "Asm.": 0
+        }
+      ]
+    },
+    {
+      "name": "Exit Valuation",
+      "rows": [
+        {
+          "Item": "Multifamily Exit NOI",
+          "Asm.": "",
+          "$": 0,
+          "$ / RSF": 0,
+          "$ / Unit": 0
+        },
+        {
+          "Item": "Multifamily Exit Value",
+          "Asm.": 0,
+          "$": 0,
+          "$ / RSF": 0,
+          "$ / Unit": 0
+        },
+        {
+          "Item": "Commercial Exit NOI",
+          "Asm.": "",
+          "$": 0,
+          "$ / RSF": 0,
+          "$ / Unit": 0
+        },
+        {
+          "Item": "Commercial Exit Value",
+          "Asm.": 0,
+          "$": 0,
+          "$ / RSF": 0,
+          "$ / Unit": 0
+        },
+        {
+          "Item": "Property Sale Costs",
+          "Asm.": 0,
+          "$": 0,
+          "$ / RSF": 0,
+          "$ / Unit": 0
+        }
+      ],
+      "totals": {
+        "Item": "Property Net Exit Value",
+        "$": 0,
+        "$ / RSF": 0,
+        "$ / Unit": 0
+      }
+    },
+    {
+      "name": "Investment Metrics",
+      "rows": [
+        {
+          "Item": "MOIC",
+          "Unlevered": 0,
+          "Levered": 0,
+          "LP": 0,
+          "GP": 0
+        },
+        {
+          "Item": "Max Equity",
+          "Unlevered": 0,
+          "Levered": 0,
+          "LP": 0,
+          "GP": 0
+        },
+        {
+          "Item": "Profit",
+          "Unlevered": 0,
+          "Levered": 0,
+          "LP": 0,
+          "GP": 0
+        }
+      ]
+    },
+    {
+      "name": "GP Returns",
+      "rows": [
+        {
+          "Item": "Equity Invested",
+          "$": 0
+        },
+        {
+          "Item": "Return of Equity Invested",
+          "$": 0
+        },
+        {
+          "Item": "Return on Equity Invested",
+          "$": 0
+        },
+        {
+          "Item": "Promote",
+          "$": 0
+        },
+        {
+          "Item": "Gross Development Fee",
+          "$": 0
+        },
+        {
+          "Item": "Asset Management Fee",
+          "$": 0
+        }
+      ],
+      "totals": {
+        "Item": "Total GP Return",
+        "$": 0
+      }
+    }
+  ]
+}

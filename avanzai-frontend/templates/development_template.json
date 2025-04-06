@@ -1,0 +1,284 @@
+{
+  "title": "Project Budget",
+  "metadata": {
+    "project_name": "Brooklyn Mixed Use (Multifamily and Office)",
+    "notes": "$, unless noted otherwise"
+  },
+  "columns": [
+    {
+      "name": "Item",
+      "default": "",
+      "type": "string"
+    },
+    {
+      "name": "Asm.",
+      "default": 0,
+      "type": "percentage"
+    },
+    {
+      "name": "%",
+      "default": 0,
+      "type": "percentage"
+    },
+    {
+      "name": "$",
+      "default": 0,
+      "type": "currency"
+    },
+    {
+      "name": "$ / GSF",
+      "default": 0,
+      "type": "currency"
+    },
+    {
+      "name": "$ / RSF",
+      "default": 0,
+      "type": "currency"
+    },
+    {
+      "name": "$ / Unit",
+      "default": 0,
+      "type": "currency"
+    },
+    {
+      "name": "Start Month",
+      "default": "",
+      "type": "string"
+    },
+    {
+      "name": "Start Date",
+      "default": "",
+      "type": "date"
+    },
+    {
+      "name": "Duration",
+      "default": "",
+      "type": "string"
+    },
+    {
+      "name": "End Month",
+      "default": "",
+      "type": "string"
+    },
+    {
+      "name": "End Date",
+      "default": "",
+      "type": "date"
+    }
+  ],
+  "sections": [
+    {
+      "name": "Acquisition and Closing Costs",
+      "rows": [
+        {
+          "Item": "Purchase",
+          "Asm.": null,
+          "%": 0,
+          "$": 0,
+          "$ / GSF": 0,
+          "$ / RSF": 0,
+          "$ / Unit": 0,
+          "Start Month": "Close",
+          "Start Date": "",
+          "Duration": "1 Mo.",
+          "End Month": "Close",
+          "End Date": ""
+        },
+        {
+          "Item": "Closing Costs",
+          "Asm.": 0,
+          "%": 0,
+          "$": 0,
+          "$ / GSF": 0,
+          "$ / RSF": 0,
+          "$ / Unit": 0,
+          "Start Month": "Close",
+          "Start Date": "",
+          "Duration": "1 Mo.",
+          "End Month": "Close",
+          "End Date": ""
+        },
+        {
+          "Item": "Acquisition Fee",
+          "Asm.": 0,
+          "%": 0,
+          "$": 0,
+          "$ / GSF": 0,
+          "$ / RSF": 0,
+          "$ / Unit": 0,
+          "Start Month": "Close",
+          "Start Date": "",
+          "Duration": "1 Mo.",
+          "End Month": "Close",
+          "End Date": ""
+        }
+      ],
+      "totals": {
+        "Item": "Total Acquisition and Closing Costs",
+        "%": 0,
+        "$": 0,
+        "$ / GSF": 0,
+        "$ / RSF": 0,
+        "$ / Unit": 0
+      }
+    },
+    {
+      "name": "Hard Costs",
+      "rows": [
+        {
+          "Item": "Assigned Hard Costs (inclusive of 3% contingency)",
+          "%": 0,
+          "$": 0,
+          "$ / GSF": 0,
+          "$ / RSF": 0,
+          "$ / Unit": 0,
+          "Start Month": "Mo. 1",
+          "Start Date": "",
+          "Duration": "Mo. 24",
+          "End Month": "Mo. 24",
+          "End Date": ""
+        },
+        {
+          "Item": "Hard Cost Contingency",
+          "Asm.": 0,
+          "%": 0,
+          "$": 0,
+          "$ / GSF": 0,
+          "$ / RSF": 0,
+          "$ / Unit": 0,
+          "Start Month": "Mo. 1",
+          "Start Date": "",
+          "Duration": "Mo. 24",
+          "End Month": "Mo. 24",
+          "End Date": ""
+        }
+      ],
+      "totals": {
+        "Item": "Total Hard Costs",
+        "%": 0,
+        "$": 0,
+        "$ / GSF": 0,
+        "$ / RSF": 0,
+        "$ / Unit": 0
+      }
+    },
+    {
+      "name": "Soft Costs",
+      "rows": [
+        {
+          "Item": "Assigned Soft Costs",
+          "%": 0,
+          "$": 0,
+          "$ / GSF": 0,
+          "$ / RSF": 0,
+          "$ / Unit": 0,
+          "Start Month": "Mo. 1",
+          "Start Date": "",
+          "Duration": "Mo. 36",
+          "End Month": "Mo. 36",
+          "End Date": ""
+        },
+        {
+          "Item": "Development Fee",
+          "Asm.": 0,
+          "%": 0,
+          "$": 0,
+          "$ / GSF": 0,
+          "$ / RSF": 0,
+          "$ / Unit": 0,
+          "Start Month": "Mo. 1",
+          "Start Date": "",
+          "Duration": "Mo. 36",
+          "End Month": "Mo. 36",
+          "End Date": ""
+        },
+        {
+          "Item": "Soft Cost Contingency",
+          "Asm.": 0,
+          "%": 0,
+          "$": 0,
+          "$ / GSF": 0,
+          "$ / RSF": 0,
+          "$ / Unit": 0,
+          "Start Month": "Mo. 1",
+          "Start Date": "",
+          "Duration": "Mo. 36",
+          "End Month": "Mo. 36",
+          "End Date": ""
+        }
+      ],
+      "totals": {
+        "Item": "Total Soft Costs",
+        "%": 0,
+        "$": 0,
+        "$ / GSF": 0,
+        "$ / RSF": 0,
+        "$ / Unit": 0
+      }
+    },
+    {
+      "name": "Unlevered Costs",
+      "totals": {
+        "Item": "Unlevered Acquisition and Development Costs",
+        "%": 0,
+        "$": 0,
+        "$ / GSF": 0,
+        "$ / RSF": 0,
+        "$ / Unit": 0
+      }
+    },
+    {
+      "name": "Deficit and Lender Costs",
+      "rows": [
+        {
+          "Item": "Operating Deficit",
+          "Asm.": 0,
+          "$": 0,
+          "$ / GSF": 0,
+          "$ / RSF": 0,
+          "$ / Unit": 0
+        },
+        {
+          "Item": "Financing Expense",
+          "Asm.": 0,
+          "$": 0,
+          "$ / GSF": 0,
+          "$ / RSF": 0,
+          "$ / Unit": 0
+        },
+        {
+          "Item": "Interest Deficit",
+          "Asm.": 0,
+          "$": 0,
+          "$ / GSF": 0,
+          "$ / RSF": 0,
+          "$ / Unit": 0
+        }
+      ],
+      "totals": {
+        "Item": "Total Deficit and Lender Costs",
+        "%": 0,
+        "$": 0,
+        "$ / GSF": 0,
+        "$ / RSF": 0,
+        "$ / Unit": 0
+      }
+    },
+    {
+      "name": "Total Costs",
+      "totals": {
+        "Item": "Levered Acquisition and Development Costs",
+        "%": 0,
+        "$": 0,
+        "$ / GSF": 0,
+        "$ / RSF": 0,
+        "$ / Unit": 0
+      }
+    }
+  ],
+  "metrics": {
+    "Total RSF": 0,
+    "Total GSF": 0,
+    "Total Unit": 0
+  }
+}

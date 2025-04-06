@@ -1,0 +1,17 @@
+{
+  "market": {
+    "growth_rate": 0.05,
+    "market_size": 1000000000,
+    "market_share": 0.02
+  },
+  "operational": {
+    "employee_cost": 75000,
+    "office_cost": 5000,
+    "marketing_budget": 100000
+  },
+  "financial": {
+    "interest_rate": 0.03,
+    "tax_rate": 0.21,
+    "inflation_rate": 0.02
+  }
+} 

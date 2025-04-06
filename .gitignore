@@ -1,0 +1,42 @@
+# -----------------------
+# General
+# -----------------------
+.DS_Store
+.env
+*.log
+
+# Ignore local dev notebooks
+**/dev_notebooks/
+**/.ipynb_checkpoints/
+
+# -----------------------
+# Frontend (Next.js)
+# -----------------------
+avanzai-frontend/node_modules/
+avanzai-frontend/.next/
+avanzai-frontend/.env
+avanzai-frontend/.env.local
+avanzai-frontend/.env.development.local
+avanzai-frontend/.env.production.local
+avanzai-frontend/.eslintcache
+
+# -----------------------
+# Backend (FastAPI + Python)
+# -----------------------
+avanzai-backend/venv/
+avanzai-backend/__pycache__/
+avanzai-backend/.env
+avanzai-backend/.pytest_cache/
+avanzai-backend/.mypy_cache/
+avanzai-backend/.coverage
+avanzai-backend/instance/
+# Ignore the nested virtual environment
+avanzai-backend/avanzai-backend/
+
+# -----------------------
+# VSCode and IDEs
+# -----------------------
+.vscode/
+.idea/
+*.swp
+*.swo

@@ -1,0 +1,28 @@
+import React, { useMemo } from 'react';
+import { useSWR } from 'swr';
+import { fetcher } from '../lib/fetcher';
+
+export function TabbedSheetEditor({
+  content,
+  isCurrentVersion,
+  currentVersionIndex,
+  status,
+  saveContent,
+  chatId
+}: TabbedSheetEditorProps) {
+  const shouldFetch = chatId && status !== 'streaming';
+  
+  // Fetch documents for this chat
+  const { data: documents = [] } = useSWR(
+    shouldFetch ? `/api/documents?chatId=${chatId}` : null,
+    fetcher
+  );
+
+  const previewDocument = useMemo(() => documents?.[0], [documents]);
+
+  return (
+    <div className="relative w-full cursor-pointer">
+      {/* Render your component content here */}
+    </div>
+  );
+} 
