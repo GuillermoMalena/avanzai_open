@@ -1,6 +1,10 @@
+<p align="center">
+  <img src="avanzai-frontend/public/images/avanzai_color_logo.png" alt="Avanzai Logo" width="600"/>
+</p>
+
 # Avanzai
 
-An open-source project for anyone who wants to build their own AI-powered financial analysis platform. This project is continuously updated to publicly showcase the latest advancements in AI and financial technology.
+An open-source project designed for institutions to quickly build and deploy their own AI-powered financial analysis platform. This project provides a production-ready foundation and is continuously updated to incorporate the latest advancements in AI within the financial data vertical.
 
 ## Project Overview
 
@@ -20,12 +24,11 @@ The frontend is built with NextJS and leverages the Vercel AI SDK for conversati
 
 ### Key Technologies
 
-- **NextJS 15**: React framework with App Router for server-side rendering and components
+- **NextJS**: React framework with App Router for server-side rendering and components
 - **Vercel AI SDK**: Unified API for generating text and building chat interfaces
 - **shadcn/ui**: Component library based on Tailwind CSS and Radix UI
 - **authentication**: NextAuth.js v5 for secure user authentication
 - **data visualization**: Recharts for interactive charts and visualizations
-- **data grid**: React Data Grid for displaying and manipulating tabular data
 
 ### Directory Structure
 
@@ -62,14 +65,14 @@ The backend is powered by FastAPI and provides an API for financial data retriev
 
 - **FastAPI**: Modern, high-performance web framework for building APIs
 - **LlamaIndex**: Framework for connecting LLMs with external data
+- **OpenAI Agent SDK**: Framework for creating AI agents and assistants
 - **SQLite/Supabase**: Database for storing financial data
-- **OpenAI/Groq**: LLM integration for financial analysis
-- **Pandas/NumPy**: Data processing and analysis
-- **AWS S3**: File storage for processed data
+- **OpenAI/Groq**: LLM integration for financial analysis (closed and open source)
+
 
 ### Directory Structure
 
-- `az3_api_03242025.py`: Main API application with endpoints and business logic
+- `az3_api_03242025.py`: Main API application with endpoints and business logic (IN CONSTRUCTION)
 - `sessions/`: User session data storage
 - `requirements3.txt`: Python dependencies
 
