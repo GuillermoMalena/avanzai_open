@@ -297,50 +297,182 @@ function convertReturnsToCSV(template: any): string {
 
 function convertCashflowToCSV(template: any) {
   const rows: Array<any> = [];
+  const projection = template.cashflow?.projection || template.projection;
+  if (!projection) return unparse(rows);
   
-  if (template.sections && template.sections[0]) {
-    const cashflowSection = template.sections[0];
+  // Helper function to add section header
+  const addSectionHeader = (title: string) => {
+    rows.push([]);  // Add blank line
+    rows.push([title]);
+    rows.push([]); // Add blank line after header
+  };
+
+  // Helper function to format number
+  const formatNumber = (num: number | string | undefined): string => {
+    if (num === undefined || num === null) return '';
+    const n = typeof num === 'string' ? parseFloat(num) : num;
+    if (isNaN(n)) return '';
+    return n.toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+  };
+
+  // Helper function to add subsection
+  const addSubsection = (title: string, data: any, columns: string[]) => {
+    rows.push([title]);
+    rows.push(['Line Item', ...columns]);
     
-    if (cashflowSection.headers) {
-      rows.push(cashflowSection.headers);
-    }
+    Object.entries(data).forEach(([key, values]: [string, any]) => {
+      const row = [key];
+      columns.forEach(col => {
+        row.push(formatNumber(values[col]));
+      });
+      rows.push(row);
+    });
+    rows.push([]); // Add space after subsection
+  };
+
+  // Get columns (dates) from the template
+  const columns = template.columns || [];
+
+  // 1. Occupancy Section
+  addSectionHeader('OCCUPANCY METRICS');
+  if (projection.occupancy) {
+    addSubsection('Property Occupancy', {
+      'Multifamily Occupancy': projection.occupancy.multifamily_occupancy,
+      'Commercial Occupancy': projection.occupancy.commercial_occupancy,
+      'Total Property Occupancy': projection.occupancy.property_occupancy
+    }, columns);
+  }
+
+  // 2. Multifamily NOI Section
+  addSectionHeader('MULTIFAMILY NET OPERATING INCOME');
+  if (projection.multifamily_net_operating_income) {
+    const mf_noi = projection.multifamily_net_operating_income;
     
-    // Helper function to extract primitive value from nested structure
-    const extractPrimitiveValue = (obj: any): string | number => {
-      // Base cases
-      if (obj === null || obj === undefined) return '';
-      if (typeof obj !== 'object') return obj;
-      
-      // For objects with a value property, recursively extract the value
-      if ('value' in obj) {
-        return extractPrimitiveValue(obj.value);
+    // Revenue subsection
+    addSubsection('Revenue', {
+      'Rental Revenue': mf_noi.rental_revenue,
+      'Vacancy Loss': mf_noi.vacancy_loss,
+      'Non-Revenue Units': mf_noi.non_revenue_unit,
+      'Rent Concessions': mf_noi.rent_concessions,
+      'Bad Debt': mf_noi.bad_debt,
+      'Other Income': mf_noi.other_income,
+      'Total Revenue': mf_noi.total_revenue
+    }, columns);
+
+    // Expenses subsection
+    addSubsection('Operating Expenses', {
+      'Operating Expenses': mf_noi.operating_expenses,
+      'Insurance': mf_noi.insurance,
+      'Real Estate Taxes': mf_noi.operating_real_estate_taxes,
+      'CapEx Reserve': mf_noi.capex_reserve,
+      'Management Fees': mf_noi.management_fees,
+      'Total Operating Expenses': mf_noi.total_operating_expenses
+    }, columns);
+  }
+
+  // 3. Commercial NOI Section
+  addSectionHeader('COMMERCIAL NET OPERATING INCOME');
+  if (projection.commercial_net_operating_income) {
+    const comm_noi = projection.commercial_net_operating_income;
+    
+    addSubsection('Revenue', {
+      'Rental Revenue': comm_noi.rental_revenue,
+      'General Vacancy': comm_noi.general_vacancy,
+      'NNN Reimbursements': comm_noi.nnn_reimbursements,
+      'Net Commercial Income': comm_noi.net_commercial_income
+    }, columns);
+
+    addSubsection('Operating Expenses', {
+      'Operating Expenses': comm_noi.operating_expenses,
+      'Insurance': comm_noi.insurance,
+      'Real Estate Taxes': comm_noi.operating_real_estate_taxes,
+      'Management Fees': comm_noi.management_fees,
+      'Total Operating Expenses': comm_noi.total_operating_expenses
+    }, columns);
+  }
+
+  // 4. Property NOI
+  addSectionHeader('PROPERTY NET OPERATING INCOME');
+  if (projection.property_net_operating_income) {
+    addSubsection('Total Property NOI', {
+      'Net Operating Income': projection.property_net_operating_income
+    }, columns);
+  }
+
+  // 5. Development Costs
+  addSectionHeader('DEVELOPMENT COSTS');
+  if (projection.acquisition_and_closing_costs) {
+    addSubsection('Acquisition & Closing Costs', projection.acquisition_and_closing_costs, columns);
+  }
+  if (projection.hard_costs) {
+    addSubsection('Hard Costs', projection.hard_costs, columns);
+  }
+  if (projection.soft_costs) {
+    addSubsection('Soft Costs', projection.soft_costs, columns);
+  }
+
+  // 6. Construction Loan
+  addSectionHeader('CONSTRUCTION LOAN');
+  if (projection.construction_loan) {
+    const loan = projection.construction_loan;
+    addSubsection('Loan Details', {
+      'Funding': loan.funding,
+      'Interest Expense': loan.interest_expense,
+      'Origination Fees': loan.origination_fees,
+      'Amortization': loan.amortization,
+      'Repayment': loan.repayment,
+      'Loan Balance': loan.loan_balance
+    }, columns);
+  }
+
+  // 7. Cash Flows
+  addSectionHeader('CASH FLOWS');
+  if (projection.levered_cash_flows) {
+    addSubsection('Project Cash Flows', {
+      'Levered Cash Flow': projection.levered_cash_flows
+    }, columns);
+  }
+
+  // 8. Exit Values
+  addSectionHeader('EXIT VALUES');
+  if (projection.exit_value) {
+    const exit = projection.exit_value;
+    addSubsection('Exit Valuation', {
+      'Multifamily Gross Exit Value': exit.multifamily_gross_exit_value,
+      'Commercial Gross Exit Value': exit.commercial_gross_exit_value,
+      'Property Sales Costs': exit.property_sales_costs,
+      'Net Exit Value': exit.net_exit_value
+    }, columns);
+  }
+
+  // 9. Return Metrics
+  if (projection.return_metrics) {
+    addSectionHeader('RETURN METRICS');
+    const metrics = projection.return_metrics;
+    rows.push(['Metric', 'Value']);
+    
+    // Helper function to get the first (and usually only) value from a metric
+    const getMetricValue = (metric: any) => {
+      if (!metric) return '';
+      const values = Object.values(metric);
+      const value = values.length > 0 ? values[0] : '';
+      if (typeof value === 'number' || typeof value === 'string') {
+        return formatNumber(value);
       }
-      
-      // For other objects, return a string representation to avoid [object Object]
-      return JSON.stringify(obj);
+      return '';
     };
 
-    // Process rows and extract primitive values
-    if (cashflowSection.rows) {
-      cashflowSection.rows.forEach((row: any) => {
-        if (Array.isArray(row)) {
-          // For array rows, map each cell to a primitive value
-          rows.push(row.map(cell => extractPrimitiveValue(cell)));
-        } else {
-          // For object rows, convert to array based on keys/values
-          const rowArray = Object.entries(row).map(([key, value]) => {
-            if (key === 'Line Item' || key === '0') {
-              // Keep the line item label as is
-              return typeof value === 'object' ? JSON.stringify(value) : value;
-            }
-            return extractPrimitiveValue(value);
-          });
-          rows.push(rowArray);
-        }
-      });
-    }
+    rows.push(['Unlevered IRR', getMetricValue(metrics.unlevered_irr)]);
+    rows.push(['Levered IRR', getMetricValue(metrics.levered_irr)]);
+    rows.push(['Unlevered MOIC', getMetricValue(metrics.unlevered_moic)]);
+    rows.push(['Levered MOIC', getMetricValue(metrics.levered_moic)]);
+    rows.push(['Maximum Equity', getMetricValue(metrics.max_equity)]);
+    rows.push(['Total Profit', getMetricValue(metrics.profit)]);
   }
-  
+
   return unparse(rows);
 }
 

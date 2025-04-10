@@ -29,6 +29,15 @@ interface TimeSeriesDataPoint {
   [ticker: string]: number | string;
 }
 
+interface ChartDataPoint {
+  date: string;
+  [ticker: string]: number | string;  // Allow string for date and numbers for values
+}
+
+interface EnhancedFinancialMetadata extends FinancialMetadata {
+  processedChartData?: ChartDataPoint[];
+}
+
 /**
  * Financial chart component that renders based on metadata state
  */
@@ -84,20 +93,32 @@ const FinancialChart = ({ metadata }: { metadata: FinancialMetadata }) => {
   // Memoize chart data preparation
   const { combinedChartData, minDate, maxDate, tickers, hasData } = useMemo(() => {
     const emptyResult = {
-      combinedChartData: [] as TimeSeriesDataPoint[],
+      combinedChartData: [],
       minDate: '',
       maxDate: '',
       tickers: [] as string[],
       hasData: false
     };
 
-    console.log('Financial Chart Data:', {
-      hasMetadata: !!metadata,
-      hasTickerData: !!metadata?.tickerData,
-      tickers: metadata?.tickers,
-      status: metadata?.status
-    });
-
+    // If we have pre-processed data, use it directly
+    const enhancedMetadata = metadata as EnhancedFinancialMetadata;
+    if (enhancedMetadata?.processedChartData && enhancedMetadata.processedChartData.length > 0) {
+      console.log('Using pre-processed chart data');
+      
+      // Already have processed data, just need to calculate min/max dates
+      const allDates = enhancedMetadata.processedChartData.map(point => new Date(point.date).getTime());
+      return {
+        combinedChartData: enhancedMetadata.processedChartData,
+        minDate: new Date(Math.min(...allDates)).toISOString(),
+        maxDate: new Date(Math.max(...allDates)).toISOString(),
+        tickers: metadata.tickers || [],
+        hasData: true
+      };
+    }
+    
+    // Fallback to original processing if needed
+    console.log('No pre-processed data available, processing now');
+    
     // Check if we have ticker data
     if (!metadata?.tickerData || !metadata?.tickers || metadata.tickers.length === 0) {
       console.log('No ticker data available');
@@ -107,17 +128,19 @@ const FinancialChart = ({ metadata }: { metadata: FinancialMetadata }) => {
     const tickers = metadata.tickers;
     
     // Convert tickerData to combined format
-    const dateMap = new Map<string, TimeSeriesDataPoint>();
+    const dateMap = new Map<string, ChartDataPoint>();
     
     // Process each ticker's data
     tickers.forEach(ticker => {
       const tickerData = metadata.tickerData![ticker] || [];
       tickerData.forEach(point => {
-        const date = point.timestamp;
-        if (!dateMap.has(date)) {
-          dateMap.set(date, { date });
+        if (!dateMap.has(point.timestamp)) {
+          dateMap.set(point.timestamp, { date: point.timestamp });
         }
-        dateMap.get(date)![ticker] = point.value;
+        const entry = dateMap.get(point.timestamp);
+        if (entry) {
+          entry[ticker] = point.value;
+        }
       });
     });
 
@@ -134,14 +157,6 @@ const FinancialChart = ({ metadata }: { metadata: FinancialMetadata }) => {
     const allDates = combinedChartData.map(point => new Date(point.date).getTime());
     const minDate = new Date(Math.min(...allDates)).toISOString();
     const maxDate = new Date(Math.max(...allDates)).toISOString();
-
-    console.log('Processed chart data:', {
-      dataPoints: combinedChartData.length,
-      tickers,
-      minDate,
-      maxDate,
-      samplePoint: combinedChartData[0]
-    });
 
     return {
       combinedChartData,

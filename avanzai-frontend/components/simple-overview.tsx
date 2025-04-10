@@ -4,6 +4,7 @@ import { Textarea } from './ui/textarea';
 import { ArrowUpIcon, PaperclipIcon } from './icons';
 import { useRef, useEffect, useCallback } from 'react';
 import { cn } from '@/lib/utils';
+import { TextLoop } from './ui/text-loop';
 
 interface SimpleOverviewProps {
   input: string;
@@ -93,8 +94,19 @@ export const SimpleOverview = ({ input, setInput, handleSubmit, isLoading }: Sim
       exit={{ opacity: 0, scale: 0.98 }}
       transition={{ duration: 0.3 }}
     >
-      <h1 className="text-4xl font-bold text-black dark:text-white mb-8">
-        How can Avanzai help you?
+      <h1 className="text-4xl font-bold text-black dark:text-white mb-8 flex items-center justify-center">
+        <TextLoop interval={3} className="min-w-[300px] sm:min-w-[400px] text-center">
+          {[
+            "How can Avanzai help you?",
+            "Search market news",
+            "Find historical asset performance",
+            "Compare stock fundamentals"
+          ].map((text) => (
+            <span key={text} className="block text-center">
+              {text}
+            </span>
+          ))}
+        </TextLoop>
       </h1>
 
       <div className="w-full">

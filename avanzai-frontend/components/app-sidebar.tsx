@@ -28,6 +28,8 @@ export function AppSidebar({ user }: { user: User | undefined }) {
                 width={100}
                 height={48}
                 className="ml-1"
+                priority={true}
+                unoptimized
               />
             </a>
           </div>

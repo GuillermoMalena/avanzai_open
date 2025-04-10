@@ -10,7 +10,6 @@ import type { Vote } from '@/lib/db/schema';
 import { DocumentToolCall, DocumentToolResult } from './document';
 import {
   ChevronDownIcon,
-  LoaderIcon,
   PencilEditIcon,
   SparklesIcon,
   FileIcon,
@@ -27,6 +26,7 @@ import { MessageEditor } from './message-editor';
 import { DocumentPreview } from './document-preview';
 import { MessageReasoning } from './message-reasoning';
 import { useArtifact } from '@/hooks/use-artifact';
+import { MessageLoading } from './ui/message-loading';
 
 const PurePreviewMessage = ({
   chatId,
@@ -211,15 +211,17 @@ const PurePreviewMessage = ({
                             isReadonly={isReadonly}
                           />
                         ) : toolName === 'processFinancialData' ? (
-                          <DocumentPreview
-                            isReadonly={isReadonly}
-                            result={null}
-                            args={{
-                              chatId,
-                              title: `Financial Data: ${result.tickers?.join(', ') || 'Loading...'}`,
-                              kind: 'financial'
-                            }}
-                          />
+                          state === 'result' ? (
+                            <DocumentPreview
+                              isReadonly={isReadonly}
+                              result={null}
+                              args={{
+                                chatId,
+                                title: `Financial Data: ${result.tickers?.join(', ') || 'Loading...'}`,
+                                kind: 'financial'
+                              }}
+                            />
+                          ) : null
                         ) : (
                           <pre>{JSON.stringify(result, null, 2)}</pre>
                         )}
@@ -304,14 +306,14 @@ export const ThinkingMessage = ({ message }: { message?: Message }) => {
 
   // Simplified loading message logic
   const getLoadingMessage = () => {
+    if (message?.toolInvocations?.some(tool => tool.toolName === 'processFinancialData')) {
+      return 'Processing Financial Data...';
+    }
     if (message?.toolInvocations?.some(tool => tool.toolName === 'requestTemplateUpdate')) {
       return 'Processing Template Update...';
     }
     if (message?.toolInvocations?.some(tool => ['createDocument', 'updateDocument'].includes(tool.toolName))) {
       return 'Preparing Document...';
-    }
-    if (message?.toolInvocations?.some(tool => tool.toolName === 'processFinancialData')) {
-      return 'Processing Financial Data...';
     }
     return 'Thinking...';
   };
@@ -332,9 +334,7 @@ export const ThinkingMessage = ({ message }: { message?: Message }) => {
         )}
       >
         <div className="size-8 flex items-center rounded-full justify-center ring-1 shrink-0 ring-border">
-          <div className="animate-spin">
-            <LoaderIcon size={14} />
-          </div>
+          <MessageLoading />
         </div>
 
         <div className="flex flex-col gap-2 w-full">

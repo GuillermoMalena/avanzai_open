@@ -62,7 +62,6 @@ except Exception as e:
     supabase = None
 
 # Initialize OpenAI client
-openai_client = OpenAI()
 
 from agents import Agent, FunctionTool, RunContextWrapper, function_tool
 
@@ -1798,6 +1797,21 @@ async def process_stock_data(request: DataProcessRequest) -> ProcessDataResponse
     import io
     import json
     
+    def sample_timeseries_data(df: pd.DataFrame, min_points_to_sample: int = 200, target_points: int = 100) -> pd.DataFrame:
+        """
+        Automatically sample timeseries data if it exceeds min_points_to_sample.
+        Always keeps first and last points, and samples evenly in between.
+        """
+        if len(df) <= min_points_to_sample:
+            return df
+            
+        # Always include first and last points
+        step = max(1, len(df) // target_points)
+        sampled_indices = list(range(0, len(df), step))
+        if len(df) - 1 not in sampled_indices:
+            sampled_indices.append(len(df) - 1)
+        return df.iloc[sorted(sampled_indices)].copy()
+    
     # 1. Load data from session storage
     session_id = request.session_id
     
@@ -1880,11 +1894,14 @@ async def process_stock_data(request: DataProcessRequest) -> ProcessDataResponse
             # Calculate cumulative returns (starting at 100)
             cumulative_returns = 100 * (1 + daily_returns).cumprod()
             
-            # Add this ticker's cumulative returns to the result dataframe
-            result_df[ticker] = cumulative_returns.values
+            # Round to 2 decimal places and add to result dataframe
+            result_df[ticker] = cumulative_returns.values.round(2)
             
-            # Store the final cumulative return in the summary
-            summary["cumulative_returns"][ticker] = float(cumulative_returns.iloc[-1])
+            # Store the final cumulative return in the summary, rounded to 2 decimals
+            summary["cumulative_returns"][ticker] = round(float(cumulative_returns.iloc[-1]), 2)
+
+        # Automatically sample the data if we have too many points
+        result_df = sample_timeseries_data(result_df)
     else:
         raise ValueError(f"Transformation type '{transformation_type}' not supported. Supported types: cumulative_performance")
     

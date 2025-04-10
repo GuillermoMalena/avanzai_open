@@ -40,6 +40,15 @@ interface TickerData {
   [ticker: string]: TimeSeriesDataPoint[];
 }
 
+interface ChartDataPoint {
+  date: string;
+  [ticker: string]: number | string;  // Allow string for date and numbers for values
+}
+
+interface EnhancedFinancialMetadata extends FinancialMetadata {
+  processedChartData?: ChartDataPoint[];
+}
+
 export function DocumentPreview({
   isReadonly,
   result,
@@ -481,43 +490,45 @@ const DocumentContent = ({ document, isReadonly }: { document: Document; isReado
     
     // Initialize metadata in the artifact store if not already set
     useEffect(() => {
-      if (document.id) {
-        console.log('[DEBUG-BROWSER] Initializing financial artifact metadata:', {
-          documentId: document.id,
-          status: typedMetadata.status,
-          tickers: typedMetadata.tickers || [],
-          visualizationReady: typedMetadata.visualizationReady || shouldBeReady
-        });
-        
-        // Ensure metadata has all required fields
-        const completeMetadata: FinancialMetadata = {
-          ...defaultMetadata,
-          ...typedMetadata,
-          status: typedMetadata.status || 'ready',
-          visualizationReady: typedMetadata.visualizationReady || shouldBeReady,
-          tickers: typedMetadata.tickers || [],
-          // Ensure we have both formats for compatibility
-          timeSeriesData: typedMetadata.timeSeriesData || 
-            (typedMetadata.tickerData && typedMetadata.tickers?.[0] ? 
-              typedMetadata.tickerData[typedMetadata.tickers[0]] || [] : 
-              []),
-          tickerData: typedMetadata.tickerData || 
-            (typedMetadata.timeSeriesData ? 
-              { [(typedMetadata.tickers || [])[0]]: typedMetadata.timeSeriesData } : 
-              {} as Record<string, ProcessedTimeSeriesData[]>),
-          dataPoints: typedMetadata.dataPoints || 
-            (typedMetadata.tickerData ? 
-              (Object.values(typedMetadata.tickerData as Record<string, ProcessedTimeSeriesData[]>)[0] || []).length : 
-              (typedMetadata.timeSeriesData || []).length) || 0,
-          loadedPoints: typedMetadata.loadedPoints || 
-            (typedMetadata.tickerData ? 
-              (Object.values(typedMetadata.tickerData as Record<string, ProcessedTimeSeriesData[]>)[0] || []).length : 
-              (typedMetadata.timeSeriesData || []).length) || 0
-        };
-        
-        setMetadata(completeMetadata);
+      if (document.id && typedMetadata.status === 'ready' && typedMetadata.tickers && typedMetadata.tickers.length > 0) {
+        // Only process the data if we haven't already
+        const enhancedMetadata = typedMetadata as EnhancedFinancialMetadata;
+        if (!enhancedMetadata.processedChartData) {
+          console.log('[DEBUG-BROWSER] Processing chart data once');
+          
+          // Create combined data format (just once)
+          const dateMap = new Map<string, ChartDataPoint>();
+          const tickers = typedMetadata.tickers || [];
+          
+          // Process each ticker's data into the combined format
+          tickers.forEach(ticker => {
+            const tickerData = typedMetadata.tickerData?.[ticker] || [];
+            tickerData.forEach(point => {
+              if (!dateMap.has(point.timestamp)) {
+                dateMap.set(point.timestamp, { date: point.timestamp });
+              }
+              const entry = dateMap.get(point.timestamp);
+              if (entry) {
+                entry[ticker] = point.value;
+              }
+            });
+          });
+          
+          // Convert to sorted array
+          const combinedChartData = Array.from(dateMap.values())
+            .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+          
+          // Add processed data to metadata
+          const newMetadata: EnhancedFinancialMetadata = {
+            ...enhancedMetadata,
+            processedChartData: combinedChartData
+          };
+          
+          // Store in metadata
+          setMetadata(newMetadata);
+        }
       }
-    }, [document.id, metadata, shouldBeReady, setMetadata]);
+    }, [document.id, typedMetadata, setMetadata]);
     
     return (
       <div 
@@ -602,7 +613,21 @@ const DocumentContent = ({ document, isReadonly }: { document: Document; isReado
             <div className="flex-1 min-h-[100px]">
               <ResponsiveContainer width="100%" height={100}>
                 <LineChart
-                  data={metadata.tickerData?.[metadata.tickers?.[0] || ''] || []}
+                  // Use processed data if available, otherwise fallback
+                  data={(() => {
+                    const enhancedMetadata = metadata as EnhancedFinancialMetadata;
+                    const processedData = enhancedMetadata.processedChartData;
+                    const firstTicker = metadata.tickers?.[0] || '';
+                    
+                    if (processedData && processedData.length > 0) {
+                      return processedData.map(point => ({
+                        timestamp: point.date,
+                        value: typeof point[firstTicker] === 'number' ? (point[firstTicker] as number) : 0
+                      }));
+                    }
+                    
+                    return metadata.tickerData?.[firstTicker] || [];
+                  })()}
                   margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
                 >
                   <Line 

@@ -362,66 +362,43 @@ function PureArtifact({
             initial={
               isMobile
                 ? {
-                    opacity: 1,
+                    opacity: 0.8,
+                    scale: 0.9,
                     x: artifact.boundingBox.left,
                     y: artifact.boundingBox.top,
-                    height: artifact.boundingBox.height,
-                    width: artifact.boundingBox.width,
-                    borderRadius: 50,
                   }
                 : {
-                    opacity: 1,
+                    opacity: 0.8,
+                    scale: 0.9,
                     x: artifact.boundingBox.left,
                     y: artifact.boundingBox.top,
-                    height: artifact.boundingBox.height,
-                    width: artifact.boundingBox.width,
-                    borderRadius: 50,
                   }
             }
             animate={
               isMobile
                 ? {
                     opacity: 1,
+                    scale: 1,
                     x: 0,
                     y: 0,
                     height: windowHeight,
-                    width: windowWidth ? windowWidth : 'calc(100dvw)',
-                    borderRadius: 0,
-                    transition: {
-                      delay: 0,
-                      type: 'spring',
-                      stiffness: 200,
-                      damping: 30,
-                      duration: 5000,
-                    },
+                    width: windowWidth,
+                    transition: { duration: 0.3 },
                   }
                 : {
                     opacity: 1,
+                    scale: 1,
                     x: 400,
                     y: 0,
                     height: windowHeight,
-                    width: windowWidth
-                      ? windowWidth - 400
-                      : 'calc(100dvw-400px)',
-                    borderRadius: 0,
-                    transition: {
-                      delay: 0,
-                      type: 'spring',
-                      stiffness: 200,
-                      damping: 30,
-                      duration: 5000,
-                    },
+                    width: windowWidth - 400,
+                    transition: { duration: 0.3 },
                   }
             }
             exit={{
               opacity: 0,
-              scale: 0.5,
-              transition: {
-                delay: 0.1,
-                type: 'spring',
-                stiffness: 600,
-                damping: 30,
-              },
+              scale: 0.9,
+              transition: { duration: 0.2 },
             }}
           >
             <div className="p-2 flex flex-row justify-between items-start">

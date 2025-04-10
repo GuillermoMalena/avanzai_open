@@ -12,8 +12,7 @@ export const metadata: Metadata = {
   title: 'Avanzai',
   description: 'AI assistant powered by GPT-4o.',
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
+    icon: '/icon.ico'
   },
 };
 
@@ -62,6 +61,10 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{
             __html: THEME_COLOR_SCRIPT,
           }}
+        />
+        <link
+          href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet"
         />
       </head>
       <body className="antialiased">
