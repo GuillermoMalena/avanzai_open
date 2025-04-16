@@ -51,8 +51,9 @@ export const processFinancialData = ({ session, dataStream, chatId }: ProcessFin
         // 3. Set loading state
         console.log(`🔄 Setting initial loading state`);
         dataStream.writeData({
-          type: 'financial_status',
+          type: 'financial-tool-status',
           content: { 
+            tool: 'processFinancialData',
             status: 'loading',
             visualizationReady: false,
             chatId: id
@@ -85,6 +86,7 @@ export const processFinancialData = ({ session, dataStream, chatId }: ProcessFin
             console.log(`💾 Saving error document state to database: id=${id}`);
             await saveDocument({
               chatId: id,
+              id: id,
               title: `Financial Data: ${query}`,
               kind: 'financial',
               userId: session.user?.id || 'anonymous',
@@ -94,8 +96,9 @@ export const processFinancialData = ({ session, dataStream, chatId }: ProcessFin
             // Send detailed error status to client
             console.log(`🔄 Sending error status to client`);
             dataStream.writeData({
-              type: 'financial_status',
+              type: 'financial-tool-status',
               content: {
+                tool: 'processFinancialData',
                 status: 'error', 
                 error: apiResponse.error?.message || 'Failed to fetch financial data',
                 details: apiResponse.error?.details || null
@@ -143,6 +146,7 @@ export const processFinancialData = ({ session, dataStream, chatId }: ProcessFin
             console.log(`💾 Saving error document to database for exception: id=${id}`);
             await saveDocument({
               chatId: id,
+              id: id,
               title: `Financial Data: ${query}`,
               kind: 'financial',
               userId: session.user?.id || 'anonymous',
@@ -155,8 +159,9 @@ export const processFinancialData = ({ session, dataStream, chatId }: ProcessFin
           // Send detailed error status with retry information
           console.log(`🔄 Sending error status to client for exception`);
           dataStream.writeData({
-            type: 'financial_status',
+            type: 'financial-tool-status',
             content: {
+              tool: 'processFinancialData',
               status: 'error',
               error: error.message,
               isTimeout: isTimeout,
@@ -211,6 +216,7 @@ export const processFinancialData = ({ session, dataStream, chatId }: ProcessFin
         console.log(`💾 Saving initial document to database: id=${id}, tickers=${apiResponse.tickers.join(', ')}`);
         await saveDocument({
           chatId: id,
+          id: id,
           title: `Financial Data: ${apiResponse.tickers.join(', ')}`,
           kind: 'financial',
           userId: session.user?.id || 'anonymous',
@@ -219,8 +225,9 @@ export const processFinancialData = ({ session, dataStream, chatId }: ProcessFin
         
         // Update status with processing info
         dataStream.writeData({
-          type: 'financial_status',
+          type: 'financial-tool-status',
           content: {
+            tool: 'processFinancialData',
             status: 'fetching_parquet',
             tickers: apiResponse.tickers,
             sessionId: apiResponse.session_id,
@@ -235,8 +242,9 @@ export const processFinancialData = ({ session, dataStream, chatId }: ProcessFin
           
           // Inform client we're now fetching parquet data
           dataStream.writeData({
-            type: 'financial_status',
+            type: 'financial-tool-status',
             content: { 
+              tool: 'processFinancialData',
               status: 'processing',
               message: 'Fetching and processing parquet data...'
             }
@@ -295,6 +303,7 @@ export const processFinancialData = ({ session, dataStream, chatId }: ProcessFin
           // Update document with final metadata
           await saveDocument({
             chatId: id,
+            id: id,
             title: `Financial Data: ${apiResponse.tickers.join(', ')}`,
             kind: 'financial',
             userId: session.user?.id || 'anonymous',
@@ -347,6 +356,7 @@ export const processFinancialData = ({ session, dataStream, chatId }: ProcessFin
         console.log(`💾 Saving initial document to database: id=${id}, symbol=${symbol}`);
         await saveDocument({
           chatId: id,
+          id: id,
           title: `Financial Data: ${symbol}`,
           kind: 'financial',
           userId: session.user?.id || 'anonymous',
@@ -356,8 +366,9 @@ export const processFinancialData = ({ session, dataStream, chatId }: ProcessFin
         // Update status with JSONValue compatible object
         console.log(`🔄 Sending processing status to client`);
         dataStream.writeData({
-          type: 'financial_status',
+          type: 'financial-tool-status',
           content: {
+            tool: 'processFinancialData',
             status: 'processing',
             symbol: symbol,
             metrics: apiResponse.query.metrics,
@@ -386,8 +397,9 @@ export const processFinancialData = ({ session, dataStream, chatId }: ProcessFin
           });
           
           dataStream.writeData({
-            type: 'financial_status',
+            type: 'financial-tool-status',
             content: { 
+              tool: 'processFinancialData',
               loadedPoints: Math.min(i + chunk.length, processedData.length)
             }
           });
@@ -414,6 +426,7 @@ export const processFinancialData = ({ session, dataStream, chatId }: ProcessFin
         // Save final document state
         await saveDocument({
           chatId: id,
+          id: id,
           title: `Financial Data: ${symbol}`,
           kind: 'financial',
           userId: session.user?.id || 'anonymous',

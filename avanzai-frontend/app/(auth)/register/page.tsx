@@ -34,6 +34,7 @@ export default function Page() {
       toast.success('Account created successfully');
       setIsSuccessful(true);
       router.refresh();
+      router.push('/');
     }
   }, [state, router]);
 

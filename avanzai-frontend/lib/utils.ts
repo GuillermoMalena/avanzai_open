@@ -134,13 +134,9 @@ export function convertToUIMessages(
 type ResponseMessageWithoutId = CoreToolMessage | CoreAssistantMessage;
 type ResponseMessage = ResponseMessageWithoutId & { id: string };
 
-export function sanitizeResponseMessages({
-  messages,
-  reasoning,
-}: {
-  messages: Array<ResponseMessage>;
-  reasoning: string | undefined;
-}) {
+export function sanitizeResponseMessages(
+  messages: Array<CoreToolMessage | CoreAssistantMessage>,
+): Array<CoreToolMessage | CoreAssistantMessage> {
   const toolResultIds: Array<string> = [];
 
   for (const message of messages) {
@@ -166,11 +162,6 @@ export function sanitizeResponseMessages({
           : true,
     );
 
-    if (reasoning) {
-      // @ts-expect-error: reasoning message parts in sdk is wip
-      sanitizedContent.push({ type: 'reasoning', reasoning });
-    }
-
     return {
       ...message,
       content: sanitizedContent,
@@ -181,6 +172,7 @@ export function sanitizeResponseMessages({
     (message) => message.content.length > 0,
   );
 }
+
 
 export function sanitizeUIMessages(messages: Array<Message>): Array<Message> {
   const messagesBySanitizedToolInvocations = messages.map((message) => {

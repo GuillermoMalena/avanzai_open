@@ -1,0 +1,46 @@
+[project]
+name = "avanzai-backend"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Your Name",email = "you@example.com"}
+]
+readme = "README.md"
+requires-python = ">=3.9,<4.0"
+
+dependencies = [
+    "fastapi (==0.110.0)",
+    "uvicorn (==0.27.1)",
+    "pydantic (==2.11.3)",
+    "asyncpg (==0.30.0)",
+    "supabase (==2.4.3)",
+    "sqlalchemy (==2.0.27)",
+    "numpy (==1.26.4)",
+    "pandas (==2.2.1)",
+    "yfinance (==0.2.54)",
+    "statsmodels (==0.14.2)",
+    "seaborn (==0.13.2)",
+    "matplotlib (==3.8.3)",
+    "plotly (==5.23.0)",
+    "anthropic (==0.39.0)",
+    "openai (==1.71.0)",
+    "openai-agents (==0.0.4)",
+    "groq (==0.11.0)",
+    "psutil (==5.9.8)",
+    "pytz (==2024.1)",
+    "requests (==2.31.0)",
+    "cachetools (==5.3.3)",
+    "sympy (==1.12)",
+    "python-dotenv (==1.0.1)",
+    "boto3 (==1.37.28)",
+    "pyarrow (==19.0.1)",
+    "llama-index (==0.12.16)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+[tool.poetry]
+package-mode = false
+

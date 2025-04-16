@@ -32,6 +32,7 @@ import { updateDocument } from '@/lib/ai/tools/update-document';
 import { requestSuggestions } from '@/lib/ai/tools/request-suggestions';
 import { getWeather } from '@/lib/ai/tools/get-weather';
 import { processFinancialData } from '@/lib/ai/tools/process-financial-data';
+import { getNews } from '@/lib/ai/tools/get-news';
 import { defaultTemplates } from '@/templates';
 import { withDbCleanup } from '@/lib/db-middleware';
 
@@ -45,6 +46,19 @@ export const POST = withDbCleanup(async (request: Request) => {
     selectedChatModel,
   }: { id: string; messages: Array<Message>; selectedChatModel: string } =
     await request.json();
+
+  // Add tool response tracking
+  let receivedFirstChunk = false;
+  const toolCallCache = new Set<string>();
+
+  const shouldExecuteToolCall = (toolName: string, params: any): boolean => {
+    const key = JSON.stringify({ toolName, params });
+    if (toolCallCache.has(key)) {
+      return false;
+    }
+    toolCallCache.add(key);
+    return true;
+  };
 
   const session = await auth();
 
@@ -80,9 +94,6 @@ export const POST = withDbCleanup(async (request: Request) => {
 
   return createDataStreamResponse({
     execute: async (dataStream) => {
-      console.log(`[${new Date().toISOString()}][STREAM-DEBUG] Starting data stream response for chat:`, id);
-
-      // Using try-finally to ensure DB connection is properly managed
       try {
         const result = streamText({
           model: myProvider.languageModel(selectedChatModel),
@@ -95,9 +106,20 @@ export const POST = withDbCleanup(async (request: Request) => {
             'updateDocument',
             'requestSuggestions',
             'processFinancialData',
+            'getNews',
           ],
           experimental_transform: smoothStream({ chunking: 'word' }),
           experimental_generateMessageId: generateUUID,
+          onChunk: (event) => {
+            const isToolCall = event.chunk.type === 'tool-call';
+            if (!receivedFirstChunk && !isToolCall) {
+              receivedFirstChunk = true;
+              dataStream.writeMessageAnnotation({
+                type: 'status',
+                value: 'processing'
+              });
+            }
+          },
           tools: {
             getWeather,
             createDocument: createDocument({ session, dataStream }),
@@ -111,21 +133,21 @@ export const POST = withDbCleanup(async (request: Request) => {
               dataStream,
               chatId: id
             }),
+            getNews: getNews({
+              session,
+              dataStream,
+              chatId: id
+            }),
           },
           onFinish: async ({ response, reasoning }) => {
             if (session.user?.id) {
               try {
-                console.log(`[${new Date().toISOString()}][STREAM-DEBUG] Processing onFinish`);
-                
-                const sanitizedResponseMessages = sanitizeResponseMessages({
-                  messages: response.messages,
-                  reasoning,
-                });
+                const sanitizedResponseMessages = sanitizeResponseMessages(response.messages);
 
                 if (sanitizedResponseMessages.length > 0) {
                   await saveMessages({
                     messages: sanitizedResponseMessages.map((message) => ({
-                      id: message.id,
+                      id: generateUUID(),
                       chatId: id,
                       role: message.role,
                       content: message.content,
@@ -134,7 +156,7 @@ export const POST = withDbCleanup(async (request: Request) => {
                   });
                 }
               } catch (error) {
-                console.error(`[${new Date().toISOString()}][STREAM-DEBUG] Error in onFinish:`, error);
+                // Silent error handling for message saving
               }
             }
           },
@@ -143,19 +165,14 @@ export const POST = withDbCleanup(async (request: Request) => {
             functionId: 'stream-text',
           },
         });
-
-        result.mergeIntoDataStream(dataStream, {
-          sendReasoning: true,
-        });
+        result.mergeIntoDataStream(dataStream);
       } finally {
-        // Release the connection back to the pool when the stream finishes
-        releaseConnection().catch(err => {
-          console.error('Error releasing connection back to pool after stream completion:', err);
+        releaseConnection().catch(() => {
+          // Silent error handling for connection release
         });
       }
     },
-    onError: (error: any) => {
-      console.error(`[${new Date().toISOString()}][STREAM-DEBUG] Error in data stream:`, error);
+    onError: () => {
       return 'Oops, an error occurred!';
     },
   });

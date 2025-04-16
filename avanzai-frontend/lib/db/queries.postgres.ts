@@ -179,17 +179,18 @@ export class PostgresQueries implements DatabaseQueries {
     }
   }
 
-  async saveDocument({ chatId, title, content, kind, metadata, userId }: {
+  async saveDocument({ chatId, title, content, kind, metadata, userId, id }: {
     chatId: string;
     title: string;
     content: string;
     kind: ArtifactKind;
     metadata?: Record<string, any>;
     userId: string;
+    id?: string;
   }) {
     try {
       return await this.db.insert(document).values({
-        id: chatId,
+        id: id || undefined,
         chatId: drizzleSql`${chatId}::uuid`,
         title,
         content,

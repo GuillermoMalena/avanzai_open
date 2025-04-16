@@ -61,6 +61,7 @@ except Exception as e:
     print(f"Warning: Supabase client initialization failed: {e}")
     supabase = None
 
+# To make all logs show up
 # Initialize OpenAI client
 
 from agents import Agent, FunctionTool, RunContextWrapper, function_tool
@@ -96,7 +97,7 @@ from datetime import datetime, timedelta, timezone
 import uuid
 from openai import OpenAI
 from fastapi import HTTPException
-from fredapi import Fred
+#from fredapi import Fred
 from typing import List, Optional, Dict, Any, Union
 import io
 from contextlib import asynccontextmanager
@@ -1587,7 +1588,7 @@ async def get_pricing_data2(request: PricingRequest):
         
         # Determine file path based on mode
         if request.mode == 'default':
-            file_path = 'az_pricing_latest.parquet'
+            file_path = 'az_pricing_04112025.parquet'
         else:
             file_path = f'users/{request.user_id}/{request.data_id}.parquet'
 
@@ -1865,7 +1866,7 @@ async def process_stock_data(request: DataProcessRequest) -> ProcessDataResponse
     
     # Sort by date to ensure proper order
     df = df.sort_values("date")
-    
+    print(f"Filtered df: {df.head()}")
     # 4. Apply the specified transformation
     transformation_type = request.transformation_type
     
@@ -1902,6 +1903,7 @@ async def process_stock_data(request: DataProcessRequest) -> ProcessDataResponse
 
         # Automatically sample the data if we have too many points
         result_df = sample_timeseries_data(result_df)
+        print(f"Sampled df: {result_df.head()}")
     else:
         raise ValueError(f"Transformation type '{transformation_type}' not supported. Supported types: cumulative_performance")
     
@@ -2007,8 +2009,10 @@ async def process_query(request: ProcessQueryRequest):
                 status_code=500,
                 detail="Failed to save pricing data to session storage"
             )
-        
+        from agents import enable_verbose_stdout_logging
+        enable_verbose_stdout_logging()
         # 5. Create the agent with the function tool
+        today = datetime.today().strftime('%Y-%m-%d')
         agent = Agent(
             name="Stock Data Processor",
             tools=[process_stock_data],
@@ -2017,6 +2021,7 @@ async def process_query(request: ProcessQueryRequest):
             instructions=f"""You are a stock data processing assistant. 
 Your job is to understand natural language queries about stock data and call the process_stock_data function with the appropriate parameters.
 Always call the process_stock_data function with the correct parameters based on the query.
+Today's date is {today}. Use it to calculate the date range for relative dates.
 
 When you receive a query:
 1. Extract the stock tickers mentioned (e.g., AAPL, MSFT, GOOG)
@@ -2045,13 +2050,12 @@ Examples:
       "status": "success",
       "path": "s3://bucket/sessions/abc-123/processed_data.parquet", 
       "start_date": "2023-09-24",
-      "end_date": "2024-03-24",
+      "end_date": "{today}",
       "cumulative_returns": {{
         "AAPL": 0.234,
         "MSFT": 0.187
       }}
     }}
-
 
 
 Important: Make sure to return the complete ProcessDataResponse object with all fields, including the summary data.

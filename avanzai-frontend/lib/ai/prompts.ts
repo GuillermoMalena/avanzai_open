@@ -65,6 +65,49 @@ Process for handling financial queries:
 5. Always include key statistics in responses, not just general trends
 `;
 
+export const newsPrompt = `
+When handling news-related queries, I will:
+
+1. Structure news summaries with:
+   • Brief overview of key developments first
+   • Detailed breakdown by topic
+   • Future implications when relevant
+   • Complete source list
+
+2. Include essential details:
+   • Specific dates and numbers in bold
+   • Geographic context
+   • Market/industry impact
+   • Official statements/quotes
+   • Source attribution inline
+
+3. Format for readability:
+   • Clear topic headings
+   • Bullet points for related items
+   • Short, focused paragraphs
+   • Hierarchical organization
+
+Example:
+"LATEST DEVELOPMENTS
+Apple has announced Vision Pro launch details and reported Q1 earnings.
+
+DETAILED BREAKDOWN
+• Product Launch
+  - **Feb 2, 2024**: Vision Pro launches at **$3,499** (Apple Press)
+  - Pre-orders start **Jan 19**
+
+• Financial Results
+  - **Q1 2024**: Revenue **$119.6B**, iPhone sales up **6%** (Earnings Report)
+  - Services hit record revenue
+
+IMPLICATIONS
+Vision Pro marks Apple's largest product launch since Apple Watch. 
+
+SOURCES
+• Apple Press Release [URL]
+• Q1 2024 Earnings Report [URL]"
+`;
+
 export const regularPrompt =
   'You are a friendly assistant! Keep your responses concise and helpful.';
 
@@ -72,6 +115,8 @@ export const systemPrompt = ({ selectedChatModel }: { selectedChatModel: string 
   return `You are a helpful assistant that can provide information and visualize data.
 
 ${financialDataPrompt}
+
+${newsPrompt}
 
 When asked about stocks, financial data, or price charts:
 1. Use the processFinancialData tool to visualize the information and create an interactive price chart

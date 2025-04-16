@@ -69,7 +69,6 @@ The backend is powered by FastAPI and provides an API for financial data retriev
 - **SQLite/Supabase**: Database for storing financial data
 - **OpenAI/Groq**: LLM integration for financial analysis (closed and open source)
 
-
 ### Directory Structure
 
 - `az3_api_03242025.py`: Main API application with endpoints and business logic (IN CONSTRUCTION)
@@ -99,17 +98,44 @@ The backend is powered by FastAPI and provides an API for financial data retriev
    - `/process_query`: Process natural language financial queries
    - `/session_summary`: Retrieve session statistics and history
 
-## Getting Started
+## 🛠 Getting Started
 
-### Setup
 
-Full Dockerfile setup coming soon.
+### ⚙️ Setup & Installation
 
-## Coming Soon
+1. **Clone the repository**
 
-1. Local storage for data pulling from Yahoo Finance
-2. Real-time data integration with Polygon API
-3. Dockerfile deployment
-4. License
-5. Updated contributions
+```bash
+git clone https://github.com/GuillermoMalena/avanzai_open.git
+cd avanzai_open
+```
 
+2. **Create your environment config**
+
+```bash
+cp .env.example .env
+```
+
+> Add your OpenAI, Supabase, AWS, and other API keys to the `.env` file.
+
+3. **Start the full stack using Docker Compose**
+
+```bash
+docker-compose up --build
+```
+
+- The **frontend** (Next.js) will be available at `http://localhost:3000`
+- The **backend** (FastAPI) will run at `http://localhost:8000`
+
+### 🧪 Dev Notes
+
+- The frontend supports hot reload via volume mounting
+- Poetry is used for Python dependency management in the backend
+- If you modify dependencies, update `pyproject.toml` and re-run the container
+
+## 🗺 Coming Soon
+
+- Real-time data integration with Polygon API
+- Built-in local Yahoo Finance storage
+- CI/CD deployment support
+- Contribution guide and community license

@@ -19,6 +19,7 @@ export interface DatabaseQueries {
     kind: ArtifactKind;
     metadata?: Record<string, any>;
     userId: string;
+    id?: string;
   }): Promise<any>;
   getDocumentsById(params: { id: string }): Promise<Array<Document>>;
   getDocumentById(params: { id: string }): Promise<Document | null>;

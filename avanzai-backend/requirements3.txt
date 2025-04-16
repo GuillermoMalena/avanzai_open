@@ -11,7 +11,7 @@ sqlalchemy==2.0.27
 # Data processing and analysis
 numpy==1.26.4
 pandas==2.2.1
-scipy==1.12.0
+#scipy==1.12.0
 yfinance==0.2.31
 statsmodels==0.14.2
 seaborn==0.13.2
@@ -23,11 +23,11 @@ plotly==5.23.0
 # AI/ML
 anthropic==0.39.0
 openai==1.59.9
-llama-index==0.12.16
+#llama-index==0.12.16
 groq==0.11.0
-langchain==0.1.14
-langchain-core==0.1.39
-langchain-community==0.0.31
+# langchain==0.1.14
+# langchain-core==0.1.39
+# langchain-community==0.0.31
 
 # Utilities
 psutil==5.9.8
@@ -41,11 +41,11 @@ sympy==1.12
 # Additional dependencies
 python-dotenv==1.0.1
 boto3
-instructor
-llama-index-agent-openai
-llama-index-core
-llama-index-llms-gemini
-llama-index-llms-groq
-llama-index-llms-openai
-nest-asyncio
-pyhtml2pdf
+# instructor
+# llama-index-agent-openai
+# llama-index-core
+# llama-index-llms-gemini
+# llama-index-llms-groq
+# llama-index-llms-openai
+# nest-asyncio
+# pyhtml2pdf
