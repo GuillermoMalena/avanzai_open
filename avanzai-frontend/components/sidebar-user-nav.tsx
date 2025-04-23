@@ -1,7 +1,9 @@
 'use client';
 import { ChevronUp } from 'lucide-react';
-import type { User } from 'next-auth';
-import { signOut } from 'next-auth/react';
+import { User } from '@supabase/supabase-js';
+import { useAuth } from '@/components/auth-provider';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 import {
   DropdownMenu,
@@ -16,6 +18,27 @@ import {
 } from '@/components/ui/sidebar';
 
 export function SidebarUserNav({ user }: { user: User }) {
+  const { signOut } = useAuth();
+  const router = useRouter();
+
+  const handleSignOut = async () => {
+    try {
+      console.log('Sidebar: Starting sign out process');
+      
+      // Use the enhanced signOut from AuthProvider
+      await signOut();
+      
+      // The signOut function will handle redirection and state cleaning
+      // No need for additional navigation here
+    } catch (error) {
+      console.error('Sidebar: Error during sign out:', error);
+      toast.error('Failed to sign out. Please try again.');
+      
+      // Force navigation even on error
+      window.location.href = '/login';
+    }
+  };
+
   return (
     <SidebarMenu className="pt-8">
       <SidebarMenuItem>
@@ -34,11 +57,7 @@ export function SidebarUserNav({ user }: { user: User }) {
               <button
                 type="button"
                 className="w-full cursor-pointer"
-                onClick={() => {
-                  signOut({
-                    redirectTo: '/',
-                  });
-                }}
+                onClick={handleSignOut}
               >
                 Sign out
               </button>

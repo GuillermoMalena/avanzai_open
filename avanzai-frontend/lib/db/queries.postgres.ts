@@ -15,6 +15,7 @@ import {
 } from './schema';
 import type { DatabaseQueries } from './queries.interface';
 import { ArtifactKind } from '@/components/artifact';
+import { randomUUID } from 'crypto';
 
 type TemplateType = 'user_input' | 'development' | 'revenue' | 'returns' | 'cashflow';
 
@@ -52,25 +53,29 @@ export class PostgresQueries implements DatabaseQueries {
     }
   }
 
-  async createUser(email: string, password: string) {
-    console.log('Starting user creation process for email:', email);
+  async createUser(email: string, password: string | null, userId?: string) {
     try {
-      const salt = genSaltSync(10);
-      console.log('Generated salt successfully');
+      console.log('Creating user with email:', email, 'and predefined userId:', userId || 'none');
       
-      const hash = hashSync(password, salt);
-      console.log('Password hashed successfully');
-
-      const result = await this.db.insert(user).values({ email, password: hash });
-      console.log('User inserted successfully:', result);
-      return result;
-    } catch (error) {
-      console.error('Failed to create user in database. Details:', {
-        error: error instanceof Error ? error.message : 'Unknown error',
-        stack: error instanceof Error ? error.stack : undefined,
-        email, // Don't log password
-        timestamp: new Date().toISOString()
+      let passwordHash = null;
+      if (password) {
+        const salt = genSaltSync(10);
+        passwordHash = hashSync(password, salt);
+      }
+      
+      // Use provided userId or generate a new one
+      const id = userId || randomUUID();
+      
+      await this.db.insert(user).values({
+        id,
+        email,
+        password: passwordHash,
       });
+      
+      console.log('User created successfully with id:', id);
+      return { id, email };
+    } catch (error) {
+      console.error('Failed to create user in database');
       throw error;
     }
   }

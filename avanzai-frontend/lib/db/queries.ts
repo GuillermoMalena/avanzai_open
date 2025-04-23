@@ -7,7 +7,7 @@ const db = getDatabase();
 
 // Export bound functions to maintain the correct 'this' context
 export const getUser = (email: string) => db.getUser(email);
-export const createUser = (email: string, password: string) => db.createUser(email, password);
+export const createUser = (email: string, password: string | null, userId?: string) => db.createUser(email, password, userId);
 export const saveChat = (params: Parameters<DatabaseQueries['saveChat']>[0]) => db.saveChat(params);
 export const deleteChatById = (params: Parameters<DatabaseQueries['deleteChatById']>[0]) => db.deleteChatById(params);
 export const getChatsByUserId = (params: Parameters<DatabaseQueries['getChatsByUserId']>[0]) => db.getChatsByUserId(params);

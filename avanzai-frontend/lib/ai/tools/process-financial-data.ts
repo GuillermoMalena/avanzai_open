@@ -11,7 +11,8 @@ import { saveDocument } from '@/lib/db/queries';
 import { 
   FinancialMetadata, 
   ProcessedTimeSeriesData,
-  ParquetDataResponse 
+  ParquetDataResponse,
+  UniverseDataResponse
 } from '@/lib/models/financial-data';
 
 interface ProcessFinancialDataProps {
@@ -457,4 +458,18 @@ export const processFinancialData = ({ session, dataStream, chatId }: ProcessFin
         };
       }
     }
-  }); 
+  });
+
+/**
+ * Handles fetching and parsing universe data from a presigned URL.
+ * Returns a UniverseDataResponse object.
+ */
+export async function handleUniverseQuery(presignedUrl: string): Promise<UniverseDataResponse> {
+  const response = await fetch(presignedUrl);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch universe data: ${response.statusText}`);
+  }
+  const data: UniverseDataResponse = await response.json();
+  // Optionally: validate structure here
+  return data;
+} 

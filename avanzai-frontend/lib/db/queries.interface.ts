@@ -3,7 +3,7 @@ import { User, Message, Document, Suggestion } from './schema';
 
 export interface DatabaseQueries {
   getUser(email: string): Promise<Array<User>>;
-  createUser(email: string, password: string): Promise<any>;
+  createUser(email: string, password: string | null, userId?: string): Promise<any>;
   saveChat(params: { id: string; userId: string; title: string }): Promise<any>;
   deleteChatById(params: { id: string }): Promise<any>;
   getChatsByUserId(params: { id: string }): Promise<any>;

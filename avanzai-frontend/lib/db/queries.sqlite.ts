@@ -36,20 +36,30 @@ export class SQLiteQueries implements DatabaseQueries {
     }
   }
 
-  async createUser(email: string, password: string) {
+  async createUser(email: string, password: string | null, userId?: string) {
     try {
-      const salt = genSaltSync(10);
-      const hash = hashSync(password, salt);
-      const id = randomUUID();
+      console.log('Creating user with email:', email, 'and predefined userId:', userId || 'none');
+      
+      let passwordHash = null;
+      if (password) {
+        const salt = genSaltSync(10);
+        passwordHash = hashSync(password, salt);
+      }
+      
+      // Use provided userId or generate a new one
+      const id = userId || randomUUID();
+      
       this.db.insert(user).values({
         email,
-        password: hash,
+        password: passwordHash,
         id
       }).run();
-      return Promise.resolve({ id, email });
+      
+      console.log('User created successfully with id:', id);
+      return { id, email };
     } catch (error) {
       console.error('Failed to create user in database:', error);
-      return Promise.reject(error);
+      throw error;
     }
   }
 

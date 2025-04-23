@@ -1,7 +1,7 @@
 /**
  * Financial API client for fetching financial price data
  */
-import { FinancialApiResponse } from '@/lib/models/financial-data';
+import { FinancialApiResponse, UniverseDataResponse } from '@/lib/models/financial-data';
 
 interface FetchOptions {
   maxRetries?: number;
@@ -129,4 +129,45 @@ export async function fetchFinancialData(
   );
   console.error(`❌ All retry attempts failed:`, finalError.message);
   throw finalError;
+}
+
+/**
+ * Fetches universe data from the backend FastAPI service.
+ * 1. Calls the /process_universe_query endpoint with the given params.
+ * 2. Expects a presigned_url in the response.
+ * 3. Fetches the actual data from the presigned_url.
+ * 4. Returns the parsed UniverseDataResponse.
+ */
+export async function fetchUniverseData(params: Record<string, any>): Promise<UniverseDataResponse> {
+  // Step 1: Call the FastAPI endpoint
+  const apiUrl = process.env.FASTAPI_URL || 'http://localhost:8000';
+  const endpoint = `${apiUrl}/process_universe_query`;
+
+  const response = await fetch(endpoint, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(params),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Universe query failed: ${response.statusText}`);
+  }
+
+  const apiResult = await response.json();
+
+  // Step 2: Validate presence of presigned_url
+  const presignedUrl = apiResult.presigned_url;
+  if (!presignedUrl) {
+    throw new Error('No presigned_url returned from universe query');
+  }
+
+  // Step 3: Fetch the actual data from the presigned_url
+  const dataResponse = await fetch(presignedUrl);
+  if (!dataResponse.ok) {
+    throw new Error(`Failed to fetch universe data: ${dataResponse.statusText}`);
+  }
+
+  // Step 4: Parse and return the data
+  const universeData: UniverseDataResponse = await dataResponse.json();
+  return universeData;
 } 

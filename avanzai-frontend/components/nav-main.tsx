@@ -23,9 +23,13 @@ interface NavMainProps {
 export function NavMain({ items, user }: NavMainProps) {
   const pathname = usePathname()
   const { data: chats } = useSWR<Array<Chat>>(
-    user ? '/api/history' : null,
+    user ? `/api/history?uid=${user.id}` : null,
     fetcher,
-    { fallbackData: [] }
+    {
+      fallbackData: [],
+      revalidateOnFocus: true,
+      revalidateOnReconnect: true
+    }
   )
 
   const recentChats = chats?.slice(0, 3) || []

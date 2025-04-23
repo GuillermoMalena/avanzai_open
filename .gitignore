@@ -44,6 +44,10 @@ avanzai-backend/**/test_*.py
 avanzai-backend/**/dev_*.py
 avanzai-backend/sessions/ 
 
+
+# But allow .ipynb files in example_notebooks
+!example_notebooks/*.ipynb 
+
 # -----------------------
 # VSCode and IDEs
 # -----------------------

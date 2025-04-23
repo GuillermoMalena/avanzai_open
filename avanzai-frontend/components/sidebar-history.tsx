@@ -156,14 +156,40 @@ export function SidebarHistory({ user }: { user: User | undefined }) {
   const {
     data: history,
     isLoading,
+    error,
     mutate,
-  } = useSWR<Array<Chat>>(user ? '/api/history' : null, fetcher, {
-    fallbackData: [],
-  });
+  } = useSWR<Array<Chat>>(
+    user?.id ? `/api/history?uid=${user.id}` : null,
+    fetcher,
+    {
+      fallbackData: [],
+      revalidateOnFocus: true,
+      revalidateOnReconnect: true,
+      onError: (err) => {
+        console.error('Error fetching history:', err);
+      }
+    }
+  );
+
+  // Log current state for debugging
+  useEffect(() => {
+    if (user?.id) {
+      console.log('SidebarHistory user:', {
+        id: user.id, 
+        email: user.email,
+        historyUrl: `/api/history?uid=${user.id}`,
+        historyCount: history?.length || 0
+      });
+    } else {
+      console.log('SidebarHistory: No user available');
+    }
+  }, [user, history]);
 
   useEffect(() => {
-    mutate();
-  }, [pathname, mutate]);
+    if (user?.id) {
+      mutate();
+    }
+  }, [user?.id, mutate]);
 
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);

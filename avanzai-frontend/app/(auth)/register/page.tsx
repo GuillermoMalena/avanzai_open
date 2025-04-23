@@ -2,69 +2,131 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useActionState, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'sonner';
+import { GalleryVerticalEnd } from "lucide-react";
 
-import { AuthForm } from '@/components/auth-form';
-import { SubmitButton } from '@/components/submit-button';
-
-import { register, type RegisterActionState } from '../actions';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { useAuth } from '@/components/auth-provider';
 
 export default function Page() {
   const router = useRouter();
-
   const [email, setEmail] = useState('');
-  const [isSuccessful, setIsSuccessful] = useState(false);
+  const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const { signUp, signInWithGoogle } = useAuth();
 
-  const [state, formAction] = useActionState<RegisterActionState, FormData>(
-    register,
-    {
-      status: 'idle',
-    },
-  );
+  const handleEmailSignUp = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
 
-  useEffect(() => {
-    if (state.status === 'user_exists') {
-      toast.error('Account already exists');
-    } else if (state.status === 'failed') {
-      toast.error('Failed to create account');
-    } else if (state.status === 'invalid_data') {
-      toast.error('Failed validating your submission!');
-    } else if (state.status === 'success') {
-      toast.success('Account created successfully');
-      setIsSuccessful(true);
-      router.refresh();
-      router.push('/');
+    try {
+      const { error } = await signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/auth/callback`,
+        },
+      });
+
+      if (error) {
+        toast.error(error.message);
+      } else {
+        toast.success('Registration successful! Please check your email to verify your account.');
+        router.push('/login');
+      }
+    } catch (error: any) {
+      toast.error(error.message || 'Failed to sign up');
+    } finally {
+      setIsLoading(false);
     }
-  }, [state, router]);
+  };
 
-  const handleSubmit = (formData: FormData) => {
-    setEmail(formData.get('email') as string);
-    formAction(formData);
+  const handleGoogleSignUp = async () => {
+    try {
+      await signInWithGoogle();
+    } catch (error: any) {
+      toast.error(error.message || 'Failed to sign up with Google');
+    }
   };
 
   return (
     <div className="flex h-dvh w-screen items-start pt-12 md:pt-0 md:items-center justify-center bg-background">
-      <div className="w-full max-w-md overflow-hidden rounded-2xl gap-12 flex flex-col">
-        <div className="flex flex-col items-center justify-center gap-2 px-4 text-center sm:px-16">
-          <h3 className="text-xl font-semibold dark:text-zinc-50">Sign Up</h3>
-          <p className="text-sm text-gray-500 dark:text-zinc-400">
-            Create an account with your email and password
-          </p>
+      <div className="w-full max-w-sm overflow-hidden rounded-2xl flex flex-col gap-6">
+        <div className="flex flex-col gap-6">
+          <form onSubmit={handleEmailSignUp}>
+            <div className="flex flex-col gap-6">
+              <div className="flex flex-col items-center gap-2">
+                <a href="/" className="flex flex-col items-center gap-2 font-medium">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-md">
+                    <GalleryVerticalEnd className="size-6" />
+                  </div>
+                  <span className="sr-only">Avanzai</span>
+                </a>
+                <h1 className="text-xl font-bold">Create your account</h1>
+                <div className="text-center text-sm">
+                  Already have an account?{" "}
+                  <Link href="/login" className="underline underline-offset-4">
+                    Sign in
+                  </Link>
+                </div>
+              </div>
+              <div className="flex flex-col gap-6">
+                <div className="grid gap-2">
+                  <Label htmlFor="email">Email</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="m@example.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="password">Password</Label>
+                  <Input
+                    id="password"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </div>
+                <Button type="submit" className="w-full" disabled={isLoading}>
+                  {isLoading ? 'Creating account...' : 'Create account'}
+                </Button>
+              </div>
+              <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
+                <span className="relative z-10 bg-background px-2 text-muted-foreground">
+                  Or
+                </span>
+              </div>
+              <div className="grid gap-4">
+                <Button 
+                  type="button" 
+                  variant="outline" 
+                  className="w-full"
+                  onClick={handleGoogleSignUp}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="mr-2 h-4 w-4">
+                    <path
+                      d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                  Continue with Google
+                </Button>
+              </div>
+            </div>
+          </form>
+          <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary">
+            By signing up, you agree to our <a href="#">Terms of Service</a>{" "}
+            and <a href="#">Privacy Policy</a>.
+          </div>
         </div>
-        <AuthForm action={handleSubmit} defaultEmail={email}>
-          <SubmitButton isSuccessful={isSuccessful}>Sign Up</SubmitButton>
-          <p className="text-center text-sm text-gray-600 mt-4 dark:text-zinc-400">
-            {'Already have an account? '}
-            <Link
-              href="/login"
-              className="font-semibold text-gray-800 hover:underline dark:text-zinc-200"
-            >
-              Sign in
-            </Link>
-            {' instead.'}
-          </p>
-        </AuthForm>
       </div>
     </div>
   );

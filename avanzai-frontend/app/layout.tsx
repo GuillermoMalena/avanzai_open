@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { Toaster } from 'sonner';
-import { auth } from '@/app/(auth)/auth';
 
 import { ThemeProvider } from '@/components/theme-provider';
 import { Providers } from '@/components/providers';
@@ -40,13 +39,11 @@ const THEME_COLOR_SCRIPT = `\
   updateThemeColor();
 })();`;
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await auth();
-
   return (
     <html
       lang="en"
@@ -66,9 +63,17 @@ export default async function RootLayout({
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet"
         />
+        <meta
+          name="supabase-url"
+          content={process.env.NEXT_PUBLIC_SUPABASE_URL || ''}
+        />
+        <meta
+          name="supabase-anon-key"
+          content={process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''}
+        />
       </head>
       <body className="antialiased">
-        <Providers session={session}>
+        <Providers>
           <ThemeProvider
             attribute="class"
             defaultTheme="dark"

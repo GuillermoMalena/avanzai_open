@@ -1,6 +1,6 @@
 "use client"
 
-import type { User } from "next-auth"
+import { User } from "@supabase/supabase-js"
 import Image from "next/image"
 
 import { NavMain } from "@/components/nav-main"
@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/sidebar"
 import { navigation } from "@/config/navigation"
 
-export function AppSidebar({ user }: { user: User | undefined }) {
+export function AppSidebar({ user }: { user: User | undefined | null }) {
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader>

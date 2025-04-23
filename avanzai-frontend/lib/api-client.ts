@@ -30,10 +30,10 @@ class APIClient implements DatabaseQueries {
     return this.fetchApi(`/api/users?email=${encodeURIComponent(email)}`);
   }
 
-  async createUser(email: string, password: string): Promise<any> {
+  async createUser(email: string, password: string | null, userId?: string): Promise<any> {
     return this.fetchApi('/api/users', {
       method: 'POST',
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ email, password, userId }),
     });
   }
 

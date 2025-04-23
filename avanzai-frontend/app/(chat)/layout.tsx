@@ -1,9 +1,7 @@
-import { cookies } from 'next/headers';
+import { createServerComponentClient } from '@/lib/supabase/server-client';
 
-import { AppSidebar } from '@/components/app-sidebar';
+import { CurrentUser } from '@/components/current-user';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
-
-import { auth } from '../(auth)/auth';
 import Script from 'next/script';
 
 export const experimental_ppr = true;
@@ -13,8 +11,22 @@ export default async function Layout({
 }: {
   children: React.ReactNode;
 }) {
-  const [session, cookieStore] = await Promise.all([auth(), cookies()]);
-  const isCollapsed = cookieStore.get('sidebar:state')?.value !== 'true';
+  // Default sidebar state - simplify to avoid cookie issues
+  const isCollapsed = false;
+  
+  // Get server-side session for initial render
+  let serverUser = null;
+  try {
+    // Use our helper that handles cookie access properly
+    // Since Next.js 15, we need to await the createServerComponentClient function
+    const supabase = await createServerComponentClient();
+    
+    // Get user using the recommended method
+    const { data } = await supabase.auth.getUser();
+    serverUser = data.user;
+  } catch (error) {
+    console.error('Error getting user in layout:', error);
+  }
 
   return (
     <>
@@ -23,7 +35,7 @@ export default async function Layout({
         strategy="beforeInteractive"
       />
       <SidebarProvider defaultOpen={!isCollapsed}>
-        <AppSidebar user={session?.user} />
+        <CurrentUser serverUser={serverUser} />
         <SidebarInset>{children}</SidebarInset>
       </SidebarProvider>
     </>

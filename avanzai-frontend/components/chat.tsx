@@ -4,13 +4,15 @@ import type { Attachment, Message } from 'ai';
 import { useChat } from 'ai/react';
 import { useState } from 'react';
 import useSWR, { useSWRConfig } from 'swr';
-import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 import { ChatHeader } from '@/components/chat-header';
 import type { Vote } from '@/lib/db/schema';
 import { fetcher, generateUUID, cn } from '@/lib/utils';
 import { updateChatTemplate } from '@/lib/api';
 import { VisibilityType } from './visibility-selector';
+import { useAuth } from '@/components/auth-provider';
+import { supabase } from '@/lib/supabase';
 
 import { Artifact } from './artifact';
 import { MultimodalInput } from './multimodal-input';
@@ -33,7 +35,8 @@ export function Chat({
   selectedVisibilityType,
   isReadonly,
 }: ChatProps) {
-  const { data: session } = useSession();
+  const { user } = useAuth();
+  const router = useRouter();
   const { mutate } = useSWRConfig();
   const { artifact, setArtifact } = useArtifact();
   const {
@@ -78,8 +81,10 @@ export function Chat({
       event.preventDefault();
     }
 
-    if (!session?.user?.id) {
+    // Check if user is authenticated with Supabase
+    if (!user) {
       toast.error('Please sign in to continue.');
+      router.push('/login');
       return;
     }
 

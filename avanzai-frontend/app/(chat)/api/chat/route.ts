@@ -18,6 +18,7 @@ import {
   getDocumentById,
   getDocumentsByChatId,
   releaseConnection,
+  getUser,
 } from '@/lib/db/queries';
 import {
   generateUUID,
@@ -31,10 +32,11 @@ import { createDocument } from '@/lib/ai/tools/create-document';
 import { updateDocument } from '@/lib/ai/tools/update-document';
 import { requestSuggestions } from '@/lib/ai/tools/request-suggestions';
 import { getWeather } from '@/lib/ai/tools/get-weather';
-import { processFinancialData } from '@/lib/ai/tools/process-financial-data';
+import { processFinancialData, processUniverseData } from '@/lib/ai/tools/index';
 import { getNews } from '@/lib/ai/tools/get-news';
 import { defaultTemplates } from '@/templates';
 import { withDbCleanup } from '@/lib/db-middleware';
+import { createServerComponentClient } from '@/lib/supabase/server-client';
 
 export const maxDuration = 60;
 
@@ -60,11 +62,32 @@ export const POST = withDbCleanup(async (request: Request) => {
     return true;
   };
 
+  // Get NextAuth session
   const session = await auth();
 
   if (!session || !session.user || !session.user.id) {
     return new Response('Unauthorized', { status: 401 });
   }
+
+  // Get Supabase user ID - this is the ID we want to use for creating chats
+  let supabaseUserId = null;
+  try {
+    const supabase = await createServerComponentClient();
+    const { data: { user: supabaseUser } } = await supabase.auth.getUser();
+    
+    if (supabaseUser) {
+      console.log('Using Supabase user ID for chat:', supabaseUser.id);
+      supabaseUserId = supabaseUser.id;
+    } else {
+      console.log('No Supabase user found, falling back to NextAuth ID');
+    }
+  } catch (error) {
+    console.error('Error getting Supabase user:', error);
+  }
+
+  // Use Supabase ID if available, otherwise fall back to NextAuth ID
+  const effectiveUserId = supabaseUserId || session.user.id;
+  console.log('Effective user ID for chat creation:', effectiveUserId);
 
   const userMessage = getMostRecentUserMessage(messages);
 
@@ -79,10 +102,10 @@ export const POST = withDbCleanup(async (request: Request) => {
   if (isFirstMessage) {
     const title = await generateTitleFromUserMessage({ message: userMessage });
     
-    // Create chat with empty templates object
+    // Create chat with empty templates object and the Supabase user ID
     await createChatWithTemplates({ 
       id, 
-      userId: session.user.id, 
+      userId: effectiveUserId,  // Use Supabase user ID 
       title,
       templates: {}  // Initialize with empty templates
     });
@@ -106,6 +129,7 @@ export const POST = withDbCleanup(async (request: Request) => {
             'updateDocument',
             'requestSuggestions',
             'processFinancialData',
+            'processUniverseData',
             'getNews',
           ],
           experimental_transform: smoothStream({ chunking: 'word' }),
@@ -129,6 +153,11 @@ export const POST = withDbCleanup(async (request: Request) => {
               dataStream,
             }),
             processFinancialData: processFinancialData({
+              session,
+              dataStream,
+              chatId: id
+            }),
+            processUniverseData: processUniverseData({
               session,
               dataStream,
               chatId: id

@@ -6,8 +6,21 @@ import { Button } from '@/components/ui/button';
 import { PlusIcon } from './icons';
 import { memo } from 'react';
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
+import { VisibilityType } from './visibility-selector';
 
-function PureChatHeader() {
+interface ChatHeaderProps {
+  chatId: string;
+  selectedModelId: string;
+  selectedVisibilityType: VisibilityType;
+  isReadonly: boolean;
+}
+
+function PureChatHeader({
+  chatId,
+  selectedModelId,
+  selectedVisibilityType,
+  isReadonly
+}: ChatHeaderProps) {
   const router = useRouter();
 
   return (

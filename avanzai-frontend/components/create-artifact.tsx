@@ -47,7 +47,7 @@ interface ArtifactContent<M = any> {
   setMetadata: Dispatch<SetStateAction<M>>;
 }
 
-interface InitializeParameters<M = any> {
+export interface InitializeParameters<M = any> {
   documentId: string;
   setMetadata: Dispatch<SetStateAction<M>>;
 }

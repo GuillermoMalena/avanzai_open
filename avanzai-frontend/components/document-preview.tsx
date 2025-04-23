@@ -22,8 +22,8 @@ import equal from 'fast-deep-equal';
 import { SpreadsheetEditor } from './sheet-editor';
 import { ImageEditor } from './image-editor';
 import { TabbedSheetEditor } from './tabbed-sheet-editor';
-import { ResponsiveContainer, LineChart, Line, YAxis } from 'recharts';
-import { FinancialMetadata, ProcessedTimeSeriesData } from '@/lib/models/financial-data';
+import { ResponsiveContainer, LineChart, Line, YAxis, BarChart, Bar, XAxis } from 'recharts';
+import { FinancialMetadata, ProcessedTimeSeriesData, UniverseDataRow } from '@/lib/models/financial-data';
 
 interface DocumentPreviewProps {
   isReadonly: boolean;
@@ -78,8 +78,8 @@ export function DocumentPreview({
   }
 
   // Only fetch if we have a valid chatId
-  const { data: documents, isLoading: isDocumentsFetching, error } = useSWR<Array<Document>>(
-    chatId ? `/api/documents?chatId=${chatId}` : null,
+  const { data: previewDocument, isLoading: isDocumentsFetching, error } = useSWR<Document>(
+    chatId ? `/api/documents/${chatId}` : null,
     fetcher,
     {
       revalidateOnFocus: false,
@@ -91,16 +91,14 @@ export function DocumentPreview({
 
   // Log fetch results
   useEffect(() => {
-    if (documents) {
-      console.log('[DEBUG-BROWSER] Documents fetched:', {
+    if (previewDocument) {
+      console.log('[DEBUG-BROWSER] Document fetched:', {
         chatId,
-        count: documents.length,
-        first: documents[0] ? { id: documents[0].id, chatId: documents[0].chatId } : 'none'
+        id: previewDocument.id,
+        kind: previewDocument.kind
       });
     }
-  }, [documents, chatId]);
-
-  const previewDocument = useMemo(() => documents?.[0], [documents]);
+  }, [previewDocument, chatId]);
 
   // Use preview document if available, otherwise create a new one from result/args
   const document = useMemo(() => {
@@ -439,30 +437,50 @@ const DocumentContent = ({ document, isReadonly }: { document: Document; isReado
     let parsedMetadata = null;
     try {
       if (document.content) {
+        console.log('[DEBUG-BROWSER] Attempting to parse document content:', {
+          documentId: document.id,
+          chatId: document.chatId,
+          title: document.title,
+          contentStart: document.content.substring(0, 100) + '...',
+          contentType: typeof document.content,
+          contentLength: document.content.length
+        });
+        
         parsedMetadata = JSON.parse(document.content);
         console.log('[DEBUG-BROWSER] Parsed financial metadata:', parsedMetadata);
+        
+        // Add more detailed debugging for universe data or its absence
+        if (parsedMetadata.universeData) {
+          console.log('[DEBUG-BROWSER] Found universe data:', {
+            metricName: parsedMetadata.universeData.metadata?.metric || 'undefined',
+            dataLength: parsedMetadata.universeData.data?.length || 0,
+            firstItem: parsedMetadata.universeData.data?.[0] || 'no data items',
+            firstTotalReturn: parsedMetadata.universeData.data?.[0]?.total_return || 'no total_return value',
+            isDataArray: Array.isArray(parsedMetadata.universeData.data),
+            status: parsedMetadata.status
+          });
+        } else {
+          console.log('[DEBUG-BROWSER] No universe data found. Document content contains:', {
+            keys: Object.keys(parsedMetadata),
+            status: parsedMetadata.status,
+            hasTickerData: !!parsedMetadata.tickerData,
+            hasTimeSeriesData: !!parsedMetadata.timeSeriesData
+          });
+        }
+      } else {
+        console.log('[DEBUG-BROWSER] No document content to parse');
       }
     } catch (e) {
       console.error('[DEBUG-BROWSER] Error parsing financial metadata:', e);
+      console.log('[DEBUG-BROWSER] Raw document content sample:', document.content?.substring(0, 200));
     }
     
     // Validate metadata structure
     const metadata = parsedMetadata || document.metadata || defaultMetadata;
     const isValidMetadata = metadata && 
-      typeof metadata === 'object' && 
-      'status' in metadata &&
-      (
-        // Either has tickerData for multi-ticker format
-        ('tickerData' in metadata && 
-         typeof metadata.tickerData === 'object' &&
-         Object.keys(metadata.tickerData as Record<string, ProcessedTimeSeriesData[]>).length > 0) ||
-        // Or has timeSeriesData for legacy format
-        ('timeSeriesData' in metadata && 
-         Array.isArray(metadata.timeSeriesData))
-      ) &&
-      'tickers' in metadata &&
-      Array.isArray(metadata.tickers) &&
-      metadata.tickers.length > 0;
+      ((metadata.status === 'error' && metadata.error) || // Either it's an error with a message
+       (metadata.status === 'ready' && // Or it's ready
+        (metadata.tickerData || metadata.timeSeriesData || metadata.universeData))); // And has some data
 
     if (!isValidMetadata) {
       console.error('[DEBUG-BROWSER] Invalid financial metadata structure:', {
@@ -536,42 +554,14 @@ const DocumentContent = ({ document, isReadonly }: { document: Document; isReado
         onClick={() => {
           console.log('[DEBUG-BROWSER] Opening financial artifact with metadata:', {
             id: document.id,
-            metadata: metadata,
-            status: metadata.status,
-            dataPoints: metadata.timeSeriesData?.length || 0,
-            visualizationReady: metadata.visualizationReady || shouldBeReady
+            metadata: parsedMetadata,
+            status: parsedMetadata.status,
+            dataPoints: parsedMetadata.timeSeriesData?.length || 0,
+            visualizationReady: parsedMetadata.visualizationReady || shouldBeReady
           });
           
-          // Ensure metadata has all required fields
-          const completeMetadata = {
-            ...defaultMetadata,
-            ...metadata,
-            status: metadata.status || 'ready',
-            visualizationReady: metadata.visualizationReady || shouldBeReady,
-            tickers: metadata.tickers,
-            // Ensure we have both formats for compatibility
-            timeSeriesData: metadata.timeSeriesData || 
-              (metadata.tickerData && metadata.tickers?.[0] ? 
-                metadata.tickerData[metadata.tickers[0]] : 
-                []),
-            tickerData: metadata.tickerData || 
-              (metadata.timeSeriesData ? 
-                { [metadata.tickers[0]]: metadata.timeSeriesData } : 
-                {}),
-            dataPoints: metadata.dataPoints || 
-              (metadata.tickerData ? 
-                Object.values(metadata.tickerData as Record<string, ProcessedTimeSeriesData[]>)[0]?.length : 
-                metadata.timeSeriesData?.length) || 0,
-            loadedPoints: metadata.loadedPoints || 
-              (metadata.tickerData ? 
-                Object.values(metadata.tickerData as Record<string, ProcessedTimeSeriesData[]>)[0]?.length : 
-                metadata.timeSeriesData?.length) || 0
-          };
-          
-          console.log('[DEBUG-BROWSER] Setting complete metadata:', completeMetadata);
-          
           // Set both the artifact metadata and the separate metadata store
-          setMetadata(completeMetadata);
+          setMetadata(parsedMetadata);
           
           setArtifact(prev => {
             console.log('[DEBUG-BROWSER] Previous artifact state:', prev);
@@ -581,8 +571,8 @@ const DocumentContent = ({ document, isReadonly }: { document: Document; isReado
               kind: 'financial' as ArtifactKind,
               content: document.content || '',
               isVisible: true,
-              status: completeMetadata.status || 'idle',
-              metadata: completeMetadata,
+              status: parsedMetadata.status || 'idle',
+              metadata: parsedMetadata,
               boundingBox: {
                 left: 0,
                 top: 0,
@@ -595,67 +585,146 @@ const DocumentContent = ({ document, isReadonly }: { document: Document; isReado
           });
         }}
       >
-        {metadata.status === 'ready' && metadata.visualizationReady ? (
+        {parsedMetadata.status === 'ready' && parsedMetadata.visualizationReady ? (
           <div className="flex flex-col h-full">
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
                 </svg>
-                <span className="text-sm font-medium">{metadata.tickers?.join(', ')} Price History</span>
+                {parsedMetadata.universeData && parsedMetadata.universeData.metadata ? (
+                  <span className="text-sm font-medium">{parsedMetadata.universeData.metadata.metric || 'Universe'} Ranking</span>
+                ) : (
+                  <span className="text-sm font-medium">{parsedMetadata.tickers?.join(', ') || 'Financial'} Price History</span>
+                )}
               </div>
               <span className="text-xs text-gray-500">
-                {Object.values(metadata.tickerData as TickerData || {}).reduce((sum, data) => sum + (data?.length || 0), 0)} points
+                {parsedMetadata.universeData && parsedMetadata.universeData.data ? 
+                  `${parsedMetadata.universeData.data.length || 0} stocks` : 
+                  `${Object.values(parsedMetadata.tickerData as TickerData || {}).reduce((sum, data) => sum + (data?.length || 0), 0)} points`
+                }
               </span>
             </div>
             
-            {/* Preview chart */}
+            {/* Preview chart - show either line chart or bar chart depending on data type */}
             <div className="flex-1 min-h-[100px]">
-              <ResponsiveContainer width="100%" height={100}>
-                <LineChart
-                  // Use processed data if available, otherwise fallback
-                  data={(() => {
-                    const enhancedMetadata = metadata as EnhancedFinancialMetadata;
-                    const processedData = enhancedMetadata.processedChartData;
-                    const firstTicker = metadata.tickers?.[0] || '';
-                    
-                    if (processedData && processedData.length > 0) {
-                      return processedData.map(point => ({
-                        timestamp: point.date,
-                        value: typeof point[firstTicker] === 'number' ? (point[firstTicker] as number) : 0
-                      }));
-                    }
-                    
-                    return metadata.tickerData?.[firstTicker] || [];
-                  })()}
-                  margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
-                >
-                  <Line 
-                    type="monotone" 
-                    dataKey="value" 
-                    stroke="#3b82f6" 
-                    dot={false}
-                    strokeWidth={1}
-                  />
-                  <YAxis 
-                    hide 
-                    domain={['auto', 'auto']}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
+              {(() => {
+                if (parsedMetadata.universeData && 
+                    parsedMetadata.universeData.data && 
+                    Array.isArray(parsedMetadata.universeData.data) && 
+                    parsedMetadata.universeData.data.length > 0) {
+                  
+                  // Debug logs before render
+                  console.log('[DEBUG-BROWSER] About to render universe bar chart:', {
+                    dataLength: parsedMetadata.universeData.data.length,
+                    firstItem: parsedMetadata.universeData.data[0],
+                    previewData: parsedMetadata.universeData.data.slice(0, 5),
+                    metadata: parsedMetadata.universeData.metadata,
+                  });
+                  
+                  console.log('[DEBUG-BROWSER] Bar chart render:', {
+                    chartData: parsedMetadata.universeData.data.slice(0, 5).map((d: UniverseDataRow) => ({
+                      ticker: d.ticker,
+                      total_return: d.total_return,
+                      rank: d.rank
+                    }))
+                  });
+                  
+                  return (
+                    <ResponsiveContainer width="100%" height={100}>
+                      <BarChart
+                        data={parsedMetadata.universeData.data.slice(0, 5)}
+                        layout="vertical"
+                        margin={{ top: 5, right: 5, left: 35, bottom: 5 }}
+                      >
+                        <XAxis 
+                          type="number" 
+                          hide 
+                          domain={[0, parsedMetadata.universeData.data.length > 0 ? 
+                            Math.max(...parsedMetadata.universeData.data.slice(0, 5).map((d: UniverseDataRow) => d.total_return)) : 
+                            1]} 
+                        />
+                        <YAxis 
+                          type="category" 
+                          dataKey="ticker" 
+                          tick={{ fontSize: 10, fill: 'rgba(255, 255, 255, 0.65)' }}
+                          width={30}
+                        />
+                        <Bar 
+                          dataKey="total_return" 
+                          fill="#3b82f6" 
+                          radius={[0, 4, 4, 0]}
+                        />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  );
+                } else {
+                  // Debug log for failed conditions
+                  console.log('[DEBUG-BROWSER] Universe data conditions not met:', {
+                    hasUniverseData: !!parsedMetadata.universeData,
+                    hasData: parsedMetadata.universeData?.data != null,
+                    isArray: parsedMetadata.universeData?.data ? Array.isArray(parsedMetadata.universeData.data) : false,
+                    length: parsedMetadata.universeData?.data?.length || 0
+                  });
+                  
+                  // Return time series chart
+                  return (
+                    <ResponsiveContainer width="100%" height={100}>
+                      <LineChart
+                        data={(() => {
+                          const enhancedMetadata = parsedMetadata as EnhancedFinancialMetadata;
+                          const processedData = enhancedMetadata.processedChartData;
+                          const firstTicker = parsedMetadata.tickers?.[0] || '';
+                          
+                          if (processedData && processedData.length > 0) {
+                            return processedData.map(point => ({
+                              timestamp: point.date,
+                              value: typeof point[firstTicker] === 'number' ? (point[firstTicker] as number) : 0
+                            }));
+                          }
+                          
+                          return parsedMetadata.tickerData?.[firstTicker] || [];
+                        })()}
+                        margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
+                      >
+                        <Line 
+                          type="monotone" 
+                          dataKey="value" 
+                          stroke="#3b82f6" 
+                          dot={false}
+                          strokeWidth={1}
+                        />
+                        <YAxis 
+                          hide 
+                          domain={['auto', 'auto']}
+                        />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  );
+                }
+              })()}
             </div>
             
             <div className="flex justify-between items-center mt-2 text-xs text-gray-500">
-              {metadata.tickers?.[0] && metadata.tickerData?.[metadata.tickers[0]]?.length > 0 && (
-                <>
-                  <span>
-                    {new Date(metadata.tickerData[metadata.tickers[0]][0]?.timestamp).toLocaleDateString()}
-                  </span>
-                  <span>Click to expand</span>
-                  <span>
-                    {new Date(metadata.tickerData[metadata.tickers[0]][metadata.tickerData[metadata.tickers[0]].length - 1]?.timestamp).toLocaleDateString()}
-                  </span>
-                </>
+              {parsedMetadata.universeData && 
+                parsedMetadata.universeData.data && 
+                Array.isArray(parsedMetadata.universeData.data) && 
+                parsedMetadata.universeData.data.length > 0 ? (
+                // Universe data footer
+                <div className="w-full text-center">Click to view complete ranking</div>
+              ) : (
+                // Time series footer (existing code)
+                parsedMetadata.tickers?.[0] && parsedMetadata.tickerData?.[parsedMetadata.tickers[0]]?.length > 0 && (
+                  <>
+                    <span>
+                      {new Date(parsedMetadata.tickerData[parsedMetadata.tickers[0]][0]?.timestamp).toLocaleDateString()}
+                    </span>
+                    <span>Click to expand</span>
+                    <span>
+                      {new Date(parsedMetadata.tickerData[parsedMetadata.tickers[0]][parsedMetadata.tickerData[parsedMetadata.tickers[0]].length - 1]?.timestamp).toLocaleDateString()}
+                    </span>
+                  </>
+                )
               )}
             </div>
           </div>
@@ -671,7 +740,7 @@ const DocumentContent = ({ document, isReadonly }: { document: Document; isReado
                 {document.title || 'Financial Data'}
               </h3>
               <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                Loading data... ({metadata.loadedPoints}/{metadata.dataPoints || '?'} points)
+                Loading data... ({parsedMetadata.loadedPoints}/{parsedMetadata.dataPoints || '?'} points)
               </p>
             </div>
           </div>

@@ -80,6 +80,7 @@ export interface FinancialMetadata {
     date: string;
     [ticker: string]: number | string;
   }>;
+  universeData?: UniverseDataResponse; // New field for universe query results
 }
 
 /**
@@ -100,4 +101,27 @@ export function validateTimeSeriesData(data: ProcessedTimeSeriesData[]): boolean
   
   console.log(`✅ Data validation ${allValid ? "passed" : "failed"}`);
   return allValid;
+}
+
+// Universe query data types
+export interface UniverseDataRow {
+  ticker: string;
+  total_return: number;
+  rank: number;
+}
+
+export interface UniverseDataMetadata {
+  metric: string;
+  sort: string;
+  length: number;
+  start_date: string;
+  end_date: string;
+  generated_at: string;
+  row_count: number;
+  session_id: string;
+}
+
+export interface UniverseDataResponse {
+  data: UniverseDataRow[];
+  metadata: UniverseDataMetadata;
 } 

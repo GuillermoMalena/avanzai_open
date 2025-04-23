@@ -222,6 +222,18 @@ const PurePreviewMessage = ({
                               }}
                             />
                           ) : null
+                        ) : toolName === 'processUniverseData' ? (
+                          state === 'result' ? (
+                            <DocumentPreview
+                              isReadonly={isReadonly}
+                              result={null}
+                              args={{
+                                chatId,
+                                title: `Universe Ranking: ${result.data?.universeData?.metadata?.metric || 'Performance'}`,
+                                kind: 'financial'
+                              }}
+                            />
+                          ) : null
                         ) : null}
                       </div>
                     );
@@ -254,6 +266,12 @@ const PurePreviewMessage = ({
                         <div className="flex flex-col w-full border rounded-2xl dark:bg-muted dark:border-zinc-700">
                           <div className="h-[257px] flex items-center justify-center text-muted-foreground">
                             Processing Financial Data...
+                          </div>
+                        </div>
+                      ) : toolName === 'processUniverseData' ? (
+                        <div className="flex flex-col w-full border rounded-2xl dark:bg-muted dark:border-zinc-700">
+                          <div className="h-[257px] flex items-center justify-center text-muted-foreground">
+                            Processing Universe Data...
                           </div>
                         </div>
                       ) : null}
@@ -306,6 +324,9 @@ export const ThinkingMessage = ({ message }: { message?: Message }) => {
   const getLoadingMessage = () => {
     if (message?.toolInvocations?.some(tool => tool.toolName === 'processFinancialData')) {
       return 'Processing Financial Data...';
+    }
+    if (message?.toolInvocations?.some(tool => tool.toolName === 'processUniverseData')) {
+      return 'Processing Universe Data...';
     }
     if (message?.toolInvocations?.some(tool => tool.toolName === 'requestTemplateUpdate')) {
       return 'Processing Template Update...';
