@@ -1,9 +1,10 @@
 'use client';
 
 import type { ChatRequestOptions, Message } from 'ai';
+import { Message as AIMessage } from '@ai-sdk/react';
 import cx from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
-import { memo, useMemo, useState } from 'react';
+import { memo, useMemo, useState, useEffect } from 'react';
 
 import type { Vote } from '@/lib/db/schema';
 
@@ -24,25 +25,30 @@ import { Button } from './ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
 import { MessageEditor } from './message-editor';
 import { DocumentPreview } from './document-preview';
-import { MessageReasoning } from './message-reasoning';
 import { useArtifact } from '@/hooks/use-artifact';
 import { MessageLoading } from './ui/message-loading';
+import { ReasoningMessagePart, TextMessagePart } from './messages-reasoning';
+
+// Import the exported ReasoningPart interface
+import type { ReasoningPart } from './messages-reasoning';
 
 const PurePreviewMessage = ({
   chatId,
   message,
   vote,
   isLoading,
+  isReasoning = false,
   setMessages,
   reload,
   isReadonly,
 }: {
   chatId: string;
-  message: Message;
+  message: AIMessage;
   vote: Vote | undefined;
   isLoading: boolean;
+  isReasoning?: boolean;
   setMessages: (
-    messages: Message[] | ((messages: Message[]) => Message[]),
+    messages: AIMessage[] | ((messages: AIMessage[]) => AIMessage[]),
   ) => void;
   reload: (
     chatRequestOptions?: ChatRequestOptions,
@@ -51,6 +57,37 @@ const PurePreviewMessage = ({
 }) => {
   const [mode, setMode] = useState<'view' | 'edit'>('view');
   const { setArtifact } = useArtifact();
+  // Add state for captured reasoning content from annotations
+  const [reasoningContent, setReasoningContent] = useState('');
+
+  // Helper to check if the message has any parts
+  const hasParts = message.parts && message.parts.length > 0;
+  
+  // Safe message parts array
+  const messageParts = message.parts || [];
+
+  // Effect to capture reasoning annotations
+  useEffect(() => {
+    // Check if message has reasoning content in annotations
+    if (message.annotations) {
+      const reasoningChunks = message.annotations.filter(a => 
+        a && typeof a === 'object' && 'type' in a && a.type === 'reasoning-chunk'
+      );
+      
+      if (reasoningChunks.length > 0) {
+        // Get the latest reasoning chunk
+        const latestReasoning = reasoningChunks[reasoningChunks.length - 1];
+        if (latestReasoning && typeof latestReasoning === 'object' && 'value' in latestReasoning) {
+          const reasoningValue = String(latestReasoning.value || '');
+          console.log('[MESSAGE-DEBUG] Found reasoning annotation:', reasoningValue.substring(0, 50) + '...');
+          setReasoningContent(reasoningValue);
+        }
+      }
+    }
+  }, [message.annotations]);
+
+  // Flag for showing reasoning from annotations  
+  const hasReasoningAnnotation = reasoningContent && message.role === 'assistant';
 
   return (
     <AnimatePresence>
@@ -89,15 +126,99 @@ const PurePreviewMessage = ({
               </div>
             )}
 
-            {message.reasoning && (
-              <MessageReasoning
-                isLoading={isLoading}
-                reasoning={message.reasoning}
-              />
+            {/* If using the new parts API */}
+            {hasParts && mode === 'view' && (
+              <div className="flex flex-col gap-2">
+                {/* Display reasoning from annotations if available, but only if there's no reasoning part */}
+                {hasReasoningAnnotation && !messageParts.some(p => p.type === 'reasoning') && (
+                  <ReasoningMessagePart
+                    key={`${message.id}-reasoning-annotation`}
+                    part={{
+                      type: 'reasoning',
+                      reasoning: reasoningContent,
+                      details: [{ type: 'text', text: reasoningContent }]
+                    } as ReasoningPart}
+                    isReasoning={isReasoning || (isLoading && message.role === 'assistant')}
+                  />
+                )}
+
+                {messageParts.map((part, partIndex) => {
+                  if (part.type === 'text') {
+                    return (
+                      <div 
+                        key={`${message.id}-text-${partIndex}`}
+                        className={cn('flex flex-row gap-2 items-start', {
+                          'ml-auto': message.role === 'user',
+                        })}
+                      >
+                        {message.role === 'user' && !isReadonly && (
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Button
+                                variant="ghost"
+                                className="px-2 h-fit rounded-full text-muted-foreground opacity-0 group-hover/message:opacity-100"
+                                onClick={() => {
+                                  setMode('edit');
+                                }}
+                              >
+                                <PencilEditIcon />
+                              </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>Edit message</TooltipContent>
+                          </Tooltip>
+                        )}
+
+                        <div
+                          className={cn('flex flex-col gap-4', {
+                            'bg-primary text-primary-foreground px-3 py-2 rounded-xl':
+                              message.role === 'user',
+                          })}
+                        >
+                          <TextMessagePart text={part.text} />
+                        </div>
+                      </div>
+                    );
+                  }
+
+                  if (part.type === 'reasoning') {
+                    // Cast to the type our component expects
+                    console.log('[REASONING-VIEWER-DEBUG] Rendering reasoning part:', {
+                      isReasoning,
+                      partIndex,
+                      totalParts: messageParts.length,
+                      detailsCount: part.details?.length || 0,
+                    });
+                  
+                    return (
+                      <ReasoningMessagePart
+                        key={`${message.id}-reasoning-${partIndex}`}
+                        part={part as unknown as ReasoningPart}
+                        isReasoning={isReasoning && partIndex === messageParts.length - 1}
+                      />
+                    );
+                  }
+
+                  return null;
+                })}
+              </div>
             )}
 
-            {(message.content || message.reasoning) && mode === 'view' && (
+            {/* Fallback for older messages without parts */}
+            {!hasParts && message.content && mode === 'view' && (
               <div className="flex flex-row gap-2 items-start">
+                {/* Display reasoning from annotations if available */}
+                {hasReasoningAnnotation && (
+                  <ReasoningMessagePart
+                    key={`${message.id}-reasoning-annotation`}
+                    part={{
+                      type: 'reasoning',
+                      reasoning: reasoningContent,
+                      details: [{ type: 'text', text: reasoningContent }]
+                    } as ReasoningPart}
+                    isReasoning={isReasoning || (isLoading && message.role === 'assistant')}
+                  />
+                )}
+
                 {message.role === 'user' && !isReadonly && (
                   <Tooltip>
                     <TooltipTrigger asChild>
@@ -126,15 +247,16 @@ const PurePreviewMessage = ({
               </div>
             )}
 
+            {/* Handle edit mode */}
             {message.content && mode === 'edit' && (
               <div className="flex flex-row gap-2 items-start">
                 <div className="size-8" />
 
                 <MessageEditor
                   key={message.id}
-                  message={message}
+                  message={message as Message}
                   setMode={setMode}
-                  setMessages={setMessages}
+                  setMessages={setMessages as any}
                   reload={reload}
                 />
               </div>
@@ -148,7 +270,7 @@ const PurePreviewMessage = ({
                   // Handle requestTemplateUpdate specially
                   if (toolName === 'requestTemplateUpdate') {
                     if (isLoading) {
-                      return <ThinkingMessage key={toolCallId} message={message} />;
+                      return <ThinkingMessage key={toolCallId} message={message as Message} status="reasoning-start" />;
                     }
 
                     // If we have a result, show the document preview with preserved metadata
@@ -285,7 +407,7 @@ const PurePreviewMessage = ({
               <MessageActions
                 key={`action-${message.id}`}
                 chatId={chatId}
-                message={message}
+                message={message as Message}
                 vote={vote}
                 isLoading={isLoading}
               />
@@ -301,8 +423,7 @@ export const PreviewMessage = memo(
   PurePreviewMessage,
   (prevProps, nextProps) => {
     if (prevProps.isLoading !== nextProps.isLoading) return false;
-    if (prevProps.message.reasoning !== nextProps.message.reasoning)
-      return false;
+    if (prevProps.isReasoning !== nextProps.isReasoning) return false;
     if (prevProps.message.content !== nextProps.message.content) return false;
     if (
       !equal(
@@ -312,16 +433,21 @@ export const PreviewMessage = memo(
     )
       return false;
     if (!equal(prevProps.vote, nextProps.vote)) return false;
+    // Add check for annotations changes
+    if (!equal(prevProps.message.annotations, nextProps.message.annotations)) return false;
 
     return true;
   },
 );
 
-export const ThinkingMessage = ({ message }: { message?: Message }) => {
+export const ThinkingMessage = ({ message, status }: { message?: Message; status?: string }) => {
   const role = 'assistant';
 
   // Simplified loading message logic
   const getLoadingMessage = () => {
+    if (status === 'reasoning-start') {
+      return 'Thinking...';
+    }
     if (message?.toolInvocations?.some(tool => tool.toolName === 'processFinancialData')) {
       return 'Processing Financial Data...';
     }

@@ -20,7 +20,7 @@ async function makeRequest(
 ): Promise<FinancialApiResponse> {
   // Get API URL from environment variables or use default
   const apiUrl = process.env.FINANCIAL_API_URL || 'http://localhost:8000';
-  const endpoint = `${apiUrl}/process_query`;
+  const endpoint = `${apiUrl}/process_instrument_query2`;
   
   const response = await fetch(endpoint, {
     method: 'POST',
@@ -75,6 +75,12 @@ export async function fetchFinancialData(
   
   let lastError: Error | null = null;
   const session_id = sessionId || 'default-session';
+  
+  // Add detailed log of the exact session ID used
+  console.log(`DEBUG API SESSION: Using session_id=${session_id} for financial API call
+- Original sessionId provided: ${sessionId}
+- Final session_id sent to API: ${session_id}
+- Source: ${new Error().stack?.split('\n').slice(1, 3).join('\n')}`);
   
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {

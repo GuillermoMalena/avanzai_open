@@ -27,7 +27,7 @@ export const processUniverseData = ({ session, dataStream, chatId }: ProcessUniv
     description: 'Process universe ranking data for top performing stocks visualization',
     parameters: z.object({
       query: z.string().describe('The complete query asking about top/bottom performing stocks or rankings (e.g., "What are the top 10 performing stocks?", "Show me the worst 5 stocks this month")'),
-      chatId: z.string().optional().describe('Optional chat ID for document association')
+      chatId: z.string().describe('Chat ID for document association')
     }),
     execute: async ({ query, chatId: providedChatId }) => {
       // Use the provided chatId from props if no specific one is provided in the call

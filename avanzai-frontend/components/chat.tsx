@@ -1,7 +1,7 @@
 'use client';
 
-import type { Attachment, Message } from 'ai';
-import { useChat } from 'ai/react';
+import type { Attachment } from 'ai';
+import { useChat } from '@ai-sdk/react';
 import { useState } from 'react';
 import useSWR, { useSWRConfig } from 'swr';
 import { useRouter } from 'next/navigation';
@@ -22,11 +22,17 @@ import { toast } from 'sonner';
 
 interface ChatProps {
   id: string;
-  initialMessages: Array<Message>;
+  initialMessages: Array<any>; // Using any since the types are slightly different between libraries
   selectedChatModel: string;
   selectedVisibilityType: VisibilityType;
   isReadonly: boolean;
 }
+
+// Add a type definition for the Annotation object
+type Annotation = {
+  type: string;
+  value: string | any;
+};
 
 export function Chat({
   id,
@@ -47,13 +53,14 @@ export function Chat({
     setInput,
     append,
     isLoading,
+    status,
     stop,
     reload,
   } = useChat({
     id,
     body: { 
       id, 
-      selectedChatModel: 'chat-model-large',
+      selectedChatModel,
     },
     initialMessages,
     experimental_throttle: 100,
@@ -65,6 +72,56 @@ export function Chat({
     onError: (error) => {
       toast.error('An error occurred, please try again!');
     },
+    // @ts-ignore - experimental feature
+    experimental_onAnnotation: (annotation: Annotation) => {
+      console.log('[CHAT] Received annotation:', annotation);
+      
+      // Handle status annotations to properly track reasoning state
+      if (annotation.type === 'status' && typeof annotation.value === 'string') {
+        console.log('[CHAT] Status annotation:', annotation.value);
+        
+        // Update messages to include status
+        setMessages(currentMessages => {
+          const lastMessage = currentMessages[currentMessages.length - 1];
+          if (!lastMessage) return currentMessages;
+          
+          return currentMessages.map((msg, index) => {
+            if (index === currentMessages.length - 1) {
+              return {
+                ...msg,
+                status: annotation.value
+              };
+            }
+            return msg;
+          });
+        });
+      }
+      
+      if (annotation.type === 'reasoning-chunk') {
+        setMessages(currentMessages => {
+          const lastAssistantIndex = [...currentMessages].reverse()
+            .findIndex(m => m.role === 'assistant');
+          
+          if (lastAssistantIndex === -1) return currentMessages;
+          
+          const actualIndex = currentMessages.length - 1 - lastAssistantIndex;
+          const updatedMessages = [...currentMessages];
+          
+          if (!updatedMessages[actualIndex].annotations) {
+            updatedMessages[actualIndex].annotations = [];
+          }
+          
+          updatedMessages[actualIndex].annotations = [
+            ...updatedMessages[actualIndex].annotations.filter(a => 
+              !(typeof a === 'object' && a !== null && 'type' in a && a.type === 'reasoning-chunk')
+            ),
+            annotation
+          ];
+          
+          return updatedMessages;
+        });
+      }
+    }
   });
 
   const { data: votes } = useSWR<Array<Vote>>(

@@ -1,4 +1,5 @@
-import { ChatRequestOptions, Message } from 'ai';
+import { ChatRequestOptions } from 'ai';
+import { Message } from '@ai-sdk/react';
 import { PreviewMessage, ThinkingMessage } from './message';
 import { useScrollToBottom } from './use-scroll-to-bottom';
 import { SimpleOverview } from './simple-overview';
@@ -23,11 +24,13 @@ interface MessagesProps {
   input: string;
   setInput: (value: string) => void;
   handleSubmit: (event?: { preventDefault?: () => void }) => void;
+  status?: 'error' | 'streaming' | 'submitted' | 'ready' | 'reasoning-start' | 'reasoning-complete';
 }
 
 function PureMessages({
   chatId,
   isLoading,
+  status,
   votes,
   messages,
   setMessages,
@@ -40,6 +43,14 @@ function PureMessages({
 }: MessagesProps) {
   const [messagesContainerRef, messagesEndRef] =
     useScrollToBottom<HTMLDivElement>();
+
+  // Debug rendering state 
+  console.log('[MESSAGES-DEBUG] Rendering messages:', { 
+    count: messages.length,
+    status,
+    isLoading,
+    lastMessageHasParts: messages.length > 0 ? !!messages[messages.length-1].parts : false,
+  });
 
   return (
     <div
@@ -58,26 +69,42 @@ function PureMessages({
         />
       )}
 
-      {messages.map((message, index) => (
-        <PreviewMessage
-          key={message.id}
-          chatId={chatId}
-          message={message}
-          isLoading={isLoading && messages.length - 1 === index}
-          vote={
-            votes
-              ? votes.find((vote) => vote.messageId === message.id)
-              : undefined
-          }
-          setMessages={setMessages}
-          reload={reload}
-          isReadonly={isReadonly}
-        />
-      ))}
+      {messages.map((message, index) => {
+        // Add log to track isReasoning for this message
+        const isMessageReasoning = (status === 'streaming' || status === 'reasoning-start' || status === 'reasoning-complete') && messages.length - 1 === index;
+        
+        if (index === messages.length - 1) {
+          console.log('[MESSAGES-ISREASONING] Current status:', { 
+            status, 
+            isReasoning: isMessageReasoning,
+            messageId: message.id
+          });
+        }
+        
+        return (
+          <PreviewMessage
+            key={message.id}
+            chatId={chatId}
+            message={message}
+            isLoading={isLoading && messages.length - 1 === index}
+            isReasoning={isMessageReasoning}
+            vote={
+              votes
+                ? votes.find((vote) => vote.messageId === message.id)
+                : undefined
+            }
+            setMessages={setMessages}
+            reload={reload}
+            isReadonly={isReadonly}
+          />
+        );
+      })}
 
-      {isLoading &&
+      {(isLoading || status === 'reasoning-start') &&
         messages.length > 0 &&
-        messages[messages.length - 1].role === 'user' && <ThinkingMessage />}
+        messages[messages.length - 1].role === 'user' && (
+          <ThinkingMessage status={status} />
+        )}
 
       <div
         ref={messagesEndRef}
@@ -90,6 +117,7 @@ function PureMessages({
 export const Messages = memo(PureMessages, (prevProps, nextProps) => {
   if (prevProps.isArtifactVisible !== nextProps.isArtifactVisible) return false;
   if (prevProps.isLoading !== nextProps.isLoading) return false;
+  if (prevProps.status !== nextProps.status) return false;
   if (prevProps.isReadonly !== nextProps.isReadonly) return false;
   if (!equal(prevProps.messages, nextProps.messages)) return false;
   if (!equal(prevProps.votes, nextProps.votes)) return false;

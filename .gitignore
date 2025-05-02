@@ -7,6 +7,9 @@
 *.txt
 *.ipynb
 .cursor/rules/
+/avanzai-backend/imgs/
+*.md
+!README.md
 
 # Ignore local dev notebooks
 **/dev_notebooks/
@@ -43,10 +46,11 @@ avanzai-backend/**/*_test.py
 avanzai-backend/**/test_*.py
 avanzai-backend/**/dev_*.py
 avanzai-backend/sessions/ 
+/avanzai-backend/example_notebooks/sessions
 
-
-# But allow .ipynb files in example_notebooks
-!example_notebooks/*.ipynb 
+# For example_notebooks, ignore everything except .ipynb files
+/avanzai-backend/example_notebooks/*
+!/avanzai-backend/example_notebooks/*.ipynb
 
 # -----------------------
 # VSCode and IDEs

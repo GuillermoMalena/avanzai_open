@@ -1,7 +1,1 @@
-avanzai-backend/sessions/
-
-# Ignore all .ipynb files
-*.ipynb
-
-# But allow .ipynb files in example_notebooks
-!example_notebooks/*.ipynb 
+avanzai-backend/sessions/ 

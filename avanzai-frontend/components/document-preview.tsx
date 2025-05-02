@@ -480,13 +480,14 @@ const DocumentContent = ({ document, isReadonly }: { document: Document; isReado
     const isValidMetadata = metadata && 
       ((metadata.status === 'error' && metadata.error) || // Either it's an error with a message
        (metadata.status === 'ready' && // Or it's ready
-        (metadata.tickerData || metadata.timeSeriesData || metadata.universeData))); // And has some data
+        (metadata.tickerData || metadata.timeSeriesData || metadata.universeData || metadata.fundamentalData))); // And has some data
 
     if (!isValidMetadata) {
       console.error('[DEBUG-BROWSER] Invalid financial metadata structure:', {
         hasStatus: 'status' in metadata,
         hasTickerData: 'tickerData' in metadata && typeof metadata.tickerData === 'object',
         hasTimeSeriesData: 'timeSeriesData' in metadata && Array.isArray(metadata.timeSeriesData),
+        hasFundamentalData: 'fundamentalData' in metadata && typeof metadata.fundamentalData === 'object',
         hasTickers: 'tickers' in metadata && Array.isArray(metadata.tickers),
         tickerCount: metadata.tickers?.length,
         metadata
@@ -594,6 +595,10 @@ const DocumentContent = ({ document, isReadonly }: { document: Document; isReado
                 </svg>
                 {parsedMetadata.universeData && parsedMetadata.universeData.metadata ? (
                   <span className="text-sm font-medium">{parsedMetadata.universeData.metadata.metric || 'Universe'} Ranking</span>
+                ) : parsedMetadata.fundamentalData && parsedMetadata.selectedFundamentalMetric ? (
+                  <span className="text-sm font-medium">
+                    {parsedMetadata.tickers?.join(', ') || 'Financial'} {parsedMetadata.selectedFundamentalMetric.split('_').map((word: string) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
+                  </span>
                 ) : (
                   <span className="text-sm font-medium">{parsedMetadata.tickers?.join(', ') || 'Financial'} Price History</span>
                 )}
@@ -658,13 +663,80 @@ const DocumentContent = ({ document, isReadonly }: { document: Document; isReado
                       </BarChart>
                     </ResponsiveContainer>
                   );
+                } else if (parsedMetadata.fundamentalData && 
+                          parsedMetadata.fundamentalData.data && 
+                          Array.isArray(parsedMetadata.fundamentalData.data) && 
+                          parsedMetadata.fundamentalData.data.length > 0 &&
+                          parsedMetadata.selectedFundamentalMetric) {
+                  
+                  console.log('[DEBUG-BROWSER] About to render fundamental bar chart:', {
+                    dataLength: parsedMetadata.fundamentalData.data.length,
+                    firstItem: parsedMetadata.fundamentalData.data[0],
+                    metric: parsedMetadata.selectedFundamentalMetric
+                  });
+                  
+                  // Get unique tickers and prepare preview data
+                  const tickers = Array.from(new Set(parsedMetadata.fundamentalData.data.map((item: any) => item.ticker)));
+                  const metric = parsedMetadata.selectedFundamentalMetric;
+                  
+                  // Take a sample of the data for the preview (most recent quarters)
+                  const previewData = [...parsedMetadata.fundamentalData.data]
+                    .sort((a: any, b: any) => b.fiscal_period.localeCompare(a.fiscal_period))
+                    .slice(0, 8);
+                  
+                  // Group by fiscal period
+                  const groupedData = previewData.reduce((acc: Record<string, any>, item: any) => {
+                    if (!acc[item.fiscal_period]) {
+                      acc[item.fiscal_period] = {
+                        fiscalPeriod: item.fiscal_period,
+                        reportPeriod: item.report_period
+                      };
+                    }
+                    acc[item.fiscal_period][item.ticker] = item[metric] as number;
+                    return acc;
+                  }, {} as Record<string, any>);
+                  
+                  // Convert to array and take 5 most recent quarters
+                  const chartData = Object.values(groupedData)
+                    .sort((a: any, b: any) => (b.fiscalPeriod as string).localeCompare(a.fiscalPeriod as string))
+                    .slice(0, 5)
+                    .reverse(); // Put in chronological order
+                  
+                  return (
+                    <ResponsiveContainer width="100%" height={100}>
+                      <BarChart
+                        data={chartData}
+                        margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
+                      >
+                        <XAxis 
+                          dataKey="fiscalPeriod"
+                          tick={{ fontSize: 8, fill: 'rgba(255, 255, 255, 0.65)' }}
+                          tickFormatter={(value: string) => value.split('-')[1]} // Show only quarter
+                        />
+                        <YAxis hide />
+                        {(tickers as string[]).slice(0, 2).map((ticker: string, index: number) => (
+                          <Bar 
+                            key={ticker}
+                            dataKey={ticker}
+                            name={ticker}
+                            fill={["#3b82f6", "#ef4444"][index % 2]}
+                            radius={[4, 4, 0, 0]}
+                          />
+                        ))}
+                      </BarChart>
+                    </ResponsiveContainer>
+                  );
                 } else {
                   // Debug log for failed conditions
-                  console.log('[DEBUG-BROWSER] Universe data conditions not met:', {
+                  console.log('[DEBUG-BROWSER] Universe/fundamental data conditions not met:', {
                     hasUniverseData: !!parsedMetadata.universeData,
-                    hasData: parsedMetadata.universeData?.data != null,
-                    isArray: parsedMetadata.universeData?.data ? Array.isArray(parsedMetadata.universeData.data) : false,
-                    length: parsedMetadata.universeData?.data?.length || 0
+                    hasUniverseConditions: parsedMetadata.universeData?.data ? 
+                      Array.isArray(parsedMetadata.universeData.data) && parsedMetadata.universeData.data.length > 0 : false,
+                    hasFundamentalData: !!parsedMetadata.fundamentalData,
+                    hasFundamentalConditions: parsedMetadata.fundamentalData?.data ? 
+                      Array.isArray(parsedMetadata.fundamentalData.data) && 
+                      parsedMetadata.fundamentalData.data.length > 0 && 
+                      !!parsedMetadata.selectedFundamentalMetric : false
                   });
                   
                   // Return time series chart
@@ -712,6 +784,12 @@ const DocumentContent = ({ document, isReadonly }: { document: Document; isReado
                 parsedMetadata.universeData.data.length > 0 ? (
                 // Universe data footer
                 <div className="w-full text-center">Click to view complete ranking</div>
+              ) : parsedMetadata.fundamentalData && 
+                  parsedMetadata.fundamentalData.data && 
+                  Array.isArray(parsedMetadata.fundamentalData.data) && 
+                  parsedMetadata.fundamentalData.data.length > 0 ? (
+                // Fundamental data footer
+                <div className="w-full text-center">Click to view full quarterly data</div>
               ) : (
                 // Time series footer (existing code)
                 parsedMetadata.tickers?.[0] && parsedMetadata.tickerData?.[parsedMetadata.tickers[0]]?.length > 0 && (

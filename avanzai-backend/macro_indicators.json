@@ -1,0 +1,108 @@
+{
+    "indicators": [
+        {
+            "country": "us",
+            "description": "10-Year Treasury Constant Maturity Minus 2-Year Treasury Constant Maturity",
+            "ticker": "T10Y2Y",
+            "frequency": "D",
+            "units": "percentage",
+            "default_transform": "level"
+        },
+        {
+            "country": "us",
+            "description": "30-Year Fixed Rate Mortgage Average in the United States",
+            "ticker": "MORTGAGE30US",
+            "frequency": "W",
+            "units": "percentage",
+            "default_transform": "level"
+        },
+        {
+            "country": "us",
+            "description": "Federal Funds Effective Rate",
+            "ticker": "FEDFUNDS",
+            "frequency": "M",
+            "units": "percentage",
+            "default_transform": "level"
+        },
+        {
+            "country": "us",
+            "description": "M2 - money stock",
+            "ticker": "M2SL",
+            "frequency": "M",
+            "units": "billions of dollars",
+            "default_transform": "yoy"
+        },
+        {
+            "country": "us",
+            "description": "Overnight Reverse Repurchase Agreements: Treasury Securities Sold by the Federal Reserve in the Temporary Open Market Operations",
+            "ticker": "RRPONTSYD",
+            "frequency": "D",
+            "units": "billions of dollars",
+            "default_transform": "level"
+        },
+        {
+            "country": "us",
+            "description": "Consumer Price Index for All Urban Consumers: All Items in U.S. City Average",
+            "ticker": "CPIAUCSL",
+            "frequency": "M",
+            "units": "index 1982-1984=100",
+            "default_transform": "yoy"
+        },
+        {
+            "country": "us",
+            "description": "Unemployment Rate",
+            "ticker": "UNRATE",
+            "frequency": "M",
+            "units": "percentage",
+            "default_transform": "level"
+        },
+        {
+            "country": "us",
+            "description": "Gross Domestic Product",
+            "ticker": "GDP",
+            "frequency": "Q",
+            "units": "billions of dollars",
+            "default_transform": "qoq"
+        },
+        {
+            "country": "us",
+            "description": "Job Openings: Total Nonfarm",
+            "ticker": "JTSJOL",
+            "frequency": "M",
+            "units": "thousands of openings",
+            "default_transform": "yoy"
+        },
+        {
+            "country": "us",
+            "description": "Personal Consumption Expenditure - PSE",
+            "ticker": "PCE",
+            "frequency": "M",
+            "units": "billions of dollars",
+            "default_transform": "yoy"
+        },
+        {
+            "country": "us",
+            "description": "Initial Jobless Claims",
+            "ticker": "ICSA",
+            "frequency": "W",
+            "units": "number of claims",
+            "default_transform": "level"
+        },
+        {
+            "country": "us",
+            "description": "University of Michigan Consumer Sentiment",
+            "ticker": "UMCSENT",
+            "frequency": "M",
+            "units": "index 1966=100",
+            "default_transform": "level"
+        },
+        {
+            "country": "us",
+            "description": "Sahm Recession Indicator",
+            "ticker": "SAHMREALTIME",
+            "frequency": "M",
+            "units": "percentage",
+            "default_transform": "level"
+        }
+    ]
+}

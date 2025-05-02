@@ -12,7 +12,8 @@ import {
   FinancialMetadata, 
   ProcessedTimeSeriesData,
   ParquetDataResponse,
-  UniverseDataResponse
+  UniverseDataResponse,
+  FundamentalDataResponse
 } from '@/lib/models/financial-data';
 
 interface ProcessFinancialDataProps {
@@ -66,8 +67,98 @@ export const processFinancialData = ({ session, dataStream, chatId }: ProcessFin
         const userId = session.user?.id || 'anonymous';
         const sessionId = session.user?.id || id; // Use user ID if available, otherwise use document ID
 
+        // Generate a RFC4122-compliant UUID
+        const generateConsistentUUID = (baseId: string) => {
+          // Create namespace-based deterministic UUID (v5-like)
+          const namespace = '6ba7b810-9dad-11d1-80b4-00c04fd430c8'; // Standard DNS namespace UUID
+          const input = baseId || 'default-user';
+          
+          // Convert namespace and input to byte arrays
+          const hexToBytes = (hex: string): number[] => {
+            const bytes = [];
+            for (let i = 0; i < hex.length; i += 2) {
+              bytes.push(parseInt(hex.substr(i, 2), 16));
+            }
+            return bytes;
+          };
+          
+          const namespaceBytes = hexToBytes(namespace.replace(/-/g, ''));
+          const inputBytes = [];
+          for (let i = 0; i < input.length; i++) {
+            inputBytes.push(input.charCodeAt(i));
+          }
+          
+          // Simple hashing similar to SHA-1 for demonstration
+          const hash = (data: number[]): number[] => {
+            let h0 = 0x67452301;
+            let h1 = 0xEFCDAB89;
+            let h2 = 0x98BADCFE;
+            let h3 = 0x10325476;
+            let h4 = 0xC3D2E1F0;
+            
+            // Very simplified hash function
+            for (let i = 0; i < data.length; i++) {
+              h0 = ((h0 << 5) | (h0 >>> 27)) + data[i] + h4 + ((h1 & h2) | (~h1 & h3)) + 0x5A827999;
+              h1 = ((h1 << 30) | (h1 >>> 2));
+              [h0, h1, h2, h3, h4] = [h4, h0, h1, h2, h3];
+            }
+            
+            // Convert to bytes
+            const result: number[] = [];
+            [h0, h1, h2, h3, h4].forEach(h => {
+              result.push((h >>> 24) & 0xFF);
+              result.push((h >>> 16) & 0xFF);
+              result.push((h >>> 8) & 0xFF);
+              result.push(h & 0xFF);
+            });
+            
+            return result;
+          };
+          
+          // Combine namespace and input for hashing
+          const combinedData = [...namespaceBytes, ...inputBytes];
+          const hashBytes = hash(combinedData);
+          
+          // Format as UUID
+          // Set version (4 bits) to 5 (for namespaced UUID)
+          hashBytes[6] = (hashBytes[6] & 0x0F) | 0x50;
+          // Set variant (2 bits) to RFC4122: 0b10xx
+          hashBytes[8] = (hashBytes[8] & 0x3F) | 0x80;
+          
+          // Format as string
+          const byteToHex = (byte: number): string => {
+            return ('0' + byte.toString(16)).slice(-2);
+          };
+          
+          return [
+            hashBytes.slice(0, 4).map(byteToHex).join(''),
+            hashBytes.slice(4, 6).map(byteToHex).join(''),
+            hashBytes.slice(6, 8).map(byteToHex).join(''),
+            hashBytes.slice(8, 10).map(byteToHex).join(''),
+            hashBytes.slice(10, 16).map(byteToHex).join('')
+          ].join('-');
+        };
+        
+        // Use the consistent UUID for API calls
+        const apiSessionId = generateConsistentUUID(sessionId);
+
+        // Add detailed logging about the session and sessionId
+        console.log(`DEBUG SESSION INFO:
+- Session user ID: ${session.user?.id}
+- Chat ID: ${id}
+- Original sessionId: ${sessionId}
+- Generated API sessionId: ${apiSessionId}
+- Session structure: ${JSON.stringify({
+  userId: session.user?.id,
+  email: session.user?.email,
+  name: session.user?.name,
+  expires: session.expires,
+  sessionType: session.user?.id === sessionId ? 'Using user ID' : 'Fallback to chat ID'
+}, null, 2)}
+`);
+
         try {
-          const apiResponse = await fetchFinancialData(query, timeRange, sessionId, {
+          const apiResponse = await fetchFinancialData(query, timeRange, apiSessionId, {
             maxRetries: 3,
             timeoutMs: 30000, // 30 seconds
             retryDelayMs: 2000 // Start with 2 second delay
@@ -118,6 +209,26 @@ export const processFinancialData = ({ session, dataStream, chatId }: ProcessFin
           // New API format (with tickers, session_id, and presigned_url)
           if (apiResponse.tickers && apiResponse.result_path && apiResponse.presigned_url) {
             console.log(`✅ Detected new API format with tickers: [${apiResponse.tickers.join(', ')}]`);
+            
+            // Check if it's a fundamental data query by peeking at the data
+            try {
+              // Fetch initial data to determine the format
+              const responseData = await fetch(apiResponse.presigned_url);
+              const jsonData = await responseData.json();
+              
+              // Check if it looks like fundamental data (has fiscal_period or report_period fields)
+              if (jsonData.data?.length > 0 && 
+                  (jsonData.data[0]?.fiscal_period !== undefined || 
+                   jsonData.data[0]?.report_period !== undefined)) {
+                
+                console.log(`✅ Detected fundamental data format`);
+                return await handleFundamentalDataFormat(id, apiResponse);
+              }
+            } catch (error) {
+              console.log(`❌ Error while checking data format: ${error}`);
+              // Continue with standard processing if format check fails
+            }
+            
             return await handleNewApiFormat(id, apiResponse);
           } 
           // Legacy API format (with query.symbol and data)
@@ -457,6 +568,129 @@ export const processFinancialData = ({ session, dataStream, chatId }: ProcessFin
           }
         };
       }
+
+      // Add a new handler for fundamental data
+      async function handleFundamentalDataFormat(id: string, apiResponse: any) {
+        // Create processing metadata
+        const processingMetadata: FinancialMetadata = {
+          status: 'processing',
+          tickers: apiResponse.tickers,
+          sessionId: apiResponse.session_id,
+          resultPath: apiResponse.result_path,
+          presignedUrl: apiResponse.presigned_url,
+          hasFundamentalData: true
+        };
+        
+        // Save document record with processing metadata
+        console.log(`💾 Saving initial document for fundamental data: id=${id}, tickers=${apiResponse.tickers.join(', ')}`);
+        await saveDocument({
+          chatId: id,
+          id: id,
+          title: `Fundamental Data: ${apiResponse.tickers.join(', ')}`,
+          kind: 'financial',
+          userId: session.user?.id || 'anonymous',
+          content: JSON.stringify(processingMetadata),
+        });
+        
+        // Update status with processing info
+        dataStream.writeData({
+          type: 'financial-tool-status',
+          content: {
+            tool: 'processFinancialData',
+            status: 'processing',
+            message: 'Fetching fundamental data...',
+            tickers: apiResponse.tickers,
+            sessionId: apiResponse.session_id,
+            resultPath: apiResponse.result_path,
+            presignedUrl: apiResponse.presigned_url,
+            hasFundamentalData: true
+          }
+        });
+        
+        try {
+          // Fetch and parse the fundamental data
+          const fundamentalData = await handleFundamentalData(apiResponse.presigned_url);
+          
+          // Identify available metrics from the first data point
+          const firstDataPoint = fundamentalData.data[0];
+          const availableMetrics = Object.keys(firstDataPoint)
+            .filter(key => !['ticker', 'report_period', 'fiscal_period'].includes(key));
+          
+          console.log(`📊 Fundamental data contains metrics: [${availableMetrics.join(', ')}]`);
+          
+          // Default to the first metric if multiple are available
+          const defaultMetric = availableMetrics.length > 0 ? availableMetrics[0] : '';
+          
+          // Get unique tickers
+          const uniqueTickers = Array.from(new Set(fundamentalData.data.map(item => item.ticker)));
+          
+          // Create final metadata with ready state
+          const finalMetadata: FinancialMetadata = {
+            status: 'ready',
+            tickers: uniqueTickers,
+            sessionId: apiResponse.session_id,
+            resultPath: apiResponse.result_path,
+            presignedUrl: apiResponse.presigned_url,
+            hasFundamentalData: true,
+            fundamentalData: fundamentalData,
+            selectedFundamentalMetric: defaultMetric,
+            visualizationReady: true
+          };
+          
+          // Update document with final metadata
+          await saveDocument({
+            chatId: id,
+            id: id,
+            title: `Fundamental Data: ${uniqueTickers.join(', ')}`,
+            kind: 'financial',
+            userId: session.user?.id || 'anonymous',
+            content: JSON.stringify(finalMetadata),
+          });
+          
+          // Send the fundamental data to the client
+          // Create a simplified version of the data that can be safely serialized
+          const safeData = {
+            tool: 'processFinancialData',
+            status: 'ready',
+            tickers: uniqueTickers,
+            sessionId: apiResponse.session_id,
+            resultPath: apiResponse.result_path,
+            presignedUrl: apiResponse.presigned_url,
+            hasFundamentalData: true,
+            visualizationReady: true,
+            selectedFundamentalMetric: defaultMetric,
+            // Include just the necessary parts of fundamental data
+            fundamentalData: {
+              data: fundamentalData.data.map(row => ({...row})),
+              metadata: {...fundamentalData.metadata}
+            }
+          };
+
+          dataStream.writeData({
+            type: 'financial-tool-status',
+            content: safeData
+          });
+          
+          // Send finish signal
+          dataStream.writeData({ type: 'finish', content: '' });
+          
+          return {
+            kind: 'financial',
+            chatId: id,
+            success: true,
+            message: `Successfully processed fundamental data for tickers: ${uniqueTickers.join(', ')}`,
+            data: {
+              tickers: uniqueTickers,
+              fundamentalData: fundamentalData,
+              metrics: availableMetrics,
+              metadata: finalMetadata
+            }
+          };
+        } catch (error: any) {
+          console.error(`❌ Error fetching/processing fundamental data:`, error);
+          throw error;
+        }
+      }
     }
   });
 
@@ -472,4 +706,34 @@ export async function handleUniverseQuery(presignedUrl: string): Promise<Univers
   const data: UniverseDataResponse = await response.json();
   // Optionally: validate structure here
   return data;
+}
+
+/**
+ * Handles fetching and parsing fundamental financial data from a presigned URL.
+ * Returns a FundamentalDataResponse object with the parsed data.
+ */
+export async function handleFundamentalData(presignedUrl: string): Promise<FundamentalDataResponse> {
+  console.log(`📊 Fetching fundamental data from presigned URL`);
+  
+  const response = await fetch(presignedUrl);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch fundamental data: ${response.statusText}`);
+  }
+  
+  const data = await response.json();
+  
+  // Validate the data structure
+  if (!data.data || !Array.isArray(data.data) || !data.metadata) {
+    throw new Error('Invalid fundamental data format');
+  }
+  
+  // Ensure we have the expected fields in the data
+  if (data.data.length > 0) {
+    const firstRow = data.data[0];
+    if (!firstRow.ticker || !firstRow.report_period || !firstRow.fiscal_period) {
+      throw new Error('Missing required fields in fundamental data');
+    }
+  }
+  
+  return data as FundamentalDataResponse;
 } 

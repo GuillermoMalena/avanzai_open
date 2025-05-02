@@ -57,6 +57,36 @@ export interface ParquetDataResponse {
 }
 
 /**
+ * Fundamental data response format for quarterly financial data
+ */
+export interface FundamentalDataResponse {
+  data: FundamentalDataRow[];
+  metadata: FundamentalDataMetadata;
+}
+
+/**
+ * Individual fundamental data row with dynamic metrics
+ */
+export interface FundamentalDataRow {
+  ticker: string;
+  report_period: string;
+  fiscal_period: string;
+  [metric: string]: string | number; // Dynamic field for any fundamental metric
+}
+
+/**
+ * Metadata for fundamental data responses
+ */
+export interface FundamentalDataMetadata {
+  generated_at: string;
+  row_count: number;
+  columns: string[]; // This includes all available metrics
+  start_date: string;
+  end_date: string;
+  session_id: string;
+}
+
+/**
  * Financial artifact metadata state
  */
 export interface FinancialMetadata {
@@ -81,6 +111,9 @@ export interface FinancialMetadata {
     [ticker: string]: number | string;
   }>;
   universeData?: UniverseDataResponse; // New field for universe query results
+  fundamentalData?: FundamentalDataResponse; // New field for fundamental financial data
+  hasFundamentalData?: boolean; // Flag to indicate fundamental data is available
+  selectedFundamentalMetric?: string; // Currently selected metric to visualize
 }
 
 /**

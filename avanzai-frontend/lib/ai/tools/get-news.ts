@@ -14,6 +14,23 @@ interface GetNewsProps {
 }
 
 /**
+ * Helper function to build a search query from the parameters
+ */
+function buildSearchQuery(query: string, timeframe?: string, location?: string): string {
+  let searchQuery = query;
+  
+  if (timeframe) {
+    searchQuery += ` from ${timeframe}`;
+  }
+  
+  if (location) {
+    searchQuery += ` in ${location}`;
+  }
+  
+  return searchQuery;
+}
+
+/**
  * Tool for getting news from the web using web search
  */
 export const getNews = ({ session, dataStream, chatId }: GetNewsProps) =>
@@ -21,8 +38,8 @@ export const getNews = ({ session, dataStream, chatId }: GetNewsProps) =>
     description: 'Fetch recent news about a topic using web search',
     parameters: z.object({
       query: z.string().describe('News search query (e.g., "Tech news", "San Francisco events", "World politics latest")'),
-      timeframe: z.string().optional().describe('Optional timeframe for news (e.g., "today", "this week", "last month")'),
-      location: z.string().optional().describe('Optional geographic focus of news (e.g., "US", "Europe", "global")')
+      timeframe: z.string().describe('Timeframe for news (e.g., "today", "this week", "last month")'),
+      location: z.string().describe('Geographic focus of news (e.g., "US", "Europe", "global")')
     }),
     experimental_toToolResultContent: (result: any) => {
       console.log(`[NEWS-TRANSFORM] Converting tool result to content for AI model`);
@@ -124,7 +141,7 @@ export const getNews = ({ session, dataStream, chatId }: GetNewsProps) =>
         return resultToReturn;
         
       } catch (error: any) {
-        console.error(`❌ Error fetching news:`, error);
+        console.error(`❌ Error fetching news: ${error.message}`);
         
         dataStream.writeData({
           type: 'tool-loading',
@@ -141,20 +158,3 @@ export const getNews = ({ session, dataStream, chatId }: GetNewsProps) =>
       }
     }
   });
-
-/**
- * Helper function to build a search query from the parameters
- */
-function buildSearchQuery(query: string, timeframe?: string, location?: string): string {
-  let searchQuery = query;
-  
-  if (timeframe) {
-    searchQuery += ` from ${timeframe}`;
-  }
-  
-  if (location) {
-    searchQuery += ` in ${location}`;
-  }
-  
-  return searchQuery;
-} 

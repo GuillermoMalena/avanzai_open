@@ -1,0 +1,1153 @@
+ticker,name,asset_class,last_update
+EURUSD=X,EUR/USD,fx_cross,2025-01-25 12:46:59.125157
+JPYUSD=X,JPY/USD,fx_cross,2025-01-25 12:46:59.125182
+GBPUSD=X,GBP/USD,fx_cross,2025-01-25 12:46:59.125183
+CADUSD=X,CAD/USD,fx_cross,2025-01-25 12:46:59.125185
+CHFUSD=X,CHF/USD,fx_cross,2025-01-25 12:46:59.125187
+AUDUSD=X,AUD/USD,fx_cross,2025-01-25 12:46:59.125189
+NZDUSD=X,NZD/USD,fx_cross,2025-01-25 12:46:59.125190
+SEKUSD=X,SEK/USD,fx_cross,2025-01-25 12:46:59.125192
+NOKUSD=X,NOK/USD,fx_cross,2025-01-25 12:46:59.125195
+DX-Y.NYB,US Dollar Index,fx_cross,2025-01-25 12:46:59.125198
+BTC-USD,Bitcoin USD,crypto_cross,2025-01-25 12:46:59.125200
+ETH-USD,Ethereum USD,crypto_cross,2025-01-25 12:46:59.125207
+XRP-USD,XRP USD,crypto_cross,2025-01-25 12:46:59.125210
+SOL-USD,Solana USD,crypto_cross,2025-01-25 12:46:59.125214
+GC=F,Gold Futures,commodity_future,2025-01-25 12:47:00.090040
+CL=F,Oil Futures,commodity_future,2025-01-25 12:47:00.154323
+HG=F,Copper Futures,commodity_future,2025-01-25 12:47:00.311670
+NG=F,Natural Gas Futures,commodity_future,2025-01-25 12:47:00.384253
+^GSPC,S&P 500,index,2025-01-25 12:47:00.384293
+^DJI,Dow Jones Industrial Average,index,2025-01-25 12:47:00.384301
+^IXIC,NASDAQ Composite,index,2025-01-25 12:47:00.384307
+^RUT,Russell 2000,index,2025-01-25 12:47:00.384312
+^VIX,CBOE Volatility Index,index,2025-01-25 12:47:00.384317
+^N225,Nikkei 225,index,2025-01-25 12:47:00.384322
+^RUI,Russell 1000,index,2025-01-25 12:47:00.384327
+^FTSE,FTSE 100,index,2025-01-25 12:47:00.384333
+^GDAXI,DAX ,index,2025-01-25 12:47:00.384337
+^FCHI,CAC 40,index,2025-01-25 12:47:00.384342
+^HSI,HANG SENG INDEX,index,2025-01-25 12:47:00.384377
+^NSEI,NIFTY 50,index,2025-01-25 12:47:00.384387
+^BSESN,S&P BSE SENSEX,index,2025-01-25 12:47:00.384393
+^SENSEX,,index,2025-01-25 12:47:00.992442
+TXG,10x Genomics Inc,equity,2025-01-25 12:47:00.993103
+MMM,3M Company,equity,2025-01-25 12:47:00.993162
+AOS,A. O. Smith Corporation,equity,2025-01-25 12:47:00.993167
+AAON,AAON Inc.,equity,2025-01-25 12:47:00.993170
+ABT,Abbott Laboratories,equity,2025-01-25 12:47:00.993173
+ABBV,AbbVie Inc,equity,2025-01-25 12:47:00.993175
+ACHC,"Acadia Healthcare Company, Inc.",equity,2025-01-25 12:47:00.993177
+ACN,Accenture plc,equity,2025-01-25 12:47:00.993180
+AYI,"Acuity Brands, Inc.",equity,2025-01-25 12:47:00.993220
+ADBE,Adobe Inc.,equity,2025-01-25 12:47:00.993225
+ADT,ADT Inc.,equity,2025-01-25 12:47:00.993229
+AAP,"Advance Auto Parts, Inc.",equity,2025-01-25 12:47:00.993231
+WMS,"Advanced Drainage Systems, Inc.",equity,2025-01-25 12:47:00.993233
+AMD,"Advanced Micro Devices, Inc.",equity,2025-01-25 12:47:00.993236
+ACM,AECOM,equity,2025-01-25 12:47:00.993238
+AES,The AES Corporation,equity,2025-01-25 12:47:00.993241
+AMG,"Affiliated Managers Group, Inc.",equity,2025-01-25 12:47:00.993299
+AFRM,"Affirm Holdings, Inc.",equity,2025-01-25 12:47:00.993308
+AFL,Aflac Incorporated,equity,2025-01-25 12:47:00.993315
+AGCO,AGCO Corporation,equity,2025-01-25 12:47:00.993321
+A,"Agilent Technologies, Inc.",equity,2025-01-25 12:47:00.993327
+ADC,Agree Realty Corporation,equity,2025-01-25 12:47:00.993334
+AGNC,AGNC Investment Corp.,equity,2025-01-25 12:47:00.993339
+AL,Air Lease Corporation,equity,2025-01-25 12:47:00.993362
+APD,"Air Products and Chemicals, Inc.",equity,2025-01-25 12:47:00.993379
+ABNB,"Airbnb, Inc.",equity,2025-01-25 12:47:00.993383
+AKAM,"Akamai Technologies, Inc.",equity,2025-01-25 12:47:00.993385
+ALK,"Alaska Air Group, Inc.",equity,2025-01-25 12:47:00.993388
+ALB,Albemarle Corporation,equity,2025-01-25 12:47:00.993390
+ACI,"Albertsons Companies, Inc.",equity,2025-01-25 12:47:00.993393
+AA,Alcoa Corporation,equity,2025-01-25 12:47:00.993395
+ARE,"Alexandria Real Estate Equities, Inc.",equity,2025-01-25 12:47:00.993398
+ALGN,"Align Technology, Inc.",equity,2025-01-25 12:47:00.993400
+ALLE,Allegion plc,equity,2025-01-25 12:47:00.993403
+ALGM,"Allegro MicroSystems, Inc.",equity,2025-01-25 12:47:00.993406
+LNT,Alliant Energy Corporation,equity,2025-01-25 12:47:00.993408
+ALSN,"Allison Transmission Holdings, Inc.",equity,2025-01-25 12:47:00.993411
+ALL,The Allstate Corporation,equity,2025-01-25 12:47:00.993414
+ALLY,Ally Financial Inc.,equity,2025-01-25 12:47:00.993430
+ALNY,"Alnylam Pharmaceuticals, Inc.",equity,2025-01-25 12:47:00.993434
+GOOGL,Alphabet Inc.,equity,2025-01-25 12:47:00.993437
+GOOG,Alphabet Inc.,equity,2025-01-25 12:47:00.993439
+MO,"Altria Group, Inc.",equity,2025-01-25 12:47:00.993460
+AMZN,"Amazon.com, Inc.",equity,2025-01-25 12:47:00.993464
+AMCR,Amcor plc,equity,2025-01-25 12:47:00.993467
+DOX,Amdocs Limited,equity,2025-01-25 12:47:00.993471
+AMED,"Amedisys, Inc.",equity,2025-01-25 12:47:00.993474
+AMTM,"Amentum Holdings, Inc.",equity,2025-01-25 12:47:00.993477
+AS,"Amer Sports, Inc.",equity,2025-01-25 12:47:00.993479
+AEE,Ameren Corporation,equity,2025-01-25 12:47:00.993511
+AAL,American Airlines Group Inc.,equity,2025-01-25 12:47:00.993541
+AEP,"American Electric Power Company, Inc.",equity,2025-01-25 12:47:00.993551
+AXP,American Express Company,equity,2025-01-25 12:47:00.993559
+AFG,"American Financial Group, Inc.",equity,2025-01-25 12:47:00.993565
+AMH,American Homes 4 Rent,equity,2025-01-25 12:47:00.993572
+AIG,"American International Group, Inc.",equity,2025-01-25 12:47:00.993579
+AMT,American Tower Corporation,equity,2025-01-25 12:47:00.993585
+AWK,"American Water Works Company, Inc.",equity,2025-01-25 12:47:00.993592
+COLD,"Americold Realty Trust, Inc.",equity,2025-01-25 12:47:00.993599
+AMP,"Ameriprise Financial, Inc.",equity,2025-01-25 12:47:00.993605
+AME,"AMETEK, Inc.",equity,2025-01-25 12:47:00.993612
+AMGN,Amgen Inc.,equity,2025-01-25 12:47:00.993621
+AMKR,"Amkor Technology, Inc.",equity,2025-01-25 12:47:00.993628
+APH,Amphenol Corporation,equity,2025-01-25 12:47:00.993635
+ADI,"Analog Devices, Inc.",equity,2025-01-25 12:47:00.993642
+NLY,"Annaly Capital Management, Inc.",equity,2025-01-25 12:47:00.993649
+ANSS,"ANSYS, Inc.",equity,2025-01-25 12:47:00.993656
+AM,Antero Midstream Corporation,equity,2025-01-25 12:47:00.993680
+AR,Antero Resources Corporation,equity,2025-01-25 12:47:00.993689
+AON,Aon plc,equity,2025-01-25 12:47:00.993695
+APA,APA Corporation,equity,2025-01-25 12:47:00.993720
+APG,APi Group Corporation,equity,2025-01-25 12:47:00.993724
+APLS,"Apellis Pharmaceuticals, Inc.",equity,2025-01-25 12:47:00.993727
+APO,"Apollo Global Management, Inc.",equity,2025-01-25 12:47:00.993730
+APPF,"AppFolio, Inc.",equity,2025-01-25 12:47:00.993734
+AAPL,Apple Inc.,equity,2025-01-25 12:47:00.993737
+AMAT,"Applied Materials, Inc.",equity,2025-01-25 12:47:00.993740
+APP,AppLovin Corporation,equity,2025-01-25 12:47:00.993744
+ATR,"AptarGroup, Inc.",equity,2025-01-25 12:47:00.993747
+APTV,Aptiv PLC,equity,2025-01-25 12:47:00.993750
+ARMK,Aramark,equity,2025-01-25 12:47:00.993753
+ACGL,Arch Capital Group Ltd.,equity,2025-01-25 12:47:00.993757
+ADM,Archer-Daniels-Midland Company,equity,2025-01-25 12:47:00.993760
+ARES,Ares Management Corporation,equity,2025-01-25 12:47:00.993763
+ANET,Arista Networks Inc,equity,2025-01-25 12:47:00.993766
+AWI,"Armstrong World Industries, Inc.",equity,2025-01-25 12:47:00.993769
+ARW,"Arrow Electronics, Inc.",equity,2025-01-25 12:47:00.993773
+AJG,Arthur J. Gallagher & Co.,equity,2025-01-25 12:47:00.993776
+ASH,Ashland Inc.,equity,2025-01-25 12:47:00.993779
+AZPN,"Aspen Technology, Inc.",equity,2025-01-25 12:47:00.993783
+AIZ,"Assurant, Inc.",equity,2025-01-25 12:47:00.993786
+AGO,Assured Guaranty Ltd.,equity,2025-01-25 12:47:00.993789
+ALAB,"Astera Labs, Inc.",equity,2025-01-25 12:47:00.993793
+T,AT&T Inc.,equity,2025-01-25 12:47:00.993796
+ATI,ATI Inc.,equity,2025-01-25 12:47:00.993799
+TEAM,Atlassian Corporation,equity,2025-01-25 12:47:00.993803
+ATO,Atmos Energy Corporation,equity,2025-01-25 12:47:00.993807
+ADSK,"Autodesk, Inc.",equity,2025-01-25 12:47:00.993811
+ADP,"Automatic Data Processing, Inc.",equity,2025-01-25 12:47:00.993814
+AN,"AutoNation, Inc.",equity,2025-01-25 12:47:00.993818
+AZO,"AutoZone, Inc.",equity,2025-01-25 12:47:00.993821
+AVB,"AvalonBay Communities, Inc.",equity,2025-01-25 12:47:00.993824
+AGR,"Avangrid, Inc.",equity,2025-01-25 12:47:00.993828
+AVTR,"Avantor, Inc.",equity,2025-01-25 12:47:00.993832
+AVY,Avery Dennison Corporation,equity,2025-01-25 12:47:00.993835
+CAR,"Avis Budget Group, Inc.",equity,2025-01-25 12:47:00.993839
+AVT,"Avnet, Inc.",equity,2025-01-25 12:47:00.993842
+AXTA,Axalta Coating Systems Ltd.,equity,2025-01-25 12:47:00.993846
+AXS,AXIS Capital Holdings Limited,equity,2025-01-25 12:47:00.993849
+AXON,"Axon Enterprise, Inc.",equity,2025-01-25 12:47:00.993852
+AZEK,The AZEK Company Inc.,equity,2025-01-25 12:47:00.993856
+AZTA,"Azenta, Inc.",equity,2025-01-25 12:47:00.993859
+BKR,Baker Hughes Company,equity,2025-01-25 12:47:00.993863
+BALL,Ball Corporation,equity,2025-01-25 12:47:00.993867
+BAC,Bank of America Corporation,equity,2025-01-25 12:47:00.993870
+OZK,Bank OZK,equity,2025-01-25 12:47:00.993874
+BBWI,"Bath & Body Works, Inc.",equity,2025-01-25 12:47:00.993878
+BAX,Baxter International Inc.,equity,2025-01-25 12:47:00.993881
+BDX,"Becton, Dickinson and Company",equity,2025-01-25 12:47:00.993885
+BRBR,"BellRing Brands, Inc.",equity,2025-01-25 12:47:00.993899
+BSY,"Bentley Systems, Incorporated",equity,2025-01-25 12:47:00.993903
+BRK.B,,equity,2025-01-25 12:47:01.052353
+BERY,"Berry Global Group, Inc.",equity,2025-01-25 12:47:01.052377
+BBY,"Best Buy Co., Inc.",equity,2025-01-25 12:47:01.052382
+BILL,"BILL Holdings, Inc.",equity,2025-01-25 12:47:01.115558
+BIO,"Bio-Rad Laboratories, Inc.",equity,2025-01-25 12:47:01.116636
+TECH,Bio-Techne Corporation,equity,2025-01-25 12:47:01.116648
+BIIB,Biogen Inc.,equity,2025-01-25 12:47:01.116652
+BMRN,BioMarin Pharmaceutical Inc.,equity,2025-01-25 12:47:01.116656
+BIRK,Birkenstock Holding plc,equity,2025-01-25 12:47:01.116667
+BJ,"BJ's Wholesale Club Holdings, Inc.",equity,2025-01-25 12:47:01.116671
+BLK,"BlackRock, Inc.",equity,2025-01-25 12:47:01.116674
+BX,Blackstone Inc.,equity,2025-01-25 12:47:01.116678
+HRB,"H&R Block, Inc.",equity,2025-01-25 12:47:01.116681
+XYZ,"Block, Inc.",equity,2025-01-25 12:47:01.116686
+OWL,Blue Owl Capital Inc.,equity,2025-01-25 12:47:01.116690
+BK,The Bank of New York Mellon Corporation,equity,2025-01-25 12:47:01.116694
+BA,The Boeing Company,equity,2025-01-25 12:47:01.116697
+BOKF,BOK Financial Corporation,equity,2025-01-25 12:47:01.116700
+BKNG,Booking Holdings Inc.,equity,2025-01-25 12:47:01.116704
+BAH,Booz Allen Hamilton Holding Corporation,equity,2025-01-25 12:47:01.116708
+BWA,BorgWarner Inc.,equity,2025-01-25 12:47:01.116714
+SAM,"The Boston Beer Company, Inc.",equity,2025-01-25 12:47:01.116718
+BSX,Boston Scientific Corporation,equity,2025-01-25 12:47:01.116721
+BYD,Boyd Gaming Corporation,equity,2025-01-25 12:47:01.116725
+BFAM,Bright Horizons Family Solutions Inc.,equity,2025-01-25 12:47:01.116730
+BHF,"Brighthouse Financial, Inc.",equity,2025-01-25 12:47:01.116734
+BMY,Bristol-Myers Squibb Company,equity,2025-01-25 12:47:01.116738
+BRX,Brixmor Property Group Inc.,equity,2025-01-25 12:47:01.116742
+AVGO,Broadcom Inc.,equity,2025-01-25 12:47:01.116763
+BR,"Broadridge Financial Solutions, Inc.",equity,2025-01-25 12:47:01.116769
+BEPC,Brookfield Renewable Corporation,equity,2025-01-25 12:47:01.116772
+BRO,"Brown & Brown, Inc.",equity,2025-01-25 12:47:01.116776
+BF.A,,equity,2025-01-25 12:47:01.178870
+BF.B,,equity,2025-01-25 12:47:01.379493
+BRKR,Bruker Corporation,equity,2025-01-25 12:47:01.379519
+BC,Brunswick Corporation,equity,2025-01-25 12:47:01.379524
+BLDR,"Builders FirstSource, Inc.",equity,2025-01-25 12:47:01.379527
+BG,Bunge Global SA,equity,2025-01-25 12:47:01.379531
+BURL,"Burlington Stores, Inc.",equity,2025-01-25 12:47:01.379535
+BWXT,"BWX Technologies, Inc.",equity,2025-01-25 12:47:01.379539
+BXP,"BXP, Inc.",equity,2025-01-25 12:47:01.379543
+CHRW,"C.H. Robinson Worldwide, Inc.",equity,2025-01-25 12:47:01.379547
+CACI,CACI International Inc,equity,2025-01-25 12:47:01.379551
+CDNS,"Cadence Design Systems, Inc.",equity,2025-01-25 12:47:01.379554
+CZR,"Caesars Entertainment, Inc.",equity,2025-01-25 12:47:01.379558
+CPT,Camden Property Trust,equity,2025-01-25 12:47:01.379562
+CPB,The Campbell's Company,equity,2025-01-25 12:47:01.380335
+COF,Capital One Financial Corporation,equity,2025-01-25 12:47:01.380342
+CPRI,Capri Holdings Limited,equity,2025-01-25 12:47:01.380354
+CAH,"Cardinal Health, Inc.",equity,2025-01-25 12:47:01.380358
+CSL,Carlisle Companies Incorporated,equity,2025-01-25 12:47:01.380362
+CG,The Carlyle Group Inc.,equity,2025-01-25 12:47:01.380366
+KMX,"CarMax, Inc.",equity,2025-01-25 12:47:01.380370
+CCL,Carnival Corporation & plc,equity,2025-01-25 12:47:01.380374
+CARR,Carrier Global Corporation,equity,2025-01-25 12:47:01.380378
+CRI,"Carter's, Inc.",equity,2025-01-25 12:47:01.380382
+CVNA,Carvana Co.,equity,2025-01-25 12:47:01.380386
+CASY,"Casey's General Stores, Inc.",equity,2025-01-25 12:47:01.380391
+CAT,Caterpillar Inc.,equity,2025-01-25 12:47:01.380395
+CAVA,"CAVA Group, Inc.",equity,2025-01-25 12:47:01.380399
+CBOE,"Cboe Global Markets, Inc.",equity,2025-01-25 12:47:01.380403
+CBRE,"CBRE Group, Inc.",equity,2025-01-25 12:47:01.380408
+CCCS,CCC Intelligent Solutions Holdings Inc.,equity,2025-01-25 12:47:01.380412
+CDW,CDW Corporation,equity,2025-01-25 12:47:01.380416
+CE,Celanese Corporation,equity,2025-01-25 12:47:01.380420
+CELH,"Celsius Holdings, Inc.",equity,2025-01-25 12:47:01.380424
+COR,"Cencora, Inc.",equity,2025-01-25 12:47:01.380428
+CNC,Centene Corporation,equity,2025-01-25 12:47:01.380432
+CNP,"CenterPoint Energy, Inc.",equity,2025-01-25 12:47:01.380437
+CERT,"Certara, Inc.",equity,2025-01-25 12:47:01.380441
+CF,"CF Industries Holdings, Inc.",equity,2025-01-25 12:47:01.380451
+CRL,"Charles River Laboratories International, Inc.",equity,2025-01-25 12:47:01.380454
+SCHW,The Charles Schwab Corporation,equity,2025-01-25 12:47:01.380459
+CHTR,"Charter Communications, Inc.",equity,2025-01-25 12:47:01.380463
+CHE,Chemed Corporation,equity,2025-01-25 12:47:01.380467
+CC,The Chemours Company,equity,2025-01-25 12:47:01.380472
+LNG,"Cheniere Energy, Inc.",equity,2025-01-25 12:47:01.380475
+CVX,Chevron Corporation,equity,2025-01-25 12:47:01.380480
+CMG,"Chipotle Mexican Grill, Inc.",equity,2025-01-25 12:47:01.380484
+CHH,"Choice Hotels International, Inc.",equity,2025-01-25 12:47:01.380489
+CHRD,Chord Energy Corporation,equity,2025-01-25 12:47:01.380495
+CB,Chubb Limited,equity,2025-01-25 12:47:01.380500
+CHD,"Church & Dwight Co., Inc.",equity,2025-01-25 12:47:01.380503
+CHDN,Churchill Downs Incorporated,equity,2025-01-25 12:47:01.380508
+CIEN,Ciena Corporation,equity,2025-01-25 12:47:01.380515
+CI,The Cigna Group,equity,2025-01-25 12:47:01.380520
+CINF,Cincinnati Financial Corporation,equity,2025-01-25 12:47:01.380524
+CTAS,Cintas Corporation,equity,2025-01-25 12:47:01.380528
+CRUS,"Cirrus Logic, Inc.",equity,2025-01-25 12:47:01.380532
+CSCO,"Cisco Systems, Inc.",equity,2025-01-25 12:47:01.380537
+C,Citigroup Inc.,equity,2025-01-25 12:47:01.380542
+CFG,"Citizens Financial Group, Inc.",equity,2025-01-25 12:47:01.380545
+CIVI,"Civitas Resources, Inc.",equity,2025-01-25 12:47:01.380556
+CLVT,Clarivate Plc,equity,2025-01-25 12:47:01.380560
+CLH,"Clean Harbors, Inc.",equity,2025-01-25 12:47:01.380565
+CWEN.A,,equity,2025-01-25 12:47:02.145232
+CWEN,"Clearway Energy, Inc.",equity,2025-01-25 12:47:02.146346
+CLF,Cleveland-Cliffs Inc.,equity,2025-01-25 12:47:02.146366
+CLX,The Clorox Company,equity,2025-01-25 12:47:02.146378
+NET,"Cloudflare, Inc.",equity,2025-01-25 12:47:02.146390
+CME,CME Group Inc.,equity,2025-01-25 12:47:02.146402
+CMS,CMS Energy Corporation,equity,2025-01-25 12:47:02.146414
+CNA,CNA Financial Corporation,equity,2025-01-25 12:47:02.146426
+CNH,CNH Industrial N.V.,equity,2025-01-25 12:47:02.146446
+KO,Coca-Cola Company,equity,2025-01-25 12:47:02.146450
+COKE,"Coca-Cola Consolidated, Inc.",equity,2025-01-25 12:47:32.197639
+CGNX,Cognex Corporation,equity,2025-01-25 12:47:32.197654
+CTSH,Cognizant Technology Solutions Corporation,equity,2025-01-25 12:47:32.197660
+COHR,Coherent Corp.,equity,2025-01-25 12:47:32.197671
+COIN,"Coinbase Global, Inc.",equity,2025-01-25 12:47:32.197679
+CL,Colgate-Palmolive Company,equity,2025-01-25 12:47:32.197685
+COLB,"Columbia Banking System, Inc.",equity,2025-01-25 12:47:32.197695
+COLM,Columbia Sportswear Company,equity,2025-01-25 12:47:32.197701
+CMCSA,Comcast Corporation,equity,2025-01-25 12:47:32.197709
+CMA,Comerica Incorporated,equity,2025-01-25 12:47:32.197714
+FIX,"Comfort Systems USA, Inc.",equity,2025-01-25 12:47:32.197722
+CBSH,"Commerce Bancshares, Inc.",equity,2025-01-25 12:47:32.197742
+CAG,"Conagra Brands, Inc.",equity,2025-01-25 12:47:32.197747
+CNXC,Concentrix Corporation,equity,2025-01-25 12:47:32.197756
+CFLT,"Confluent, Inc.",equity,2025-01-25 12:47:32.197761
+COP,ConocoPhillips,equity,2025-01-25 12:47:32.197767
+ED,"Consolidated Edison, Inc.",equity,2025-01-25 12:47:32.197775
+STZ,"Constellation Brands, Inc.",equity,2025-01-25 12:47:32.197783
+CEG,Constellation Energy Corporation,equity,2025-01-25 12:47:32.197789
+COO,"The Cooper Companies, Inc.",equity,2025-01-25 12:47:32.197802
+CPRT,"Copart, Inc.",equity,2025-01-25 12:47:32.197808
+CNM,"Core & Main, Inc.",equity,2025-01-25 12:47:32.197814
+GLW,Corning Incorporated,equity,2025-01-25 12:47:32.197820
+CPAY,"Corpay, Inc.",equity,2025-01-25 12:47:32.197825
+CTVA,"Corteva, Inc.",equity,2025-01-25 12:47:32.197837
+CSGP,"CoStar Group, Inc.",equity,2025-01-25 12:47:32.197843
+COST,Costco Wholesale Corporation,equity,2025-01-25 12:47:32.197849
+CTRA,Coterra Energy Inc.,equity,2025-01-25 12:47:32.197854
+COTY,Coty Inc.,equity,2025-01-25 12:47:32.197860
+CPNG,"Coupang, Inc.",equity,2025-01-25 12:47:32.197865
+CUZ,Cousins Properties Incorporated,equity,2025-01-25 12:47:32.197871
+CR,Crane Company,equity,2025-01-25 12:47:32.197877
+CXT,"Crane NXT, Co.",equity,2025-01-25 12:47:32.197882
+CACC,Credit Acceptance Corporation,equity,2025-01-25 12:47:32.197888
+CRH,CRH plc,equity,2025-01-25 12:47:32.197897
+CROX,"Crocs, Inc.",equity,2025-01-25 12:47:32.197903
+CRWD,"CrowdStrike Holdings, Inc.",equity,2025-01-25 12:47:32.197909
+CCI,Crown Castle Inc.,equity,2025-01-25 12:47:32.197915
+CCK,"Crown Holdings, Inc.",equity,2025-01-25 12:47:32.197921
+CSX,CSX Corporation,equity,2025-01-25 12:47:32.197927
+CUBE,CubeSmart,equity,2025-01-25 12:47:32.197933
+CMI,Cummins Inc.,equity,2025-01-25 12:47:32.197939
+CW,Curtiss-Wright Corporation,equity,2025-01-25 12:47:32.197945
+CVS,CVS Health Corporation,equity,2025-01-25 12:47:32.197949
+DHI,"D.R. Horton, Inc.",equity,2025-01-25 12:47:32.318492
+DHR,Danaher Corporation,equity,2025-01-25 12:47:32.319030
+DRI,"Darden Restaurants, Inc.",equity,2025-01-25 12:47:32.319039
+DAR,Darling Ingredients Inc.,equity,2025-01-25 12:47:32.319045
+DDOG,"Datadog, Inc.",equity,2025-01-25 12:47:32.319050
+DVA,DaVita Inc.,equity,2025-01-25 12:47:32.319056
+DAY,Dayforce Inc,equity,2025-01-25 12:47:32.319062
+DECK,Deckers Outdoor Corporation,equity,2025-01-25 12:47:32.319069
+DE,Deere & Company,equity,2025-01-25 12:47:32.319075
+DAL,"Delta Air Lines, Inc.",equity,2025-01-25 12:47:32.319079
+DELL,Dell Technologies Inc.,equity,2025-01-25 12:47:32.319091
+XRAY,DENTSPLY SIRONA Inc.,equity,2025-01-25 12:47:32.319097
+DVN,Devon Energy Corporation,equity,2025-01-25 12:47:32.319103
+DXCM,"DexCom, Inc.",equity,2025-01-25 12:47:32.319108
+FANG,"Diamondback Energy, Inc.",equity,2025-01-25 12:47:32.319114
+DKS,"DICK'S Sporting Goods, Inc.",equity,2025-01-25 12:47:32.319119
+DLR,"Digital Realty Trust, Inc.",equity,2025-01-25 12:47:32.319125
+DDS,"Dillard's, Inc.",equity,2025-01-25 12:47:32.319130
+DFS,Discover Financial Services,equity,2025-01-25 12:47:32.319136
+DOCU,"DocuSign, Inc.",equity,2025-01-25 12:47:32.319141
+DLB,"Dolby Laboratories, Inc.",equity,2025-01-25 12:47:32.319147
+DG,Dollar General Corporation,equity,2025-01-25 12:47:32.319153
+DLTR,"Dollar Tree, Inc.",equity,2025-01-25 12:47:32.319157
+D,"Dominion Energy, Inc.",equity,2025-01-25 12:47:32.319163
+DPZ,"Domino's Pizza, Inc.",equity,2025-01-25 12:47:32.319167
+DCI,"Donaldson Company, Inc.",equity,2025-01-25 12:47:32.319173
+DASH,"DoorDash, Inc.",equity,2025-01-25 12:47:32.319179
+DV,"DoubleVerify Holdings, Inc.",equity,2025-01-25 12:47:32.319184
+DOV,Dover Corporation,equity,2025-01-25 12:47:32.319189
+DOW,Dow Inc.,equity,2025-01-25 12:47:32.319200
+DOCS,"Doximity, Inc.",equity,2025-01-25 12:47:32.319206
+DKNG,DraftKings Inc.,equity,2025-01-25 12:47:32.319240
+DBX,"Dropbox, Inc.",equity,2025-01-25 12:47:32.319250
+DTM,"DT Midstream, Inc.",equity,2025-01-25 12:47:32.319257
+DTE,DTE Energy Company,equity,2025-01-25 12:47:32.319264
+DUK,Duke Energy Corporation,equity,2025-01-25 12:47:32.319270
+DNB,"Dun & Bradstreet Holdings, Inc.",equity,2025-01-25 12:47:32.319276
+DUOL,"Duolingo, Inc.",equity,2025-01-25 12:47:32.319282
+DD,"DuPont de Nemours, Inc.",equity,2025-01-25 12:47:32.319306
+BROS,Dutch Bros Inc.,equity,2025-01-25 12:47:32.319316
+DXC,DXC Technology Company,equity,2025-01-25 12:47:32.319323
+DT,"Dynatrace, Inc.",equity,2025-01-25 12:47:32.319329
+ELF,"e.l.f. Beauty, Inc.",equity,2025-01-25 12:47:32.319334
+EXP,Eagle Materials Inc.,equity,2025-01-25 12:47:32.319341
+EWBC,"East West Bancorp, Inc.",equity,2025-01-25 12:47:32.319347
+EGP,"EastGroup Properties, Inc.",equity,2025-01-25 12:47:32.319353
+EMN,Eastman Chemical Company,equity,2025-01-25 12:47:32.319359
+ETN,Eaton Corporation plc,equity,2025-01-25 12:47:32.319366
+EBAY,eBay Inc.,equity,2025-01-25 12:47:32.319372
+ECL,Ecolab Inc.,equity,2025-01-25 12:47:32.319378
+EIX,Edison International,equity,2025-01-25 12:47:32.319384
+EW,Edwards Lifesciences Corporation,equity,2025-01-25 12:47:32.319391
+ELAN,Elanco Animal Health Incorporated,equity,2025-01-25 12:47:32.319433
+ESTC,Elastic N.V.,equity,2025-01-25 12:47:32.319443
+EA,Electronic Arts Inc.,equity,2025-01-25 12:47:32.319450
+ESI,Element Solutions Inc,equity,2025-01-25 12:47:32.319455
+ELV,"Elevance Health, Inc.",equity,2025-01-25 12:47:32.319462
+EME,"EMCOR Group, Inc.",equity,2025-01-25 12:47:32.319468
+EMR,Emerson Electric Co.,equity,2025-01-25 12:47:32.319475
+EHC,Encompass Health Corporation,equity,2025-01-25 12:47:32.319481
+ENOV,Enovis Corporation,equity,2025-01-25 12:47:32.319488
+ENPH,"Enphase Energy, Inc.",equity,2025-01-25 12:47:32.319494
+ENTG,"Entegris, Inc.",equity,2025-01-25 12:47:32.319500
+ETR,Entergy Corporation,equity,2025-01-25 12:47:32.319506
+NVST,Envista Holdings Corporation,equity,2025-01-25 12:47:32.319513
+EOG,"EOG Resources, Inc.",equity,2025-01-25 12:47:32.319519
+EPAM,"EPAM Systems, Inc.",equity,2025-01-25 12:47:32.319525
+EPR,EPR Properties,equity,2025-01-25 12:47:32.319532
+EQT,EQT Corporation,equity,2025-01-25 12:47:32.319538
+EFX,Equifax Inc.,equity,2025-01-25 12:47:32.319545
+EQIX,"Equinix, Inc.",equity,2025-01-25 12:47:32.319551
+EQH,"Equitable Holdings, Inc.",equity,2025-01-25 12:47:32.319557
+ELS,"Equity LifeStyle Properties, Inc.",equity,2025-01-25 12:47:32.319564
+EQR,Equity Residential,equity,2025-01-25 12:47:32.319571
+ESAB,ESAB Corporation,equity,2025-01-25 12:47:32.319577
+WTRG,"Essential Utilities, Inc.",equity,2025-01-25 12:47:32.319583
+ESS,"Essex Property Trust, Inc.",equity,2025-01-25 12:47:32.319590
+EL,The Estée Lauder Companies Inc.,equity,2025-01-25 12:47:32.319596
+ETSY,"Etsy, Inc.",equity,2025-01-25 12:47:32.319602
+EEFT,"Euronet Worldwide, Inc.",equity,2025-01-25 12:47:32.319608
+EVR,Evercore Inc.,equity,2025-01-25 12:47:32.319614
+EG,"Everest Group, Ltd.",equity,2025-01-25 12:47:32.319621
+EVRG,"Evergy, Inc.",equity,2025-01-25 12:47:32.319626
+ES,Eversource Energy,equity,2025-01-25 12:47:32.319633
+ECG,"Everus Construction Group, Inc.",equity,2025-01-25 12:47:32.319650
+EXAS,Exact Sciences Corporation,equity,2025-01-25 12:47:32.319657
+EXEL,"Exelixis, Inc.",equity,2025-01-25 12:47:32.319664
+EXC,Exelon Corporation,equity,2025-01-25 12:47:32.319670
+EXE,Expand Energy Corporation,equity,2025-01-25 12:47:32.319677
+EXPE,"Expedia Group, Inc.",equity,2025-01-25 12:47:32.319684
+EXPD,"Expeditors International of Washington, Inc.",equity,2025-01-25 12:47:32.319691
+EXR,Extra Space Storage Inc.,equity,2025-01-25 12:47:32.319697
+XOM,Exxon Mobil Corporation,equity,2025-01-25 12:47:32.319704
+FFIV,"F5, Inc.",equity,2025-01-25 12:47:32.319711
+FDS,FactSet Research Systems Inc.,equity,2025-01-25 12:47:32.319718
+FICO,Fair Isaac Corporation,equity,2025-01-25 12:47:32.319725
+FAST,Fastenal Company,equity,2025-01-25 12:47:32.319732
+FRT,Federal Realty Investment Trust,equity,2025-01-25 12:47:32.319738
+FDX,FedEx Corporation,equity,2025-01-25 12:47:32.319746
+FERG,Ferguson Enterprises Inc.,equity,2025-01-25 12:47:32.319753
+FNF,"Fidelity National Financial, Inc.",equity,2025-01-25 12:47:32.319760
+FIS,"Fidelity National Information Services, Inc.",equity,2025-01-25 12:47:32.319768
+FITB,Fifth Third Bancorp,equity,2025-01-25 12:47:32.319775
+FAF,First American Financial Corporation,equity,2025-01-25 12:47:32.319782
+FCNCA,"First Citizens BancShares, Inc.",equity,2025-01-25 12:47:32.319789
+FHB,"First Hawaiian, Inc.",equity,2025-01-25 12:47:32.319794
+FHN,First Horizon Corporation,equity,2025-01-25 12:47:32.319801
+FR,"First Industrial Realty Trust, Inc.",equity,2025-01-25 12:47:32.319808
+FSLR,"First Solar, Inc.",equity,2025-01-25 12:47:32.319814
+FE,FirstEnergy Corp.,equity,2025-01-25 12:47:32.319821
+FI,"Fiserv, Inc.",equity,2025-01-25 12:47:32.319826
+FIVE,"Five Below, Inc.",equity,2025-01-25 12:47:32.319832
+FIVN,"Five9, Inc.",equity,2025-01-25 12:47:32.319839
+FND,"Floor & Decor Holdings, Inc.",equity,2025-01-25 12:47:32.319845
+FLO,"Flowers Foods, Inc.",equity,2025-01-25 12:47:32.319853
+FLS,Flowserve Corporation,equity,2025-01-25 12:47:32.319860
+FMC,FMC Corporation,equity,2025-01-25 12:47:32.319867
+FNB,F.N.B. Corporation,equity,2025-01-25 12:47:32.319874
+F,Ford Motor Company,equity,2025-01-25 12:47:32.319882
+FTNT,"Fortinet, Inc.",equity,2025-01-25 12:47:32.319887
+FTV,Fortive Corporation,equity,2025-01-25 12:47:32.319894
+FTRE,Fortrea Holdings Inc.,equity,2025-01-25 12:47:32.319901
+FBIN,"Fortune Brands Innovations, Inc.",equity,2025-01-25 12:47:32.319909
+FOXA,Fox Corporation,equity,2025-01-25 12:47:32.319916
+FOX,Fox Corporation,equity,2025-01-25 12:47:32.319923
+BEN,"Franklin Resources, Inc.",equity,2025-01-25 12:47:32.319930
+FCX,Freeport-McMoRan Inc.,equity,2025-01-25 12:47:32.319938
+FRPT,"Freshpet, Inc.",equity,2025-01-25 12:47:32.319946
+FYBR,"Frontier Communications Parent, Inc.",equity,2025-01-25 12:47:32.319953
+CFR,"Cullen/Frost Bankers, Inc.",equity,2025-01-25 12:47:32.319960
+FCN,"FTI Consulting, Inc.",equity,2025-01-25 12:47:32.319968
+GME,GameStop Corp.,equity,2025-01-25 12:47:32.319976
+GLPI,"Gaming and Leisure Properties, Inc.",equity,2025-01-25 12:47:32.319983
+GAP,"The Gap, Inc.",equity,2025-01-25 12:47:32.319991
+GRMN,Garmin Ltd.,equity,2025-01-25 12:47:32.319999
+IT,"Gartner, Inc.",equity,2025-01-25 12:47:32.320006
+GTES,Gates Industrial Corporation plc,equity,2025-01-25 12:47:32.320012
+GE,GE Aerospace,equity,2025-01-25 12:47:32.320019
+GEHC,GE HealthCare Technologies Inc.,equity,2025-01-25 12:47:32.320028
+GEV,GE Vernova Inc.,equity,2025-01-25 12:47:32.320035
+GEN,Gen Digital Inc.,equity,2025-01-25 12:47:32.320043
+GNRC,Generac Holdings Inc.,equity,2025-01-25 12:47:32.320051
+GD,General Dynamics Corporation,equity,2025-01-25 12:47:32.320059
+GIS,"General Mills, Inc.",equity,2025-01-25 12:47:32.320065
+GM,General Motors Company,equity,2025-01-25 12:47:32.320072
+G,Genpact Limited,equity,2025-01-25 12:47:32.320078
+GNTX,Gentex Corporation,equity,2025-01-25 12:47:32.320084
+GPC,Genuine Parts Company,equity,2025-01-25 12:47:32.320091
+GILD,"Gilead Sciences, Inc.",equity,2025-01-25 12:47:32.320099
+GTLB,GitLab Inc.,equity,2025-01-25 12:47:32.320107
+GPN,Global Payments Inc.,equity,2025-01-25 12:47:32.320114
+GFS,GLOBALFOUNDRIES Inc.,equity,2025-01-25 12:47:32.320122
+GLOB,Globant S.A.,equity,2025-01-25 12:47:32.320130
+GL,Globe Life Inc.,equity,2025-01-25 12:47:32.320138
+GMED,"Globus Medical, Inc.",equity,2025-01-25 12:47:32.320144
+GDDY,GoDaddy Inc.,equity,2025-01-25 12:47:32.320151
+GS,"The Goldman Sachs Group, Inc.",equity,2025-01-25 12:47:32.320159
+GGG,Graco Inc.,equity,2025-01-25 12:47:32.320169
+GRAL,"GRAIL, Inc.",equity,2025-01-25 12:47:32.320178
+LOPE,"Grand Canyon Education, Inc.",equity,2025-01-25 12:47:32.320185
+GPK,Graphic Packaging Holding Company,equity,2025-01-25 12:47:32.320193
+GO,Grocery Outlet Holding Corp.,equity,2025-01-25 12:47:32.320201
+GWRE,"Guidewire Software, Inc.",equity,2025-01-25 12:47:32.320207
+GXO,"GXO Logistics, Inc.",equity,2025-01-25 12:47:32.320215
+HAL,Halliburton Company,equity,2025-01-25 12:47:32.320223
+THG,"The Hanover Insurance Group, Inc.",equity,2025-01-25 12:47:32.320232
+HOG,"Harley-Davidson, Inc.",equity,2025-01-25 12:47:32.320240
+HIG,"The Hartford Financial Services Group, Inc.",equity,2025-01-25 12:47:32.320248
+HAS,"Hasbro, Inc.",equity,2025-01-25 12:47:32.320256
+HCP,"HashiCorp, Inc.",equity,2025-01-25 12:47:32.320265
+HAYW,"Hayward Holdings, Inc.",equity,2025-01-25 12:47:32.320278
+HCA,"HCA Healthcare, Inc.",equity,2025-01-25 12:47:32.320286
+HR,Healthcare Realty Trust Incorporated,equity,2025-01-25 12:47:32.320294
+DOC,"Healthpeak Properties, Inc.",equity,2025-01-25 12:47:32.320300
+HEI.A,,equity,2025-01-25 12:47:32.939710
+HEI,HEICO Corporation,equity,2025-01-25 12:47:32.940263
+JKHY,"Jack Henry & Associates, Inc.",equity,2025-01-25 12:47:32.940276
+HSY,The Hershey Company,equity,2025-01-25 12:47:32.940286
+HES,Hess Corporation,equity,2025-01-25 12:47:32.940303
+HPE,Hewlett Packard Enterprise Company,equity,2025-01-25 12:47:32.940312
+HXL,Hexcel Corporation,equity,2025-01-25 12:47:32.940321
+DINO,HF Sinclair Corporation,equity,2025-01-25 12:47:32.940330
+HIW,"Highwoods Properties, Inc.",equity,2025-01-25 12:47:32.940339
+HLT,Hilton Worldwide Holdings Inc.,equity,2025-01-25 12:47:32.940349
+HOLX,"Hologic, Inc.",equity,2025-01-25 12:47:32.940358
+HD,"The Home Depot, Inc.",equity,2025-01-25 12:47:32.940367
+HON,Honeywell International Inc.,equity,2025-01-25 12:47:32.940373
+HRL,Hormel Foods Corporation,equity,2025-01-25 12:47:32.940382
+HST,"Host Hotels & Resorts, Inc.",equity,2025-01-25 12:47:32.940391
+HLI,"Houlihan Lokey, Inc.",equity,2025-01-25 12:47:32.940401
+HHH,Howard Hughes Holdings Inc.,equity,2025-01-25 12:47:32.940410
+HWM,Howmet Aerospace Inc.,equity,2025-01-25 12:47:32.940420
+HPQ,HP Inc.,equity,2025-01-25 12:47:32.940429
+HUBB,Hubbell Incorporated,equity,2025-01-25 12:47:32.940438
+HUBS,"HubSpot, Inc.",equity,2025-01-25 12:47:32.940447
+HUM,Humana Inc.,equity,2025-01-25 12:47:32.940457
+HBAN,Huntington Bancshares Incorporated,equity,2025-01-25 12:47:32.940466
+HII,"Huntington Ingalls Industries, Inc.",equity,2025-01-25 12:47:32.940475
+HUN,Huntsman Corporation,equity,2025-01-25 12:47:32.940484
+H,Hyatt Hotels Corporation,equity,2025-01-25 12:47:32.940494
+IAC,IAC Inc.,equity,2025-01-25 12:47:32.940500
+IBM,International Business Machines Corporation,equity,2025-01-25 12:47:32.940510
+IDA,"IDACORP, Inc.",equity,2025-01-25 12:47:32.940519
+IEX,IDEX Corporation,equity,2025-01-25 12:47:32.940529
+IDXX,"IDEXX Laboratories, Inc.",equity,2025-01-25 12:47:32.940538
+ITW,Illinois Tool Works Inc.,equity,2025-01-25 12:47:32.940547
+ILMN,"Illumina, Inc.",equity,2025-01-25 12:47:32.940557
+INCY,Incyte Corporation,equity,2025-01-25 12:47:32.940566
+INFA,Informatica Inc.,equity,2025-01-25 12:47:32.940582
+IR,Ingersoll Rand Inc.,equity,2025-01-25 12:47:32.940592
+INGM,Ingram Micro Holding Corporation,equity,2025-01-25 12:47:32.940600
+INGR,Ingredion Incorporated,equity,2025-01-25 12:47:32.940609
+INSP,"Inspire Medical Systems, Inc.",equity,2025-01-25 12:47:32.940618
+PODD,Insulet Corporation,equity,2025-01-25 12:47:32.940627
+INTC,Intel Corporation,equity,2025-01-25 12:47:32.940637
+IBKR,"Interactive Brokers Group, Inc.",equity,2025-01-25 12:47:32.940646
+ICE,"Intercontinental Exchange, Inc.",equity,2025-01-25 12:47:32.940655
+IFF,International Flavors & Fragrances Inc.,equity,2025-01-25 12:47:32.940665
+IP,International Paper Company,equity,2025-01-25 12:47:32.940675
+IPG,"The Interpublic Group of Companies, Inc.",equity,2025-01-25 12:47:32.940685
+ITCI,"Intra-Cellular Therapies, Inc.",equity,2025-01-25 12:47:32.940694
+INTU,Intuit Inc.,equity,2025-01-25 12:47:32.940704
+ISRG,"Intuitive Surgical, Inc.",equity,2025-01-25 12:47:32.940714
+IVZ,Invesco Ltd.,equity,2025-01-25 12:47:32.940723
+INVH,Invitation Homes Inc.,equity,2025-01-25 12:47:32.940733
+IONS,"Ionis Pharmaceuticals, Inc.",equity,2025-01-25 12:47:32.940743
+IPGP,IPG Photonics Corporation,equity,2025-01-25 12:47:32.940752
+IQV,IQVIA Holdings Inc.,equity,2025-01-25 12:47:32.940762
+IRDM,Iridium Communications Inc.,equity,2025-01-25 12:47:32.940772
+IRM,Iron Mountain Incorporated,equity,2025-01-25 12:47:32.940781
+ITT,ITT Inc.,equity,2025-01-25 12:47:32.940791
+JBL,Jabil Inc.,equity,2025-01-25 12:47:32.940801
+J,Jacobs Solutions Inc.,equity,2025-01-25 12:47:32.940811
+JHG,Janus Henderson Group plc,equity,2025-01-25 12:47:32.940824
+JAZZ,Jazz Pharmaceuticals plc,equity,2025-01-25 12:47:32.940834
+JBHT,"J.B. Hunt Transport Services, Inc.",equity,2025-01-25 12:47:32.940843
+JEF,Jefferies Financial Group Inc.,equity,2025-01-25 12:47:32.940853
+JNJ,Johnson & Johnson,equity,2025-01-25 12:47:32.940863
+JCI,Johnson Controls International plc,equity,2025-01-25 12:47:32.940873
+JLL,Jones Lang LaSalle Incorporated,equity,2025-01-25 12:47:32.940883
+JPM,JPMorgan Chase & Co.,equity,2025-01-25 12:47:32.940893
+JNPR,"Juniper Networks, Inc.",equity,2025-01-25 12:47:32.940903
+KBR,"KBR, Inc.",equity,2025-01-25 12:47:32.940913
+K,Kellanova,equity,2025-01-25 12:47:32.940923
+KMPR,Kemper Corporation,equity,2025-01-25 12:47:32.940930
+KVUE,Kenvue Inc.,equity,2025-01-25 12:47:32.940940
+KDP,Keurig Dr Pepper Inc.,equity,2025-01-25 12:47:32.940950
+KEY,KeyCorp,equity,2025-01-25 12:47:32.940960
+KEYS,"Keysight Technologies, Inc.",equity,2025-01-25 12:47:32.940970
+KRC,Kilroy Realty Corporation,equity,2025-01-25 12:47:32.940980
+KMB,Kimberly-Clark Corporation,equity,2025-01-25 12:47:32.940991
+KIM,Kimco Realty Corporation,equity,2025-01-25 12:47:32.941001
+KMI,"Kinder Morgan, Inc.",equity,2025-01-25 12:47:32.941011
+KNSL,"Kinsale Capital Group, Inc.",equity,2025-01-25 12:47:32.941021
+KEX,Kirby Corporation,equity,2025-01-25 12:47:32.941032
+KKR,KKR & Co. Inc.,equity,2025-01-25 12:47:32.941042
+KLAC,KLA Corporation,equity,2025-01-25 12:47:32.941052
+KNX,Knight-Swift Transportation Holdings Inc.,equity,2025-01-25 12:47:32.941062
+KSS,Kohl's Corporation,equity,2025-01-25 12:47:32.941073
+KHC,The Kraft Heinz Company,equity,2025-01-25 12:47:32.941083
+KR,The Kroger Co.,equity,2025-01-25 12:47:32.941093
+KD,"Kyndryl Holdings, Inc.",equity,2025-01-25 12:47:32.941101
+LHX,"L3Harris Technologies, Inc.",equity,2025-01-25 12:47:32.941109
+LH,Labcorp Holdings Inc.,equity,2025-01-25 12:47:32.941119
+LRCX,Lam Research Corporation,equity,2025-01-25 12:47:32.941127
+LAMR,Lamar Advertising Company,equity,2025-01-25 12:47:32.941137
+LW,"Lamb Weston Holdings, Inc.",equity,2025-01-25 12:47:32.941148
+LSTR,"Landstar System, Inc.",equity,2025-01-25 12:47:32.941156
+LVS,Las Vegas Sands Corp.,equity,2025-01-25 12:47:32.941165
+LSCC,Lattice Semiconductor Corporation,equity,2025-01-25 12:47:32.941176
+LAZ,"Lazard, Inc.",equity,2025-01-25 12:47:32.941191
+LEA,Lear Corporation,equity,2025-01-25 12:47:32.941202
+LEG,"Leggett & Platt, Incorporated",equity,2025-01-25 12:47:32.941213
+LDOS,"Leidos Holdings, Inc.",equity,2025-01-25 12:47:32.941223
+LEN,Lennar Corporation,equity,2025-01-25 12:47:32.941234
+LEN.B,,equity,2025-01-25 12:47:33.004352
+LII,Lennox International Inc.,equity,2025-01-25 12:47:33.004379
+LBRDA,Liberty Broadband Corporation,equity,2025-01-25 12:47:33.004391
+LBRDK,Liberty Broadband Corporation,equity,2025-01-25 12:47:33.004399
+LBTYA,Liberty Global Ltd.,equity,2025-01-25 12:47:33.004406
+LBTYK,Liberty Global Ltd.,equity,2025-01-25 12:47:33.004413
+FWONA,Formula One Group,equity,2025-01-25 12:47:33.004421
+FWONK,Formula One Group,equity,2025-01-25 12:47:33.004428
+LLYVA,Liberty Live Group,equity,2025-01-25 12:47:33.004436
+LLYVK,Liberty Live Group,equity,2025-01-25 12:47:33.004443
+LNW,"Light & Wonder, Inc.",equity,2025-01-25 12:47:33.004451
+LLY,Eli Lilly and Company,equity,2025-01-25 12:47:33.004462
+LECO,"Lincoln Electric Holdings, Inc.",equity,2025-01-25 12:47:33.004472
+LNC,Lincoln National Corporation,equity,2025-01-25 12:47:33.004483
+LIN,Linde plc,equity,2025-01-25 12:47:33.004494
+LINE,"Lineage, Inc.",equity,2025-01-25 12:47:33.004504
+LAD,"Lithia Motors, Inc.",equity,2025-01-25 12:47:33.004516
+LFUS,"Littelfuse, Inc.",equity,2025-01-25 12:47:33.004532
+LYV,"Live Nation Entertainment, Inc.",equity,2025-01-25 12:47:33.004543
+LKQ,LKQ Corporation,equity,2025-01-25 12:47:33.004554
+LOAR,Loar Holdings Inc.,equity,2025-01-25 12:47:33.004565
+LMT,Lockheed Martin Corporation,equity,2025-01-25 12:47:33.004576
+L,Loews Corporation,equity,2025-01-25 12:47:33.004587
+LPX,Louisiana-Pacific Corporation,equity,2025-01-25 12:47:33.004595
+LOW,"Lowe's Companies, Inc.",equity,2025-01-25 12:47:33.004606
+LPLA,LPL Financial Holdings Inc.,equity,2025-01-25 12:47:33.004617
+LCID,"Lucid Group, Inc.",equity,2025-01-25 12:47:33.004628
+LULU,Lululemon Athletica Inc.,equity,2025-01-25 12:47:33.004638
+LITE,Lumentum Holdings Inc.,equity,2025-01-25 12:47:33.004649
+LYFT,"Lyft, Inc.",equity,2025-01-25 12:47:33.004660
+LYB,LyondellBasell Industries N.V.,equity,2025-01-25 12:47:33.004670
+MTB,M&T Bank Corporation,equity,2025-01-25 12:47:33.004681
+MTSI,"MACOM Technology Solutions Holdings, Inc.",equity,2025-01-25 12:47:33.004693
+M,"Macy's, Inc.",equity,2025-01-25 12:47:33.004704
+MSGS,Madison Square Garden Sports Corp.,equity,2025-01-25 12:47:33.004711
+MANH,"Manhattan Associates, Inc.",equity,2025-01-25 12:47:33.004722
+MAN,ManpowerGroup Inc.,equity,2025-01-25 12:47:33.004733
+CART,Maplebear Inc.,equity,2025-01-25 12:47:33.004745
+MPC,Marathon Petroleum Corporation,equity,2025-01-25 12:47:33.004756
+MKL,Markel Group Inc.,equity,2025-01-25 12:47:33.004767
+MKTX,MarketAxess Holdings Inc.,equity,2025-01-25 12:47:33.004778
+MAR,"Marriott International, Inc.",equity,2025-01-25 12:47:33.004789
+VAC,Marriott Vacations Worldwide Corporation,equity,2025-01-25 12:47:33.004801
+MMC,"Marsh & McLennan Companies, Inc.",equity,2025-01-25 12:47:33.004812
+MLM,"Martin Marietta Materials, Inc.",equity,2025-01-25 12:47:33.004824
+MRVL,"Marvell Technology, Inc.",equity,2025-01-25 12:47:33.004835
+MAS,Masco Corporation,equity,2025-01-25 12:47:33.004846
+MASI,Masimo Corporation,equity,2025-01-25 12:47:33.004858
+MTZ,"MasTec, Inc.",equity,2025-01-25 12:47:33.004869
+MA,Mastercard Incorporated,equity,2025-01-25 12:47:33.004881
+MTDR,Matador Resources Company,equity,2025-01-25 12:47:33.004889
+MTCH,"Match Group, Inc.",equity,2025-01-25 12:47:33.004900
+MAT,"Mattel, Inc.",equity,2025-01-25 12:47:33.004911
+MKC,"McCormick & Company, Incorporated",equity,2025-01-25 12:47:33.004923
+MCD,McDonald's Corporation,equity,2025-01-25 12:47:33.004935
+MCK,McKesson Corporation,equity,2025-01-25 12:47:33.004946
+MDU,"MDU Resources Group, Inc.",equity,2025-01-25 12:47:33.004958
+MPW,"Medical Properties Trust, Inc.",equity,2025-01-25 12:47:33.004970
+MEDP,"Medpace Holdings, Inc.",equity,2025-01-25 12:47:33.004982
+MDT,Medtronic plc,equity,2025-01-25 12:47:33.004993
+MRK,"Merck & Co., Inc.",equity,2025-01-25 12:47:33.005005
+META,"Meta Platforms, Inc.",equity,2025-01-25 12:47:33.005017
+MET,"MetLife, Inc.",equity,2025-01-25 12:47:33.005028
+MTD,Mettler-Toledo International Inc.,equity,2025-01-25 12:47:33.005040
+MTG,MGIC Investment Corporation,equity,2025-01-25 12:47:33.005051
+MGM,MGM Resorts International,equity,2025-01-25 12:47:33.005063
+MCHP,Microchip Technology Incorporated,equity,2025-01-25 12:47:33.005074
+MU,"Micron Technology, Inc.",equity,2025-01-25 12:47:33.005086
+MSFT,Microsoft Corporation,equity,2025-01-25 12:47:33.005094
+MSTR,MicroStrategy Incorporated,equity,2025-01-25 12:47:33.005106
+MAA,"Mid-America Apartment Communities, Inc.",equity,2025-01-25 12:47:33.005117
+MIDD,The Middleby Corporation,equity,2025-01-25 12:47:33.005129
+MKSI,"MKS Instruments, Inc.",equity,2025-01-25 12:47:33.005141
+MRNA,"Moderna, Inc.",equity,2025-01-25 12:47:33.005163
+MHK,"Mohawk Industries, Inc.",equity,2025-01-25 12:47:33.005174
+MOH,"Molina Healthcare, Inc.",equity,2025-01-25 12:47:33.005186
+TAP,Molson Coors Beverage Company,equity,2025-01-25 12:47:33.005198
+MDLZ,"Mondelez International, Inc.",equity,2025-01-25 12:47:33.005210
+MDB,"MongoDB, Inc.",equity,2025-01-25 12:47:33.005222
+MPWR,"Monolithic Power Systems, Inc.",equity,2025-01-25 12:47:33.005234
+MNST,Monster Beverage Corporation,equity,2025-01-25 12:47:33.005245
+MCO,Moody's Corporation,equity,2025-01-25 12:47:33.005257
+MS,Morgan Stanley,equity,2025-01-25 12:47:33.005269
+MORN,"Morningstar, Inc.",equity,2025-01-25 12:47:33.005278
+MOS,The Mosaic Company,equity,2025-01-25 12:47:33.005290
+MSI,"Motorola Solutions, Inc.",equity,2025-01-25 12:47:33.005302
+MP,MP Materials Corp.,equity,2025-01-25 12:47:33.005314
+MSA,MSA Safety Incorporated,equity,2025-01-25 12:47:33.005323
+MSM,"MSC Industrial Direct Co., Inc.",equity,2025-01-25 12:47:33.005335
+MSCI,MSCI Inc.,equity,2025-01-25 12:47:33.005347
+MUSA,Murphy USA Inc.,equity,2025-01-25 12:47:33.005359
+NDAQ,"Nasdaq, Inc.",equity,2025-01-25 12:47:33.005377
+NTRA,"Natera, Inc.",equity,2025-01-25 12:47:33.005388
+NFG,National Fuel Gas Company,equity,2025-01-25 12:47:33.005403
+NSA,National Storage Affiliates Trust,equity,2025-01-25 12:47:33.005415
+NCNO,"nCino, Inc.",equity,2025-01-25 12:47:33.005428
+NTAP,"NetApp, Inc.",equity,2025-01-25 12:47:33.005440
+NFLX,"Netflix, Inc.",equity,2025-01-25 12:47:33.005451
+NBIX,"Neurocrine Biosciences, Inc.",equity,2025-01-25 12:47:33.005463
+NFE,New Fortress Energy Inc.,equity,2025-01-25 12:47:33.005475
+NYT,The New York Times Company,equity,2025-01-25 12:47:33.005487
+NWL,Newell Brands Inc.,equity,2025-01-25 12:47:33.005500
+NEU,NewMarket Corporation,equity,2025-01-25 12:47:33.005512
+NEM,Newmont Corporation,equity,2025-01-25 12:47:33.005524
+NWSA,News Corporation,equity,2025-01-25 12:47:33.005537
+NWS,News Corporation,equity,2025-01-25 12:47:33.005549
+NXST,"Nexstar Media Group, Inc.",equity,2025-01-25 12:47:33.005562
+NEE,"NextEra Energy, Inc.",equity,2025-01-25 12:47:33.005574
+NKE,"NIKE, Inc.",equity,2025-01-25 12:47:33.005586
+NI,NiSource Inc.,equity,2025-01-25 12:47:33.005599
+NNN,"NNN REIT, Inc.",equity,2025-01-25 12:47:33.005608
+NDSN,Nordson Corporation,equity,2025-01-25 12:47:33.005621
+JWN,"Nordstrom, Inc.",equity,2025-01-25 12:47:33.005633
+NSC,Norfolk Southern Corporation,equity,2025-01-25 12:47:33.005645
+NTRS,Northern Trust Corporation,equity,2025-01-25 12:47:33.005658
+NOC,Northrop Grumman Corporation,equity,2025-01-25 12:47:33.005670
+NCLH,Norwegian Cruise Line Holdings Ltd.,equity,2025-01-25 12:47:33.005683
+NOV,NOV Inc.,equity,2025-01-25 12:47:33.005696
+NRG,"NRG Energy, Inc.",equity,2025-01-25 12:47:33.005708
+NU,Nu Holdings Ltd.,equity,2025-01-25 12:47:33.005721
+NUE,Nucor Corporation,equity,2025-01-25 12:47:33.005730
+NTNX,"Nutanix, Inc.",equity,2025-01-25 12:47:33.005743
+NVT,nVent Electric plc,equity,2025-01-25 12:47:33.005755
+NVDA,NVIDIA Corporation,equity,2025-01-25 12:47:33.005768
+NVR,"NVR, Inc.",equity,2025-01-25 12:47:33.005780
+ORLY,"O'Reilly Automotive, Inc.",equity,2025-01-25 12:47:33.005793
+OXY,Occidental Petroleum Corporation,equity,2025-01-25 12:47:33.005805
+OGE,OGE Energy Corp.,equity,2025-01-25 12:47:33.005818
+OKTA,"Okta, Inc.",equity,2025-01-25 12:47:33.005836
+ODFL,"Old Dominion Freight Line, Inc.",equity,2025-01-25 12:47:33.005849
+ORI,Old Republic International Corporation,equity,2025-01-25 12:47:33.005862
+OLN,Olin Corporation,equity,2025-01-25 12:47:33.005875
+OLLI,"Ollie's Bargain Outlet Holdings, Inc.",equity,2025-01-25 12:47:33.005888
+OHI,"Omega Healthcare Investors, Inc.",equity,2025-01-25 12:47:33.005900
+OMC,Omnicom Group Inc.,equity,2025-01-25 12:47:33.005913
+ON,ON Semiconductor Corporation,equity,2025-01-25 12:47:33.005926
+OMF,"OneMain Holdings, Inc.",equity,2025-01-25 12:47:33.005936
+OKE,"ONEOK, Inc.",equity,2025-01-25 12:47:33.005949
+ONTO,Onto Innovation Inc.,equity,2025-01-25 12:47:33.005962
+ORCL,Oracle Corporation,equity,2025-01-25 12:47:33.005974
+OGN,Organon & Co.,equity,2025-01-25 12:47:33.005987
+OSK,Oshkosh Corporation,equity,2025-01-25 12:47:33.006000
+OTIS,Otis Worldwide Corporation,equity,2025-01-25 12:47:33.006013
+OVV,Ovintiv Inc.,equity,2025-01-25 12:47:33.006026
+OC,Owens Corning,equity,2025-01-25 12:47:33.006039
+PCAR,PACCAR Inc,equity,2025-01-25 12:47:33.006048
+PKG,Packaging Corporation of America,equity,2025-01-25 12:47:33.006061
+PLTR,Palantir Technologies Inc.,equity,2025-01-25 12:47:33.006074
+PANW,"Palo Alto Networks, Inc.",equity,2025-01-25 12:47:33.006087
+PARAA,Paramount Global,equity,2025-01-25 12:47:33.006100
+PARA,Paramount Global,equity,2025-01-25 12:47:33.006108
+PK,Park Hotels & Resorts Inc.,equity,2025-01-25 12:47:33.006121
+PH,Parker-Hannifin Corporation,equity,2025-01-25 12:47:33.006131
+PSN,Parsons Corporation,equity,2025-01-25 12:47:33.006140
+PAYX,"Paychex, Inc.",equity,2025-01-25 12:47:33.006153
+PAYC,"Paycom Software, Inc.",equity,2025-01-25 12:47:33.006166
+PYCR,"Paycor HCM, Inc.",equity,2025-01-25 12:47:33.006179
+PCTY,Paylocity Holding Corporation,equity,2025-01-25 12:47:33.006192
+PYPL,"PayPal Holdings, Inc.",equity,2025-01-25 12:47:33.006205
+PEGA,Pegasystems Inc.,equity,2025-01-25 12:47:33.006218
+PENN,"PENN Entertainment, Inc.",equity,2025-01-25 12:47:33.006231
+PAG,"Penske Automotive Group, Inc.",equity,2025-01-25 12:47:33.006244
+PNR,Pentair plc,equity,2025-01-25 12:47:33.006257
+PEN,"Penumbra, Inc.",equity,2025-01-25 12:47:33.006271
+PEP,"PepsiCo, Inc.",equity,2025-01-25 12:47:33.006284
+PFGC,Performance Food Group Company,equity,2025-01-25 12:47:33.006298
+PR,Permian Resources Corporation,equity,2025-01-25 12:47:33.006311
+PRGO,Perrigo Company plc,equity,2025-01-25 12:47:33.006320
+PFE,Pfizer Inc.,equity,2025-01-25 12:47:33.006340
+PCG,PG&E Corporation,equity,2025-01-25 12:47:33.006353
+PM,Philip Morris International Inc.,equity,2025-01-25 12:47:33.006367
+PSX,Phillips 66,equity,2025-01-25 12:47:33.006377
+PPC,Pilgrim's Pride Corporation,equity,2025-01-25 12:47:33.006390
+PNFP,"Pinnacle Financial Partners, Inc.",equity,2025-01-25 12:47:33.006404
+PNW,Pinnacle West Capital Corporation,equity,2025-01-25 12:47:33.006417
+PINS,"Pinterest, Inc.",equity,2025-01-25 12:47:33.006430
+PLNT,"Planet Fitness, Inc.",equity,2025-01-25 12:47:33.006443
+PLTK,Playtika Holding Corp.,equity,2025-01-25 12:47:33.006457
+PNC,"The PNC Financial Services Group, Inc.",equity,2025-01-25 12:47:33.006470
+PII,Polaris Inc.,equity,2025-01-25 12:47:33.006483
+POOL,Pool Corporation,equity,2025-01-25 12:47:33.006497
+BPOP,"Popular, Inc.",equity,2025-01-25 12:47:33.006510
+POST,"Post Holdings, Inc.",equity,2025-01-25 12:47:33.006524
+PPG,"PPG Industries, Inc.",equity,2025-01-25 12:47:33.006537
+PPL,PPL Corporation,equity,2025-01-25 12:47:33.006551
+PINC,"Premier, Inc.",equity,2025-01-25 12:47:33.006564
+TROW,"T. Rowe Price Group, Inc.",equity,2025-01-25 12:47:33.006578
+PRI,"Primerica, Inc.",equity,2025-01-25 12:47:33.006591
+PFG,"Principal Financial Group, Inc.",equity,2025-01-25 12:47:33.006605
+PCOR,"Procore Technologies, Inc.",equity,2025-01-25 12:47:33.006619
+PG,The Procter & Gamble Company,equity,2025-01-25 12:47:33.006632
+PGR,The Progressive Corporation,equity,2025-01-25 12:47:33.006642
+PLD,"Prologis, Inc.",equity,2025-01-25 12:47:33.006656
+PB,"Prosperity Bancshares, Inc.",equity,2025-01-25 12:47:33.006670
+PRU,"Prudential Financial, Inc.",equity,2025-01-25 12:47:33.006680
+PTC,PTC Inc.,equity,2025-01-25 12:47:33.006694
+PSA,Public Storage,equity,2025-01-25 12:47:33.006708
+PEG,Public Service Enterprise Group Incorporated,equity,2025-01-25 12:47:33.006722
+PHM,"PulteGroup, Inc.",equity,2025-01-25 12:47:33.006735
+PSTG,"Pure Storage, Inc.",equity,2025-01-25 12:47:33.006749
+PVH,PVH Corp.,equity,2025-01-25 12:47:33.006763
+QGEN,Qiagen N.V.,equity,2025-01-25 12:47:33.006777
+QRVO,"Qorvo, Inc.",equity,2025-01-25 12:47:33.006791
+QCOM,QUALCOMM Incorporated,equity,2025-01-25 12:47:33.006804
+PWR,"Quanta Services, Inc.",equity,2025-01-25 12:47:33.006818
+QS,QuantumScape Corporation,equity,2025-01-25 12:47:33.006832
+DGX,Quest Diagnostics Incorporated,equity,2025-01-25 12:47:33.006842
+QDEL,QuidelOrtho Corporation,equity,2025-01-25 12:47:33.006856
+RL,Ralph Lauren Corporation,equity,2025-01-25 12:47:33.006870
+RRC,Range Resources Corporation,equity,2025-01-25 12:47:33.006880
+RJF,"Raymond James Financial, Inc.",equity,2025-01-25 12:47:33.006895
+RYN,Rayonier Inc.,equity,2025-01-25 12:47:33.006909
+RBA,"RB Global, Inc.",equity,2025-01-25 12:47:33.006923
+RBC,RBC Bearings Incorporated,equity,2025-01-25 12:47:33.006937
+O,Realty Income Corporation,equity,2025-01-25 12:47:33.006952
+RRX,Regal Rexnord Corporation,equity,2025-01-25 12:47:33.006961
+REG,Regency Centers Corporation,equity,2025-01-25 12:47:33.006976
+REGN,"Regeneron Pharmaceuticals, Inc.",equity,2025-01-25 12:47:33.006990
+RF,Regions Financial Corporation,equity,2025-01-25 12:47:33.007004
+RGA,"Reinsurance Group of America, Incorporated",equity,2025-01-25 12:47:33.007014
+RS,"Reliance, Inc.",equity,2025-01-25 12:47:33.007037
+RNR,RenaissanceRe Holdings Ltd.,equity,2025-01-25 12:47:33.007048
+RGEN,Repligen Corporation,equity,2025-01-25 12:47:33.007062
+RSG,"Republic Services, Inc.",equity,2025-01-25 12:47:33.007076
+RMD,ResMed Inc.,equity,2025-01-25 12:47:33.007091
+RVTY,"Revvity, Inc.",equity,2025-01-25 12:47:33.007105
+REXR,"Rexford Industrial Realty, Inc.",equity,2025-01-25 12:47:33.007119
+REYN,Reynolds Consumer Products Inc.,equity,2025-01-25 12:47:33.007133
+RH,RH,equity,2025-01-25 12:47:33.007147
+RNG,"RingCentral, Inc.",equity,2025-01-25 12:47:33.007157
+RITM,Rithm Capital Corp.,equity,2025-01-25 12:47:33.007172
+RIVN,"Rivian Automotive, Inc.",equity,2025-01-25 12:47:33.007185
+RLI,RLI Corp.,equity,2025-01-25 12:47:33.007310
+RHI,Robert Half Inc.,equity,2025-01-25 12:47:33.007325
+HOOD,"Robinhood Markets, Inc.",equity,2025-01-25 12:47:33.007339
+RBLX,Roblox Corporation,equity,2025-01-25 12:47:33.007353
+RKT,"Rocket Companies, Inc.",equity,2025-01-25 12:47:33.007367
+ROK,"Rockwell Automation, Inc.",equity,2025-01-25 12:47:33.007382
+ROIV,Roivant Sciences Ltd.,equity,2025-01-25 12:47:33.007396
+ROKU,"Roku, Inc.",equity,2025-01-25 12:47:33.007410
+ROL,"Rollins, Inc.",equity,2025-01-25 12:47:33.007424
+ROP,"Roper Technologies, Inc.",equity,2025-01-25 12:47:33.007439
+ROST,"Ross Stores, Inc.",equity,2025-01-25 12:47:33.007453
+RCL,Royal Caribbean Cruises Ltd.,equity,2025-01-25 12:47:33.007467
+RGLD,"Royal Gold, Inc.",equity,2025-01-25 12:47:33.007482
+RPRX,Royalty Pharma plc,equity,2025-01-25 12:47:33.007496
+RPM,RPM International Inc.,equity,2025-01-25 12:47:33.007510
+RTX,RTX Corporation,equity,2025-01-25 12:47:33.007524
+RYAN,"Ryan Specialty Holdings, Inc.",equity,2025-01-25 12:47:33.007539
+R,"Ryder System, Inc.",equity,2025-01-25 12:47:33.007553
+SPGI,S&P Global Inc.,equity,2025-01-25 12:47:33.007563
+SAIA,"Saia, Inc.",equity,2025-01-25 12:47:33.007577
+SAIC,Science Applications International Corporation,equity,2025-01-25 12:47:33.007590
+CRM,"Salesforce, Inc.",equity,2025-01-25 12:47:33.007604
+SLM,SLM Corporation,equity,2025-01-25 12:47:33.007619
+SRPT,"Sarepta Therapeutics, Inc.",equity,2025-01-25 12:47:33.007634
+SBAC,SBA Communications Corporation,equity,2025-01-25 12:47:33.007649
+HSIC,"Henry Schein, Inc.",equity,2025-01-25 12:47:33.007663
+SLB,Schlumberger Limited,equity,2025-01-25 12:47:33.007677
+SNDR,"Schneider National, Inc.",equity,2025-01-25 12:47:33.007692
+SMG,The Scotts Miracle-Gro Company,equity,2025-01-25 12:47:33.007707
+SEB,Seaboard Corporation,equity,2025-01-25 12:47:33.007722
+SEE,Sealed Air Corporation,equity,2025-01-25 12:47:33.007737
+SEG,Seaport Entertainment Group Inc.,equity,2025-01-25 12:47:33.007755
+SEIC,SEI Investments Company,equity,2025-01-25 12:47:33.007776
+SRE,Sempra,equity,2025-01-25 12:47:33.007794
+ST,Sensata Technologies Holding plc,equity,2025-01-25 12:47:33.007809
+S,"SentinelOne, Inc.",equity,2025-01-25 12:47:33.007820
+SCI,Service Corporation International,equity,2025-01-25 12:47:33.007830
+NOW,"ServiceNow, Inc.",equity,2025-01-25 12:47:33.007845
+SN,"SharkNinja, Inc.",equity,2025-01-25 12:47:33.007860
+SHW,The Sherwin-Williams Company,equity,2025-01-25 12:47:33.007871
+FOUR,"Shift4 Payments, Inc.",equity,2025-01-25 12:47:33.007886
+SLGN,Silgan Holdings Inc.,equity,2025-01-25 12:47:33.007901
+SPG,"Simon Property Group, Inc.",equity,2025-01-25 12:47:33.007915
+SSD,"Simpson Manufacturing Co., Inc.",equity,2025-01-25 12:47:33.007930
+SIRI,Sirius XM Holdings Inc.,equity,2025-01-25 12:47:33.007945
+SITE,"SiteOne Landscape Supply, Inc.",equity,2025-01-25 12:47:33.007960
+SKX,"Skechers U.S.A., Inc.",equity,2025-01-25 12:47:33.007974
+SWKS,"Skyworks Solutions, Inc.",equity,2025-01-25 12:47:33.007990
+SMAR,Smartsheet Inc.,equity,2025-01-25 12:47:33.008004
+SJM,The J. M. Smucker Company,equity,2025-01-25 12:47:33.008019
+SW,Smurfit Westrock Plc,equity,2025-01-25 12:47:33.008034
+SNA,Snap-on Incorporated,equity,2025-01-25 12:47:33.008045
+SNOW,Snowflake Inc.,equity,2025-01-25 12:47:33.008060
+SOFI,"SoFi Technologies, Inc.",equity,2025-01-25 12:47:33.008079
+SOLV,Solventum Corporation,equity,2025-01-25 12:47:33.008094
+SON,Sonoco Products Company,equity,2025-01-25 12:47:33.008108
+SHC,Sotera Health Company,equity,2025-01-25 12:47:33.008124
+SO,The Southern Company,equity,2025-01-25 12:47:33.008139
+SCCO,Southern Copper Corporation,equity,2025-01-25 12:47:33.008150
+LUV,Southwest Airlines Co.,equity,2025-01-25 12:47:33.008165
+SPB,"Spectrum Brands Holdings, Inc.",equity,2025-01-25 12:47:33.008180
+SPR,"Spirit AeroSystems Holdings, Inc.",equity,2025-01-25 12:47:33.008195
+SPOT,Spotify Technology S.A.,equity,2025-01-25 12:47:33.008210
+SSNC,"SS&C Technologies Holdings, Inc.",equity,2025-01-25 12:47:33.008225
+STAG,"STAG Industrial, Inc.",equity,2025-01-25 12:47:33.008240
+SARO,"StandardAero, Inc.",equity,2025-01-25 12:47:33.008255
+SWK,"Stanley Black & Decker, Inc.",equity,2025-01-25 12:47:33.008270
+SBUX,Starbucks Corporation,equity,2025-01-25 12:47:33.008285
+STWD,"Starwood Property Trust, Inc.",equity,2025-01-25 12:47:33.008300
+STT,State Street Corporation,equity,2025-01-25 12:47:33.008315
+STLD,"Steel Dynamics, Inc.",equity,2025-01-25 12:47:33.008331
+STE,STERIS plc,equity,2025-01-25 12:47:33.008346
+SF,Stifel Financial Corp.,equity,2025-01-25 12:47:33.008361
+SYK,Stryker Corporation,equity,2025-01-25 12:47:33.008373
+SUI,"Sun Communities, Inc.",equity,2025-01-25 12:47:33.008388
+SMCI,"Super Micro Computer, Inc.",equity,2025-01-25 12:47:33.008404
+SYF,Synchrony Financial,equity,2025-01-25 12:47:33.008419
+SNPS,"Synopsys, Inc.",equity,2025-01-25 12:47:33.008434
+SNV,Synovus Financial Corp.,equity,2025-01-25 12:47:33.008450
+SYY,Sysco Corporation,equity,2025-01-25 12:47:33.008465
+TMUS,"T-Mobile US, Inc.",equity,2025-01-25 12:47:33.008481
+TTWO,"Take-Two Interactive Software, Inc.",equity,2025-01-25 12:47:33.008496
+TPR,"Tapestry, Inc.",equity,2025-01-25 12:47:33.008511
+TRGP,Targa Resources Corp.,equity,2025-01-25 12:47:33.008527
+TGT,Target Corporation,equity,2025-01-25 12:47:33.008542
+SNX,TD SYNNEX Corporation,equity,2025-01-25 12:47:33.008558
+FTI,TechnipFMC plc,equity,2025-01-25 12:47:33.008573
+TDY,Teledyne Technologies Incorporated,equity,2025-01-25 12:47:33.008589
+TFX,Teleflex Incorporated,equity,2025-01-25 12:47:33.008605
+TPX,"Tempur Sealy International, Inc.",equity,2025-01-25 12:47:33.008621
+THC,Tenet Healthcare Corporation,equity,2025-01-25 12:47:33.008637
+TDC,Teradata Corporation,equity,2025-01-25 12:47:33.008652
+TER,"Teradyne, Inc.",equity,2025-01-25 12:47:33.008671
+TSLA,"Tesla, Inc.",equity,2025-01-25 12:47:33.008691
+TTEK,"Tetra Tech, Inc.",equity,2025-01-25 12:47:33.008706
+TXN,Texas Instruments Incorporated,equity,2025-01-25 12:47:33.008722
+TPL,Texas Pacific Land Corporation,equity,2025-01-25 12:47:33.008738
+TXRH,"Texas Roadhouse, Inc.",equity,2025-01-25 12:47:33.008753
+TXT,Textron Inc.,equity,2025-01-25 12:47:33.008769
+TMO,Thermo Fisher Scientific Inc.,equity,2025-01-25 12:47:33.008788
+TFSL,TFS Financial Corporation,equity,2025-01-25 12:47:33.008804
+THO,"THOR Industries, Inc.",equity,2025-01-25 12:47:33.008820
+TKR,The Timken Company,equity,2025-01-25 12:47:33.008836
+TJX,"The TJX Companies, Inc.",equity,2025-01-25 12:47:33.008852
+TKO,"TKO Group Holdings, Inc.",equity,2025-01-25 12:47:33.008868
+TOST,"Toast, Inc.",equity,2025-01-25 12:47:33.008884
+TOL,"Toll Brothers, Inc.",equity,2025-01-25 12:47:33.008899
+BLD,TopBuild Corp.,equity,2025-01-25 12:47:33.008915
+TTC,The Toro Company,equity,2025-01-25 12:47:33.008931
+TPG,TPG Inc.,equity,2025-01-25 12:47:33.008947
+TSCO,Tractor Supply Company,equity,2025-01-25 12:47:33.008963
+TTD,"The Trade Desk, Inc.",equity,2025-01-25 12:47:33.008979
+TW,Tradeweb Markets Inc.,equity,2025-01-25 12:47:33.008995
+TT,Trane Technologies plc,equity,2025-01-25 12:47:33.009006
+TDG,TransDigm Group Incorporated,equity,2025-01-25 12:47:33.009018
+TRU,TransUnion,equity,2025-01-25 12:47:33.009034
+TNL,Travel + Leisure Co.,equity,2025-01-25 12:47:33.009050
+TRV,"The Travelers Companies, Inc.",equity,2025-01-25 12:47:33.009066
+TREX,"Trex Company, Inc.",equity,2025-01-25 12:47:33.009082
+TRMB,Trimble Inc.,equity,2025-01-25 12:47:33.009101
+TRIP,"Tripadvisor, Inc.",equity,2025-01-25 12:47:33.009119
+TFC,Truist Financial Corporation,equity,2025-01-25 12:47:33.009135
+DJT,Trump Media & Technology Group Corp.,equity,2025-01-25 12:47:33.009151
+TWLO,Twilio Inc.,equity,2025-01-25 12:47:33.009168
+TYL,"Tyler Technologies, Inc.",equity,2025-01-25 12:47:33.009183
+TSN,"Tyson Foods, Inc.",equity,2025-01-25 12:47:33.009199
+UHAL,U-Haul Holding Company,equity,2025-01-25 12:47:33.009216
+UHAL.B,,equity,2025-01-25 12:47:33.089785
+USB,U.S. Bancorp,equity,2025-01-25 12:47:33.090415
+X,United States Steel Corporation,equity,2025-01-25 12:47:33.090434
+UBER,"Uber Technologies, Inc.",equity,2025-01-25 12:47:33.090445
+UI,Ubiquiti Inc.,equity,2025-01-25 12:47:33.090462
+UDR,"UDR, Inc.",equity,2025-01-25 12:47:33.090473
+UGI,UGI Corporation,equity,2025-01-25 12:47:33.090490
+PATH,UiPath Inc.,equity,2025-01-25 12:47:33.090506
+ULTA,"Ulta Beauty, Inc.",equity,2025-01-25 12:47:33.090522
+RARE,Ultragenyx Pharmaceutical Inc.,equity,2025-01-25 12:47:33.090538
+UAA,"Under Armour, Inc.",equity,2025-01-25 12:47:33.090553
+UA,"Under Armour, Inc.",equity,2025-01-25 12:47:33.090578
+UNP,Union Pacific Corporation,equity,2025-01-25 12:47:33.090590
+UAL,"United Airlines Holdings, Inc.",equity,2025-01-25 12:47:33.090607
+UPS,"United Parcel Service, Inc.",equity,2025-01-25 12:47:33.090624
+URI,"United Rentals, Inc.",equity,2025-01-25 12:47:33.090641
+UTHR,United Therapeutics Corporation,equity,2025-01-25 12:47:33.090658
+UWMC,UWM Holdings Corporation,equity,2025-01-25 12:47:33.090674
+UNH,UnitedHealth Group Incorporated,equity,2025-01-25 12:47:33.090690
+U,Unity Software Inc.,equity,2025-01-25 12:47:33.090706
+OLED,Universal Display Corporation,equity,2025-01-25 12:47:33.090717
+UHS,"Universal Health Services, Inc.",equity,2025-01-25 12:47:33.090733
+UNM,Unum Group,equity,2025-01-25 12:47:33.090750
+USFD,US Foods Holding Corp.,equity,2025-01-25 12:47:33.090767
+MTN,"Vail Resorts, Inc.",equity,2025-01-25 12:47:33.090783
+VLO,Valero Energy Corporation,equity,2025-01-25 12:47:33.090800
+VMI,"Valmont Industries, Inc.",equity,2025-01-25 12:47:33.090817
+VVV,Valvoline Inc.,equity,2025-01-25 12:47:33.090834
+VEEV,Veeva Systems Inc.,equity,2025-01-25 12:47:33.090851
+VTR,"Ventas, Inc.",equity,2025-01-25 12:47:33.090867
+VLTO,Veralto Corporation,equity,2025-01-25 12:47:33.090884
+VRSN,"VeriSign, Inc.",equity,2025-01-25 12:47:33.090900
+VRSK,"Verisk Analytics, Inc.",equity,2025-01-25 12:47:33.090915
+VZ,Verizon Communications Inc.,equity,2025-01-25 12:47:33.090931
+VRTX,Vertex Pharmaceuticals Incorporated,equity,2025-01-25 12:47:33.090942
+VRT,Vertiv Holdings Co,equity,2025-01-25 12:47:33.090959
+VSTS,Vestis Corporation,equity,2025-01-25 12:47:33.090982
+VFC,V.F. Corporation,equity,2025-01-25 12:47:33.091003
+VTRS,Viatris Inc.,equity,2025-01-25 12:47:33.091021
+VICI,VICI Properties Inc.,equity,2025-01-25 12:47:33.091037
+VKTX,"Viking Therapeutics, Inc.",equity,2025-01-25 12:47:33.091053
+VNOM,"Viper Energy, Inc.",equity,2025-01-25 12:47:33.091069
+VIRT,"Virtu Financial, Inc.",equity,2025-01-25 12:47:33.091085
+V,Visa Inc.,equity,2025-01-25 12:47:33.091100
+VST,Vistra Corp.,equity,2025-01-25 12:47:33.091111
+VNT,Vontier Corporation,equity,2025-01-25 12:47:33.091128
+VNO,Vornado Realty Trust,equity,2025-01-25 12:47:33.091145
+VOYA,"Voya Financial, Inc.",equity,2025-01-25 12:47:33.091162
+VMC,Vulcan Materials Company,equity,2025-01-25 12:47:33.091178
+WPC,W. P. Carey Inc.,equity,2025-01-25 12:47:33.091196
+WRB,W. R. Berkley Corporation,equity,2025-01-25 12:47:33.091213
+GWW,"W.W. Grainger, Inc.",equity,2025-01-25 12:47:33.091230
+WAB,Westinghouse Air Brake Technologies Corporation,equity,2025-01-25 12:47:33.091247
+WBA,"Walgreens Boots Alliance, Inc.",equity,2025-01-25 12:47:33.091265
+WMT,Walmart Inc.,equity,2025-01-25 12:47:33.091282
+DIS,The Walt Disney Company,equity,2025-01-25 12:47:33.091299
+WBD,"Warner Bros. Discovery, Inc.",equity,2025-01-25 12:47:33.091317
+WM,"Waste Management, Inc.",equity,2025-01-25 12:47:33.091334
+WAT,Waters Corporation,equity,2025-01-25 12:47:33.091346
+WSO,"Watsco, Inc.",equity,2025-01-25 12:47:33.091363
+W,Wayfair Inc.,equity,2025-01-25 12:47:33.091380
+WFRD,Weatherford International plc,equity,2025-01-25 12:47:33.091391
+WBS,Webster Financial Corporation,equity,2025-01-25 12:47:33.091407
+WEC,"WEC Energy Group, Inc.",equity,2025-01-25 12:47:33.091424
+WFC,Wells Fargo & Company,equity,2025-01-25 12:47:33.091442
+WELL,Welltower Inc.,equity,2025-01-25 12:47:33.091459
+WEN,The Wendy's Company,equity,2025-01-25 12:47:33.091475
+WCC,"WESCO International, Inc.",equity,2025-01-25 12:47:33.091496
+WST,"West Pharmaceutical Services, Inc.",equity,2025-01-25 12:47:33.091513
+WAL,Western Alliance Bancorporation,equity,2025-01-25 12:47:33.091534
+WDC,Western Digital Corporation,equity,2025-01-25 12:47:33.091554
+WU,The Western Union Company,equity,2025-01-25 12:47:33.091577
+WLK,Westlake Corporation,equity,2025-01-25 12:47:33.091589
+WEX,WEX Inc.,equity,2025-01-25 12:47:33.091606
+WY,Weyerhaeuser Company,equity,2025-01-25 12:47:33.091624
+WHR,Whirlpool Corporation,equity,2025-01-25 12:47:33.091636
+WTM,"White Mountains Insurance Group, Ltd.",equity,2025-01-25 12:47:33.091653
+WMB,"The Williams Companies, Inc.",equity,2025-01-25 12:47:33.091671
+WSM,"Williams-Sonoma, Inc.",equity,2025-01-25 12:47:33.091688
+WTW,Willis Towers Watson Public Limited Company,equity,2025-01-25 12:47:33.091706
+WSC,WillScot Holdings Corporation,equity,2025-01-25 12:47:33.091723
+WING,Wingstop Inc.,equity,2025-01-25 12:47:33.091741
+WTFC,Wintrust Financial Corporation,equity,2025-01-25 12:47:33.091757
+WOLF,"Wolfspeed, Inc.",equity,2025-01-25 12:47:33.091773
+WWD,"Woodward, Inc.",equity,2025-01-25 12:47:33.091789
+WDAY,"Workday, Inc.",equity,2025-01-25 12:47:33.091806
+WH,"Wyndham Hotels & Resorts, Inc.",equity,2025-01-25 12:47:33.091823
+WYNN,"Wynn Resorts, Limited",equity,2025-01-25 12:47:33.091835
+XEL,Xcel Energy Inc.,equity,2025-01-25 12:47:33.091852
+XP,XP Inc.,equity,2025-01-25 12:47:33.166668
+XPO,"XPO, Inc.",equity,2025-01-25 12:47:33.241448
+XYL,Xylem Inc.,equity,2025-01-25 12:47:33.323596
+YETI,"YETI Holdings, Inc.",equity,2025-01-25 12:47:33.393919
+YUM,"Yum! Brands, Inc.",equity,2025-01-25 12:47:33.496190
+ZBRA,Zebra Technologies Corporation,equity,2025-01-25 12:47:33.564853
+ZG,"Zillow Group, Inc.",equity,2025-01-25 12:47:33.632598
+Z,"Zillow Group, Inc.",equity,2025-01-25 12:47:33.702256
+ZBH,"Zimmer Biomet Holdings, Inc.",equity,2025-01-25 12:47:33.918952
+ZION,"Zions Bancorporation, National Association",equity,2025-01-25 12:47:33.995071
+ZTS,Zoetis Inc.,equity,2025-01-25 12:47:34.229822
+ZM,Zoom Communications Inc.,equity,2025-01-25 12:47:34.301954
+ZI,ZoomInfo Technologies Inc.,equity,2025-01-25 12:47:34.408958
+ZS,"Zscaler, Inc.",equity,2025-01-25 12:47:34.754314
+XLC,The Communication Services Select Sector SPDR ETF Fund,spx_sector,2025-01-25 12:47:34.847594
+XLY,The Consumer Discretionary Select Sector SPDR Fund,spx_sector,2025-01-25 12:47:34.914669
+XLP,The Consumer Staples Select Sector SPDR Fund,spx_sector,2025-01-25 12:47:35.103210
+XLE,The Energy Select Sector SPDR Fund,spx_sector,2025-01-25 12:47:35.198390
+XLF,The Financial Select Sector SPDR Fund,spx_sector,2025-01-25 12:47:35.325514
+XLV,The Health Care Select Sector SPDR Fund,spx_sector,2025-01-25 12:47:35.422717
+XLI,The Industrial Select Sector SPDR Fund,spx_sector,2025-01-25 12:47:35.493781
+XLB,The Materials Select Sector SPDR Fund,spx_sector,2025-01-25 12:47:47.765701
+XLRE,The Real Estate Select Sector SPDR Fund,spx_sector,2025-01-25 12:47:47.835623
+XLK,The Technology Select Sector SPDR Fund,spx_sector,2025-01-25 12:47:49.755719
+XLU,The Utilities Select Sector SPDR Fund ,spx_sector,2025-01-25 12:47:49.825641
+VTV,Vanguard Value Index Fund ETF Shares,etf,2025-01-25 12:48:09.014555
+IWD,iShares Russell 1000 Value ETF,etf,2025-01-25 12:48:09.086223
+SCHG,Schwab U.S. Large-Cap Growth ETF,etf,2025-01-25 12:48:09.159393
+IWF,iShares Russell 1000 Growth ETF,etf,2025-01-25 12:48:09.238428
+IWN,iShares Russell 2000 Value ETF,etf,2025-01-25 12:48:09.311443
+VUG,Vanguard Growth Index Fund ETF Shares,etf,2025-01-25 12:48:09.378494
+VONG,Vanguard Russell 1000 Growth Index Fund ETF Shares,etf,2025-01-25 12:48:09.449673
+IWP,iShares Russell Mid-Cap Growth ETF,etf,2025-01-25 12:48:09.519645
+IVE,iShares S&P 500 Value ETF,etf,2025-01-25 12:48:09.741751
+IUSV,iShares Core S&P U.S. Value ETF,etf,2025-01-25 12:48:09.824465
+IWS,iShares Russell Mid-Cap Value ETF,etf,2025-01-25 12:48:09.909549
+VBR,Vanguard Small-Cap Value Index Fund ETF Shares,etf,2025-01-25 12:48:09.988635
+IWY,iShares Russell Top 200 Growth ETF,etf,2025-01-25 12:48:10.083895
+IWO,iShares Russell 2000 Growth ETF,etf,2025-01-25 12:48:10.293795
+DFLV,Dimensional US Large Cap Value ETF,etf,2025-01-25 12:48:10.358741
+KRE,SPDR S&P Regional Banking ETF,etf,2025-01-25 12:48:10.478921
+XRT,SPDR S&P Retail ETF,etf,2025-01-25 12:48:10.883796
+IYR,iShares U.S. Real Estate ETF,etf,2025-01-25 12:48:10.957079
+XLK,The Technology Select Sector SPDR Fund,spx_sector,2025-01-25 12:48:10.995116
+IGV,iShares Expanded Tech-Software Sector ETF,etf,2025-01-25 12:48:11.131369
+XLC,The Communication Services Select Sector SPDR ETF Fund,spx_sector,2025-01-25 12:48:11.186855
+XLB,The Materials Select Sector SPDR Fund,spx_sector,2025-01-25 12:48:11.225352
+VNQ,Vanguard Real Estate Index Fund ETF Shares,etf,2025-01-25 12:48:11.294373
+SOXX,iShares Semiconductor ETF,etf,2025-01-25 12:48:11.363997
+XLY,The Consumer Discretionary Select Sector SPDR Fund,spx_sector,2025-01-25 12:48:11.406008
+SCHH,Schwab U.S. REIT ETF,etf,2025-01-25 12:48:11.515425
+XOP,SPDR S&P Oil & Gas Exploration & Production ETF,etf,2025-01-25 12:48:11.759332
+MSOS,AdvisorShares Pure US Cannabis ETF,etf,2025-01-25 12:48:15.119569
+ARKK,ARK Innovation ETF,etf,2025-01-25 12:48:15.204035
+USMV,iShares MSCI USA Min Vol Factor ETF,etf,2025-01-25 12:48:15.587387
+SPLV,Invesco S&P 500 Low Volatility ETF,etf,2025-01-25 12:48:15.659137
+PAVE,Global X U.S. Infrastructure Development ETF,etf,2025-01-25 12:48:15.727698
+DYNF,iShares U.S. Equity Factor Rotation Active ETF,etf,2025-01-25 12:48:15.811988
+QUAL,iShares MSCI USA Quality Factor ETF,etf,2025-01-25 12:48:15.884157
+ESGU,iShares ESG Aware MSCI USA ETF,etf,2025-01-25 12:48:18.895820
+SPHQ,Invesco S&P 500 Quality ETF,etf,2025-01-25 12:48:18.961518
+AVUV,Avantis US Small Cap Value ETF,etf,2025-01-25 12:48:19.027586
+MTUM,iShares MSCI USA Momentum Factor ETF,etf,2025-01-25 12:48:19.092734
+FBCG,Fidelity Blue Chip Growth ETF,etf,2025-01-25 12:48:19.207446
+OMFL,Invesco Russell 1000 Dynamic Multifactor ETF,etf,2025-01-25 12:48:19.363595
+SPMO,Invesco S&P 500 Momentum ETF,etf,2025-01-25 12:48:19.430308
+JQUA,JPMorgan U.S. Quality Factor ETF,etf,2025-01-25 12:48:19.516533
+FNDX,Schwab Fundamental U.S. Large Company ETF,etf,2025-01-25 12:48:19.589102
+PRF,Invesco FTSE RAFI US 1000 ETF,etf,2025-01-25 12:48:19.661494
+XMMO,Invesco S&P MidCap Momentum ETF,etf,2025-01-25 12:48:19.731102
+SPHB,Invesco S&P 500 High Beta ETF,etf,2025-01-25 12:48:19.817381
+MJUS,Amplify U.S. Alternative Harvest ETF,etf,2025-01-25 12:48:19.887572
+SCHD,Schwab U.S. Dividend Equity ETF,etf,2025-01-25 12:48:19.988590
+COWZ,Pacer US Cash Cows 100 ETF,etf,2025-01-25 12:48:20.058411
+CALF,Pacer US Small Cap Cash Cows 100 ETF,etf,2025-01-25 12:48:20.137463
+CGDV,Capital Group Dividend Value ETF,etf,2025-01-25 12:48:20.209789
+DFAC,Dimensional U.S. Core Equity 2 ETF,etf,2025-01-25 12:48:20.296828
+DGRO,iShares Core Dividend Growth ETF,etf,2025-01-25 12:48:20.377356
+SDVY,First Trust SMID Cap Rising Dividend Achievers ETF,etf,2025-01-25 12:48:20.488428
+SPYD,SPDR Portfolio S&P 500 High Dividend ETF,etf,2025-01-25 12:48:20.625639
+FVD,First Trust Value Line Dividend Index Fund,etf,2025-01-25 12:48:20.775813
+VYM,Vanguard High Dividend Yield Index Fund ETF Shares,etf,2025-01-25 12:48:30.023554
+VIG,Vanguard Dividend Appreciation Index Fund ETF Shares,etf,2025-01-25 12:48:30.255423
+DUHP,Dimensional US High Profitability ETF,etf,2025-01-25 12:48:40.235602
+RDVY,First Trust Rising Dividend Achievers ETF,etf,2025-01-25 12:48:40.309679
+CGUS,Capital Group Core Equity ETF,etf,2025-01-25 12:48:40.373867
+DGRW,WisdomTree U.S. Quality Dividend Growth Fund,etf,2025-01-25 12:48:40.452603
+FDL,First Trust Morningstar Dividend Leaders Index Fund,etf,2025-01-25 12:48:40.756428
+SPHD,Invesco S&P 500 High Dividend Low Volatility ETF,etf,2025-01-25 12:48:40.909193
+DFSV,Dimensional US Small Cap Value ETF,etf,2025-01-25 12:48:41.063692
+NOBL,ProShares S&P 500 Dividend Aristocrats ETF,etf,2025-01-25 12:48:41.138602
+DVY,iShares Select Dividend ETF,etf,2025-01-25 12:48:41.210356
+SPY,SPDR S&P 500 ETF Trust,etf,2025-01-25 12:48:41.367758
+QQQ,Invesco QQQ Trust,etf,2025-01-25 12:48:41.432225
+IWM,iShares Russell 2000 ETF,etf,2025-01-25 12:48:41.715824
+IJH,iShares Core S&P Mid-Cap ETF,etf,2025-01-25 12:48:41.787321
+SPLG,SPDR Portfolio S&P 500 ETF,etf,2025-01-25 12:48:41.877774
+RSP,Invesco S&P 500 Equal Weight ETF,etf,2025-01-25 12:48:41.946010
+VOO,Vanguard S&P 500 ETF,etf,2025-01-25 12:48:42.382847
+IVV,iShares Core S&P 500 ETF,etf,2025-01-25 12:48:42.449201
+DIA,SPDR Dow Jones Industrial Average ETF Trust,etf,2025-01-25 12:48:42.575889
+IJR,iShares Core S&P Small-Cap ETF,etf,2025-01-25 12:48:42.646295
+VTI,Vanguard Total Stock Market Index Fund ETF Shares,etf,2025-01-25 12:48:42.722830
+VTWO,Vanguard Russell 2000 Index Fund ETF Shares,etf,2025-01-25 12:48:42.941936
+XLG,Invesco S&P 500 Top 50 ETF,etf,2025-01-25 12:48:43.202971
+QQQM,Invesco NASDAQ 100 ETF,etf,2025-01-25 12:48:43.297704
+SCHX,Schwab U.S. Large-Cap ETF,etf,2025-01-25 12:48:43.485558
+SPSM,SPDR Portfolio S&P 600 Small Cap ETF,etf,2025-01-25 12:48:43.901079
+ITOT,iShares Core S&P Total U.S. Stock Market ETF,etf,2025-01-25 12:48:44.090886
+IWR,iShares Russell Mid-Cap ETF,etf,2025-01-25 12:48:44.157920
+SPMD,SPDR Portfolio S&P 400 Mid Cap ETF,etf,2025-01-25 12:48:44.305641
+IWB,iShares Russell 1000 ETF,etf,2025-01-25 12:48:44.373485
+^IRX,13 WEEK TREASURY BILL,sovereign_debt,2025-01-25 12:48:44.439007
+^FVX,Treasury Yield 5 Years,sovereign_debt,2025-01-25 12:48:44.515438
+^TNX,CBOE Interest Rate 10 Year T No,sovereign_debt,2025-01-25 12:48:44.585334
+^TYX,Treasury Yield 30 Years,sovereign_debt,2025-01-25 12:48:44.651584
+TLT,iShares 20+ Year Treasury Bond ETF,etf,2025-01-25 12:48:44.720475
+VEA,iShares Core MSCI EAFE ETF,etf,2025-01-25 12:48:44.720475
+IEFA,iShares Core MSCI EAFE ETF,etf,2025-01-25 12:48:44.720475
+VWO,Vanguard FTSE Emerging Markets ETF,etf,2025-01-25 12:48:44.720475
+IEMG,iShares Core MSCI Emerging Markets ETF,etf,2025-01-25 12:48:44.720475
+VXUS,Vanguard Total International Stock ETF,etf,2025-01-25 12:48:44.720475
+EFA,iShares MSCI EAFE ETF,etf,2025-01-25 12:48:44.720475
+VT,Vanguard Total World Stock ETF,etf,2025-01-25 12:48:44.720475
+SCHF,Schwab International Equity ETF,etf,2025-01-25 12:48:44.720475
+IXUS,iShares Core MSCI Total International Stock ETF,etf,2025-01-25 12:48:44.720475
+VEU,Vanguard FTSE All-World ex-US ETF,etf,2025-01-25 12:48:44.720475
