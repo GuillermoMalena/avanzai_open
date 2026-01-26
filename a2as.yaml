@@ -1,0 +1,700 @@
+manifest:
+  version: "0.1.2"
+  schema: https://a2as.org/cert/schema
+  subject:
+    name: guillermomalena/avanzai_open
+    source: https://github.com/guillermomalena/avanzai_open
+    branch: main
+    commit: "b5bcb8de"
+    scope: [avanzai-backend/az_data.py, avanzai-backend/az3_api_03242025.py, avanzai-backend/analysis_tools.py]
+  issued:
+    by: A2AS.org
+    at: '2026-01-26T16:11:11Z'
+  signatures:
+    digest: sha256:QIa4dYbptsSfflBDst6vrL_v0icFTzHdqAbu_Uld4DU
+    key: ed25519:ZQmeJZXto484t2m1BfCMJ11UGPT1IUG-SwXWVKurgxw
+    sig: ed25519:-A2Wmnn1jinvmZcR6cS8MDzs0_TSNlRpGG6gjyf6sCqAb3Qh_zjRBpVAUPAzY17O4lPSKU4k7tLAcnozNblkCg
+
+agents:
+  agent:
+    type: instance
+    models: [gpt-4o-mini]
+    tools: [process_stock_data]
+    params:
+      function: process_query
+      name: Stock Data Processor
+      output_type: AgentStockResponse
+      instructions: [You are a stock data processing assistant., Your job is to understand natural language queries about
+          stock data and call the process_stock_data function with the appropriate parameters., Always call the process_stock_data
+          function with the correct parameters based on the query., 'Today''s date is {today}. Use it to calculate the date
+          range for relative dates.', 'When you receive a query:', '1. Extract the stock tickers mentioned (e.g., AAPL, MSFT,
+          GOOG)', 2. Determine the date range requested, '- For relative dates like "last 3 months", calculate the actual
+          date range', '- For specific dates like "from January to March 2023", use those exact dates', '3. Identify the session
+          ID if provided, or use {request.session_id}', 4. Determine the transformation type requested (currently only 'cumulative_performance'
+          is supported), 5. Format these as parameters for the process_stock_data function, 6. Call the function with these
+          parameters, '7. Return the complete ProcessDataResponse, which includes:', '- status: The processing status', '-
+          path: The path to the saved data', '- summary: The summary statistics including start_date, end_date, and cumulative_returns',
+        'Examples:', '- "Show me cumulative performance for AAPL and MSFT over the last 6 months in session abc-123"', '→
+          Parameters:', '- tickers: ["AAPL", "MSFT"]', '- start_date: [six months ago]', '- end_date: [today]', '- session_id:
+          "abc-123"', '- transformation_type: "cumulative_performance"', '→ Response:', '{', '"status": "success",', '"path":
+          "s3://bucket/sessions/abc-123/processed_data.parquet",', '"start_date": "2023-09-24",', '"end_date": "{today}",',
+        '"cumulative_returns": {', '"AAPL": 0.234,', '"MSFT": 0.187', '}', '}', 'Important: Make sure to return the complete
+          ProcessDataResponse object with all fields, including the summary data.', 'Do not explain what you''re doing, just
+          call the function with the correct parameters based on the query.']
+  search_agent:
+    type: instance
+    models: [gpt-4.1]
+    tools: [WebSearchTool]
+    params:
+      function: get_latest_news
+      name: Search agent
+      model_settings: ModelSettings(tool_choice=required)
+      instructions: ['You are a research assistant focused on market news and analysis. Search for the latest market developments,
+          stock performance, product launches, and business strategies. Produce a concise 2-3 paragraph summary under 300
+          words that captures key market movements, financial metrics, competitive positioning, and material business updates.
+          Focus on actionable insights that could impact market value and industry standing. Write succinctly without complete
+          sentences. Prioritize hard data and market-moving news over speculation. Include only the factual summary without
+          additional commentary.']
+
+models:
+  gpt-4.1:
+    type: default
+    agents: [search_agent]
+  gpt-4o-mini:
+    type: literal
+    agents: [agent]
+
+tools:
+  correlation:
+    type: decorator
+  cumulative_performance:
+    type: decorator
+    params:
+      description: |-
+        Rebase a price series to 100 and compounding returns forward.
+
+        Returns a dict so the LLM sees a tiny preview:
+          {
+            "df_id": "<new id>",
+            "tail5": [
+               {"date": "2025-03-21", "value": 148.02},
+               …
+            ]
+          }
+  pct_change:
+    type: decorator
+  process_stock_data:
+    type: decorator
+    agents: [agent]
+    params:
+      description: |-
+        Process stock data based on the request parameters and save results to a JSON file in S3.
+        Now includes summary statistics in the response.
+  resample:
+    type: decorator
+    params:
+      description: |-
+        Resample a series and return:
+          {
+            "df_id": "<new id>",
+            "tail5": [{"date": "2025-03-31", "value": 0.0123}, …]
+          }
+  WebSearchTool:
+    type: module
+    agents: [search_agent]
+
+imports:
+  '*': pydantic.*
+  accumulate: itertools.accumulate
+  Agent: agents.Agent
+  annotations: __future__.annotations
+  Any: typing.Any
+  asdict: dataclasses.asdict
+  ast: ast
+  asynccontextmanager: contextlib.asynccontextmanager
+  asyncio: asyncio
+  asyncpg: asyncpg
+  BaseModel: pydantic.BaseModel
+  BaseTool: llama_index.core.tools.BaseTool
+  boto3: boto3
+  BytesIO: io.BytesIO
+  ChatMessage: llama_index.core.llms.ChatMessage
+  Client: supabase.Client
+  CORSMiddleware: fastapi.middleware.cors.CORSMiddleware
+  create_agent: az3_api_04272025_dev.create_agent
+  create_client: supabase.create_client
+  create_engine: sqlalchemy.create_engine
+  dataclass: dataclasses.dataclass
+  datetime: datetime.datetime
+  Dict: typing.Dict
+  dt: datetime
+  enable_verbose_stdout_logging: agents.enable_verbose_stdout_logging
+  Engine: sqlalchemy.Engine
+  FastAPI: fastapi.FastAPI
+  Field: pydantic.Field
+  Fred: fredapi.Fred
+  function_tool: agents.function_tool
+  FunctionCallingAgent: llama_index.core.agent.FunctionCallingAgent
+  FunctionCallingAgentWorker: llama_index.core.agent.FunctionCallingAgentWorker
+  FunctionCallingProgram: llama_index.core.program.FunctionCallingProgram
+  FunctionTool: llama_index.core.tools.FunctionTool
+  gc: gc
+  get_universe_sql_query: az3_api_04272025_dev.get_universe_sql_query
+  HTTPException: fastapi.HTTPException
+  inspect: sqlalchemy.inspect
+  io: io
+  json: json
+  List: typing.List
+  Literal: typing.Literal
+  LlamaOpenAI: llama_index.llms.openai.OpenAI
+  LLMTextCompletionProgram: llama_index.core.program.LLMTextCompletionProgram
+  load_dotenv: dotenv.load_dotenv
+  MetaData: sqlalchemy.MetaData
+  ModelSettings: agents.model_settings.ModelSettings
+  np: numpy
+  OpenAI: openai.OpenAI
+  OpenAIAgent: llama_index.agent.openai.OpenAIAgent
+  Optional: typing.Optional
+  os: os
+  Path: pathlib.Path
+  pd: pandas
+  pq: pyarrow.parquet
+  psutil: psutil
+  PydanticOutputParser: llama_index.core.output_parsers.PydanticOutputParser
+  pytz: pytz
+  QueryEngineTool: llama_index.core.tools.QueryEngineTool
+  re: re
+  ReActAgent: llama_index.core.agent.ReActAgent
+  ReActAgentWorker: llama_index.core.agent.ReActAgentWorker
+  requests: requests
+  RunContextWrapper: agents.RunContextWrapper
+  Runner: agents.Runner
+  shutil: shutil
+  SQLAlchemyError: sqlalchemy.exc.SQLAlchemyError
+  sqlite3: sqlite3
+  StructuredPlannerAgent: llama_index.core.agent.StructuredPlannerAgent
+  text: sqlalchemy.text
+  timedelta: datetime.timedelta
+  timezone: datetime.timezone
+  ToolMetadata: llama_index.core.tools.ToolMetadata
+  traceback: traceback
+  Tuple: typing.Tuple
+  Union: typing.Union
+  UUID: uuid.UUID
+  uuid: uuid
+  uvicorn: uvicorn
+  validator: pydantic.validator
+  WebSearchTool: agents.WebSearchTool
+  yf: yfinance
+
+functions:
+  __init__:
+    type: sync
+    module: avanzai-backend.az3_api_03242025
+    args: [self, base_path]
+  _datetime_handler:
+    type: sync
+    module: avanzai-backend.az3_api_03242025
+    args: [obj]
+  _fetch:
+    type: sync
+    module: avanzai-backend.analysis_tools
+    args: [df_id]
+    params:
+      returns: pd.DataFrame
+  _fetch_universe:
+    type: sync
+    module: avanzai-backend.az_data
+    args: [db_path, table]
+    params:
+      returns: pd.DataFrame
+  _get_timedelta:
+    type: sync
+    module: avanzai-backend.az3_api_03242025
+    args: [time_range]
+    params:
+      returns: timedelta
+  _save:
+    type: sync
+    module: avanzai-backend.analysis_tools
+    args: [df]
+    params:
+      returns: str
+  _schema_block:
+    type: sync
+    module: avanzai-backend.az_data
+    args: [db_path, table]
+    params:
+      returns: str
+  _summarize_tail:
+    type: sync
+    module: avanzai-backend.analysis_tools
+    args: [df, n]
+    params:
+      returns: list[dict]
+  _tail5:
+    type: sync
+    module: avanzai-backend.analysis_tools
+    args: [x]
+  build_sql_query_agent:
+    type: sync
+    module: avanzai-backend.az_data
+    args: [db_path, table, tool_example_count, outer_example_count, model, examples]
+  calculate_returns_metrics:
+    type: sync
+    module: avanzai-backend.az3_api_03242025
+    args: [price_data, ticker, start_date, end_date]
+    params:
+      returns: Dict
+  calculate_stock_performance:
+    type: async
+    module: avanzai-backend.az3_api_03242025
+    args: [ticker, user_id, start_date, end_date]
+    params:
+      returns: Dict
+  correlation:
+    type: tool
+    module: avanzai-backend.analysis_tools
+    args: [x_id, y_id, start_date, end_date]
+    params:
+      returns: str
+  create_agent:
+    type: sync
+    module: avanzai-backend.az3_api_03242025
+    args: [prompt, functions_list, default_tool_choice]
+  cumulative_performance:
+    type: tool
+    module: avanzai-backend.analysis_tools
+    args: [df_id, start_date, end_date]
+    params:
+      returns: dict
+  delete_session:
+    type: sync
+    module: avanzai-backend.az3_api_03242025
+    args: [self, session_id]
+    params:
+      returns: bool
+  download_pricing:
+    type: sync
+    module: avanzai-backend.az_data
+    args: [csv_path, start, parquet_path]
+    params:
+      returns: str
+  download_sp500_universe:
+    type: sync
+    module: avanzai-backend.az_data
+    args: [db_path, table_name, force]
+    params:
+      returns: str
+  ensure_list_output:
+    type: sync
+    module: avanzai-backend.az3_api_03242025
+    args: [cls, v]
+  extract_ticker_symbol:
+    type: sync
+    module: avanzai-backend.az3_api_03242025
+    args: [user_query]
+    params:
+      returns: Optional[str]
+  extract_tickers:
+    type: sync
+    module: avanzai-backend.az3_api_03242025
+    args: [query_result]
+    params:
+      returns: List[str]
+  generate_examples:
+    type: sync
+    module: avanzai-backend.az_data
+    args: [db_path, table, tool_example_count, outer_example_count, model]
+    params:
+      returns: GeneratedExamples
+  generate_outer_examples_ai:
+    type: sync
+    module: avanzai-backend.az_data
+    args: [db_path, table, n_examples, model]
+  generate_sql_tool_examples_ai:
+    type: sync
+    module: avanzai-backend.az_data
+    args: [db_path, table, n_examples, model]
+  get_latest_news:
+    type: async
+    module: avanzai-backend.az3_api_03242025
+    args: [request]
+  get_latest_pricing_data:
+    type: async
+    module: avanzai-backend.az3_api_03242025
+    args: [user_id]
+    params:
+      returns: Tuple
+  get_macro_config:
+    type: sync
+    module: avanzai-backend.analysis_tools
+    params:
+      returns: Dict
+  get_or_update_pricing_data:
+    type: async
+    module: avanzai-backend.az3_api_03242025
+    args: [self, session_id, ticker]
+    params:
+      returns: Dict
+  get_presigned_url:
+    type: sync
+    module: avanzai-backend.az3_api_03242025
+    args: [s3_key, expiration]
+    params:
+      returns: str
+  get_pricing_data:
+    type: async
+    module: avanzai-backend.az3_api_03242025
+    args: [request]
+  get_pricing_data2:
+    type: async
+    module: avanzai-backend.az3_api_03242025
+    args: [request]
+  get_pricing_data_local:
+    type: sync
+    module: avanzai-backend.az_data
+    args: [request]
+  get_session_summary:
+    type: async
+    module: avanzai-backend.az3_api_03242025
+    args: [session_id]
+  get_tickers:
+    type: async
+    module: avanzai-backend.az3_api_03242025
+    args: [params]
+  get_universe_sql_query:
+    type: sync
+    module: avanzai-backend.az3_api_03242025
+    args: [query]
+  health:
+    type: async
+    module: avanzai-backend.az3_api_03242025
+  import_csv_universe:
+    type: sync
+    module: avanzai-backend.az_data
+    args: [csv_path, db_path, table_name, force]
+    params:
+      returns: str
+  init_engine:
+    type: sync
+    module: avanzai-backend.az3_api_03242025
+  initialize_session:
+    type: async
+    module: avanzai-backend.az3_api_03242025
+    args: [self, session_id]
+    params:
+      returns: Path
+  lifespan:
+    type: async
+    module: avanzai-backend.az3_api_03242025
+    args: [app]
+  load_dataframe:
+    type: sync
+    module: avanzai-backend.az3_api_03242025
+    args: [self, session_id, data_type]
+    params:
+      returns: Optional[pd.DataFrame]
+  load_from_file:
+    type: sync
+    module: avanzai-backend.az_data
+    args: [cls, filepath]
+    params:
+      returns: GeneratedExamples
+  load_macro_fred:
+    type: sync
+    module: avanzai-backend.analysis_tools
+    args: [series]
+    params:
+      returns: Optional[str]
+  load_price_s3:
+    type: sync
+    module: avanzai-backend.analysis_tools
+    args: [ticker]
+    params:
+      returns: str
+  load_session_metadata:
+    type: sync
+    module: avanzai-backend.az3_api_03242025
+    args: [self, session_id]
+    params:
+      returns: Optional[dict]
+  make_dataframe_json_serializable:
+    type: sync
+    module: avanzai-backend.az3_api_03242025
+    args: [df]
+    params:
+      returns: dict
+  pct_change:
+    type: tool
+    module: avanzai-backend.analysis_tools
+    args: [df_id, window, start_date, end_date]
+    params:
+      returns: dict
+  print_examples:
+    type: sync
+    module: avanzai-backend.az_data
+    args: [self]
+  process_financial_data:
+    type: async
+    module: avanzai-backend.az3_api_03242025
+    args: [request]
+  process_query:
+    type: async
+    module: avanzai-backend.az3_api_03242025
+    args: [request]
+  process_stock_data:
+    type: tool
+    module: avanzai-backend.az3_api_03242025
+    args: [request]
+    params:
+      returns: ProcessDataResponse
+  query_az_universe:
+    type: sync
+    module: avanzai-backend.az_data
+    args: [db_path, table_name]
+    params:
+      returns: pd.DataFrame
+  query_sp500_universe:
+    type: sync
+    module: avanzai-backend.az_data
+    args: [db_path, table_name]
+    params:
+      returns: pd.DataFrame
+  resample:
+    type: tool
+    module: avanzai-backend.analysis_tools
+    args: [df_id, freq, start_date, end_date]
+    params:
+      returns: dict
+  root:
+    type: async
+    module: avanzai-backend.az3_api_03242025
+  run_calc:
+    type: async
+    module: avanzai-backend.az3_api_03242025
+    args: [request]
+  sample_timeseries_data:
+    type: sync
+    module: avanzai-backend.az3_api_03242025
+    args: [df, min_points_to_sample, target_points]
+    params:
+      returns: pd.DataFrame
+  save_dataframe:
+    type: sync
+    module: avanzai-backend.az3_api_03242025
+    args: [self, df, session_id, data_type]
+    params:
+      returns: bool
+  save_session_metadata:
+    type: sync
+    module: avanzai-backend.az3_api_03242025
+    args: [self, session_id, metadata]
+    params:
+      returns: bool
+  save_to_file:
+    type: sync
+    module: avanzai-backend.az_data
+    args: [self, filepath]
+  store_pricing_data:
+    type: async
+    module: avanzai-backend.az3_api_03242025
+    args: [session_id, request]
+    params:
+      returns: DataResponse
+  update_session_metadata:
+    type: sync
+    module: avanzai-backend.az3_api_03242025
+    args: [self, session_id, updates]
+    params:
+      returns: bool
+  update_session_summary:
+    type: async
+    module: avanzai-backend.az3_api_03242025
+    args: [self, session_id, ticker, operation_type, metrics, time_range]
+    params:
+      returns: Dict
+  upload_to_s3:
+    type: sync
+    module: avanzai-backend.az3_api_03242025
+    args: [data, user_id, filename]
+    params:
+      returns: str
+
+variables:
+  AWS_ACCESS_KEY:
+    type: env
+    params:
+      caller: [os.getenv]
+      path: [avanzai-backend.az3_api_03242025]
+  AWS_ACCESS_KEY_ID:
+    type: env
+    params:
+      caller: [os.getenv]
+      path: [avanzai-backend.az3_api_03242025, avanzai-backend.analysis_tools]
+  AWS_S3_BUCKET:
+    type: env
+    params:
+      caller: [os.getenv]
+      path: [avanzai-backend.az3_api_03242025, avanzai-backend.analysis_tools]
+  AWS_SECRET_ACCESS_KEY:
+    type: env
+    params:
+      caller: [os.getenv]
+      path: [avanzai-backend.az3_api_03242025, avanzai-backend.analysis_tools]
+  AWS_SECRET_KEY:
+    type: env
+    params:
+      caller: [os.getenv]
+      path: [avanzai-backend.az3_api_03242025]
+  DATABASE_URL:
+    type: env
+    params:
+      caller: [os.getenv]
+      path: [avanzai-backend.az3_api_03242025]
+  GOOGLE_API_KEY:
+    type: env
+    params:
+      caller: [os.getenv, os.environ]
+      path: [avanzai-backend.az3_api_03242025]
+  GROQ_API_KEY:
+    type: env
+    params:
+      caller: [os.getenv]
+      path: [avanzai-backend.az3_api_03242025]
+  OPENAI_API_KEY:
+    type: env
+    params:
+      caller: [os.getenv, os.environ]
+      path: [avanzai-backend.az3_api_03242025]
+  SUPABASE_KEY:
+    type: env
+    params:
+      caller: [os.getenv]
+      path: [avanzai-backend.az3_api_03242025]
+  SUPABASE_URL:
+    type: env
+    params:
+      caller: [os.getenv]
+      path: [avanzai-backend.az3_api_03242025]
+
+files:
+  ./:
+    type: pattern
+    actions: [read]
+    params:
+      patterns: ['*']
+      caller: [update_session_summary]
+  .parquet:
+    type: literal
+    actions: [read]
+    params:
+      caller: [get_pricing_data_local, save_dataframe, load_dataframe]
+      path: [DATA_DIR]
+  _performance.json:
+    type: literal
+    actions: [read]
+    params:
+      caller: [run_calc]
+      path: [Path]
+  base_path:
+    type: variable
+    actions: [read]
+    params:
+      caller: [Path]
+  config_path:
+    type: literal
+    actions: [read]
+    params:
+      caller: [Path(macro_indicators.json), open, json.load]
+  DATA_DIR:
+    type: literal
+    actions: [read]
+    params:
+      caller: [Path(data)]
+  data_dir:
+    type: literal
+    actions: [read, write]
+    params:
+      caller: [Path(data), data_dir.mkdir]
+  data_path:
+    type: variable
+    actions: [read]
+    params:
+      caller: [open, json.load]
+      alias: [f]
+  db_path:
+    type: variable
+    actions: [read]
+    params:
+      caller: [os.path.exists]
+  filepath:
+    type: variable
+    actions: [write, read]
+    params:
+      caller: [open, json.load]
+      alias: [f]
+  local_path:
+    type: variable
+    actions: [write]
+    params:
+      caller: [open]
+      alias: [f]
+  metadata.json:
+    type: literal
+    actions: [read]
+    params:
+      caller: [save_session_metadata, load_session_metadata]
+      path: [session_path]
+  metadata_path:
+    type: variable
+    actions: [write, read]
+    params:
+      caller: [open, json.load]
+      alias: [f]
+  parquet_path:
+    type: literal
+    actions: [read]
+    params:
+      caller: [Path(az_pricing_latest.parquet)]
+  pricing_data.json:
+    type: literal
+    actions: [read]
+    params:
+      caller: [get_or_update_pricing_data, get_latest_pricing_data, get_pricing_data]
+      path: [session_path]
+  pricing_data.parquet:
+    type: literal
+    actions: [read]
+    params:
+      caller: [process_stock_data, process_query]
+      path: [session_path]
+  pricing_data_path:
+    type: variable
+    actions: [read, write]
+    params:
+      caller: [open, json.load]
+      alias: [f]
+  results_path:
+    type: variable
+    actions: [write]
+    params:
+      caller: [open]
+      alias: [f]
+  session_path:
+    type: variable
+    actions: [write, read]
+    params:
+      caller: [session_path.mkdir, session_path.rglob, shutil.rmtree]
+  session_summary.json:
+    type: literal
+    actions: [read]
+    params:
+      caller: [update_session_summary, get_session_summary]
+      path: [self.base_path]
+  summary_path:
+    type: variable
+    actions: [read, write]
+    params:
+      caller: [open, json.load]
+      alias: [f]
